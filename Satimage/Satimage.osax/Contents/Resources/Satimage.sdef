@@ -1,0 +1,1588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="">
+   <suite name="Applescript types" code="tpnm" hidden="yes">
+	<!--class name="anything" code="****" description="any class or reference" hidden="yes"/-->
+      <class name="reference" code="obj " hidden="yes"/>
+      <class name="byte" code="byte" hidden="yes"/>
+      <class name="point" code="QDpt" hidden="yes"/>
+      <class name="location reference" code="insl" hidden="yes"/>
+      <class name="alias" code="alis" hidden="yes" plural="aliases"/>
+      <class name="file specification" code="fss " hidden="yes"/>
+			<command name="find text obsolete" code="SATIFIND" description="find text literally or using regular expression syntax.">
+				<direct-parameter type="string" description="the substring to search for"/>
+				<parameter name="in" code="in  " type="string"/>
+				<parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default true"/>
+				<parameter name="regexp" code="UsGR" type="boolean" optional="yes" description="default false"/>
+				<parameter name="using" code="by  " type="string" optional="yes" description="the pattern to generate the string (regexp)"/>
+				<result type="list of integer" description="{first character index,last  character index}"/>
+			</command>
+			<command name="replace obsolete" code="SATIRPLC" description="replace all occurences of a substring">
+				<direct-parameter type="string" description="the substring to search for"/>
+				<parameter name="by" code="by  " type="string" description="the replacement string"/>
+				<parameter name="in" code="in  " type="anything" description="a string or a file path"/>
+				<parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default true"/>
+				<parameter name="regexp" code="UsGR" type="boolean" optional="yes" description="default false"/>
+				<result type="anything" description="the new string"/>
+			</command>
+ 			<!--command name="convert to Windows" code="SATIM2Wn" description="converts a Mac string into a Windows string">
+				<direct-parameter type="string" description="the original string"/>
+				<result type="string" description="the converted string"/>
+			</command>
+			<command name="convert to Mac" code="SATIWn2M" description="converts a Windows string into a Mac string">
+				<direct-parameter type="string" description="the original string"/>
+				<result type="string" description="the converted string"/>
+			</command-->
+ 			<command name="extract string" code="SATIEXTR" description="extract a substring out of a string. Same as AppleScript's expression &quot;text i thru j of s&quot;. Not Unicode-compliant.">
+				<direct-parameter type="string" description="the original string"/>
+				<parameter name="from" code="from" type="integer" optional="yes" description="index of the first character. Default: 1. Negative numbers index characters backwards."/>
+				<parameter name="to" code="to  " type="integer" optional="yes" description="index of the last character. Default: -1. Negative numbers index characters backwards."/>
+				<result type="string" description="the substring"/>
+			</command>
+ 			<command name="findxmlstag" code="SATISTAG" description="">
+				<direct-parameter  type="string" description="the offset"/>
+				<parameter name="at" code="at  " type="integer"  description="the offset"/>
+				<result description="the range">
+				<type type="integer" list="yes"/>
+				</result>
+			</command>
+     <command name="gziptext" code="SATIGZIP" description="">
+      <direct-parameter type="string" description=""/>
+      <parameter name="encoding" code="enco" type="string" optional="yes" description="a IANA charset name (&quot;MACINTOSH&quot;, &quot;UTF-8&quot;, &quot;UTF-16&quot;, &quot;ISO-8859-1&quot;…). Default: &quot;UTF-8&quot;"/>
+      <parameter name="missing char" code="Lssb" type="string" optional="yes" description="characters that cannot be converted to the specified encoding are represented with this character. Default: gziptext returns an error if it encounters an untranslatable character"/>
+      <result type="gzip"/>
+	</command>
+     <command name="gunziptext" code="SATIUZIP" description="">
+      <direct-parameter type="gzip" description=""/>
+      <parameter name="encoding" code="enco" type="string" optional="yes" description="a IANA charset name (&quot;MACINTOSH&quot;, &quot;UTF-8&quot;, &quot;UTF-16&quot;, &quot;ISO-8859-1&quot;…). Default: &quot;UTF-8&quot;"/>
+      <result type="data"/>
+	</command>
+</suite>
+   <suite name="Satimage Text Additions" code="SATI" description="mailto:support@satimage-software.com">
+	<record-type name="matchrecord" code="mRec" description="the record returned by &quot;find text&quot;">
+			<property name="matchPos" code="mPos" type="integer" description="offset of the first character found"/>
+			<property name="matchLen" code="mLen" type="integer" description="length of the match"/>
+			<property name="matchResult" code="mRes" description="the matched string (possibly formatted according to the &quot;using&quot; parameter)}">
+			<type type="string"/>
+<type type="string" list="yes"/>
+</property>
+	</record-type>
+    <command name="find text" code="SATIFINd" description="find text literally or using regular expression syntax.">
+	<synonym name="ufind text"/>
+      <direct-parameter type="string" description="the substring to search for"/>
+      <parameter name="in" code="$in " type="string" description="a string or an alias"/>
+      <parameter name="starting at" code="strt" type="integer" optional="yes" description="default: 0"/>
+      <parameter name="for" code="for " type="integer" optional="yes" description="length of text after starting"/>
+      <parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default true"/>
+       <parameter name="regexp" code="UsGR" type="boolean" optional="yes" description="use regular expression, default false"/>
+     <parameter name="backward" code="back" type="boolean" optional="yes" description="default false. Irrelevant with regexp"/>
+<parameter name="diacritic sensitive" code="DiSe" type="boolean" optional="yes" description="default true. Irrelevant with regexp"/>
+      <parameter name="whole word" code="WhWo" type="boolean" optional="yes" description="default false. Irrelevant with regexp"/>
+      <parameter name="regexpflag" code="Flag" optional="yes" description="a subset of {&quot;IGNORECASE&quot;, &quot;EXTEND&quot;, &quot;MULTILINE&quot;, &quot;SINGLELINE&quot;, &quot;FIND LONGEST&quot;, &quot;FIND NOT EMPTY&quot;, &quot;DONT CAPTURE GROUP&quot;, &quot;NOTBOL&quot;, &quot;NOTEOL&quot;, &quot;NEWLINE IN NEGATIVE CC&quot;}; default {}">
+        <type type="string" list="yes"/>
+      </parameter>
+      <parameter name="using" code="by  " optional="yes" description="the pattern to generate the string (regexp only). Useful for constructs with backward references in regexp, ex.: using &quot;name: \\1&quot;. This parameter may be an integer n (between 0 and 9). Equivalent to  &quot;\\n&quot; but matchPos and matchLen correspond to the position of the reference. using may be a list, in this case matchResult is a list of strings">
+<type type="string"/>
+<type type="integer"/>
+<type type="string" list="yes"/>
+</parameter>
+      <parameter name="all occurrences" code="WaAl" type="boolean" optional="yes" description="returns a list of all occurrences. Default: false"/>
+      <parameter name="string result" code="WaMr" type="boolean" optional="yes" description="return only the matching string instead of the whole record"/>
+	<parameter name="syntax" code="synt" type="string" optional="yes" description="the syntax for regular expressions. Relevant if regexp parameter is true. A string among (&quot;POSIX&quot; | &quot;POSIX_EXTENDED&quot; | &quot;EMACS&quot; | &quot;GREP&quot; | &quot;GNU_REGEX&quot; | &quot;JAVA&quot; | &quot;PERL&quot; | &quot;RUBY&quot;). Default: &quot;RUBY&quot;"/>
+       <parameter name="options" code="Opti" type="string" optional="yes" description="list of  shortcuts:  &apos;a&apos; for &quot;all occurrences&quot;, &apos;r&apos; for &quot;regexp&quot;, &apos;s&apos; for &quot;string result&quot;, &apos;c&apos; for &quot;not case sensitive&quot;, &apos;d&apos; for &quot;not diacritic sensitive&quot;. For instance &quot;ras&quot; stands for for &quot;with regexp, all occurrences and string result&quot;."/>
+    <result description="according to &quot;all occurrences&quot; and &quot;string result&quot; parameters">
+<type type="matchrecord"/>
+<type type="matchrecord" list="yes"/>
+<type type="string"/>
+<type type="string" list="yes"/>
+</result>
+<documentation>
+<html>
+<div>
+<b>Discussion</b>
+<br/>
+Definitions of options of <span class="example-source">regexpflag</span>'s parameters:
+<br/>
+<br/>
+<table>
+<tr><td>SINGLELINE</td><td>'^' -> '\A', '$' -> '\z', '\Z' -> '\z'</td></tr>
+<tr><td>MULTILINE</td><td>'.' match newline</td></tr>
+<tr><td>IGNORECASE</td><td>ignore case (case-insensitive)</td></tr>
+<tr><td>EXTEND</td><td>extended pattern form: [:spaces:] are ignored if not escaped</td></tr>
+<tr><td>FIND_LONGEST</td><td>find longest match when using alternations |</td></tr>
+<tr><td>FIND_NOT_EMPTY</td><td>ignore empty match</td></tr>
+<tr><td>NEGATE_SINGLELINE</td><td>clear SINGLELINE which is default on in POSIX, POSIX_EXTENDED, PERL and JAVA syntaxes.</td></tr>
+<tr><td>DONT_CAPTURE_GROUP</td><td>only named group captured: (?&lt;name&gt;subexp)</td></tr>
+<tr><td>NOTBOL</td><td>begin of text isn't considered as begin of line</td></tr>
+<tr><td>NOTEOL</td><td>end of text isn't considered as end of line</td></tr>
+<tr><td>NEWLINE IN NEGATIVE CC</td><td>negative character classes match newline, for instance [^a-z]</td></tr>
+</table>
+<br/>
+Regular-Expressions.info maintains a complete <a target="_blank" href="http://www.regular-expressions.info/tutorial.html">tutorial</a> for regular expressions.
+<br/>
+</div>
+<div style="display:none" class="example">
+<div class="example-source">set the_str to pi as string 
+find text "3" in the_str 
+  --  {matchPos:0, matchLen:1, matchResult:"3"} 
+
+set s to "2007-12-24"
+find text "([[:digit:]]+)" in s using "\\1" with regexp, all occurrences and string result
+-- {"2007", "12", "24"}
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+    <command name="change" code="SATIRPLl" description="replace all occurrences of a substring">
+	<synonym name="uchange"/>
+      <direct-parameter description="the substring(s) to search for">
+ 	<type type="string"/>
+	<type type="string" list="yes"/>
+	</direct-parameter>
+     <parameter name="into" code="by  " description="the replacement string(s). If regexp is true, it may contain backward references">
+ 	<type type="string"/>
+	<type type="string" list="yes"/>
+	</parameter>
+     <parameter name="in" code="$in "  description="">
+	<type type="string"/>
+	<type type="string" list="yes"/>
+	<type type="alias"/>
+	</parameter>
+      <parameter name="starting at" code="strt" type="integer" optional="yes" description="default: 0"/>
+      <parameter name="for" code="for " type="integer" optional="yes" description="length of text after starting"/>
+      <parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default true"/>
+       <parameter name="regexp" code="UsGR" type="boolean" optional="yes" description="default false"/>
+<parameter name="diacritic sensitive" code="DiSe" type="boolean" optional="yes" description="default true. Irrelevant with regexp"/>
+      <parameter name="whole word" code="WhWo" type="boolean" optional="yes" description="default false. Irrelevant with regexp"/>
+      <parameter name="regexpflag" code="Flag" optional="yes" description="see the documentation for find text">
+        <type type="string" list="yes"/>
+      </parameter>
+	<parameter name="syntax" code="synt" type="string" optional="yes" description="see the documentation for find text"/>
+	<parameter name="verbatim" code="RStr" type="boolean" optional="yes" description="default: false (regexp only). If verbatim, the replacement string (&quot;into&quot; parameter) is not interpreted"/>
+	<parameter name="only backreference" code="back" optional="yes" description="(regexp only). An integer in  (0,9) or a name corresponding to a named backreterence of the direct parameter. Default: 0, replace the matched substring  by the &quot;into&quot; parameter; otherwise replace only the provided backreference.">
+	<type type="integer"/>
+	<type type="string"/>
+	</parameter>
+         <parameter name="options" code="Opti" type="string" optional="yes" description="list of  shortcuts (see  &quot;find text&quot;)"/>
+   <result type="anything" description="the new string if the &quot;in&quot; parameter is a string, otherwise the number of changes performed in the file"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">set the_str to "hello" 
+change "e" into "u" in the_str 
+  --  "hullo"
+
+change {"e", "o"} into {"E", "O"} in "hello world" 
+  --  "hEllO wOrld"
+
+change {"e.", "o."} into "O" in "hello world"  with regexp 
+  --  "hOlOwOld"
+
+change "([0-9]{1,2})/([0-9]{1,2})" into "\\2/\\1" in {"31/12/2007", "29/2/2008"} with regexp 
+  -- {"12/31/2007", "2/29/2008"}
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+	<command name="re_compile" code="SATICmpi" description="check a regular expression">
+				<direct-parameter type="string" description="the regular expression"/>
+	<parameter name="syntax" code="synt" type="string" optional="yes" description="the syntax for regular expressions. Relevant if regexp parameter is true. A string among (&quot;POSIX&quot; | &quot;POSIX_EXTENDED&quot; | &quot;EMACS&quot; | &quot;GREP&quot; | &quot;GNU_REGEX&quot; | &quot;JAVA&quot; | &quot;PERL&quot; | &quot;RUBY&quot;). Default: &quot;RUBY&quot;"/>
+	</command>
+    <command name="splittext" code="SATISplt" description="split a text according to a given separator pattern. Optional matching parameters work like with the &quot;find text&quot; command">
+      <direct-parameter type="string" description="the string to split"/>
+      <parameter name="using" code="by  " type="string" description="the separator"/>
+      <parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default true"/>
+     <parameter name="regexp" code="UsGR" type="boolean" optional="yes" description="consider the separator pattern as a        regular expression, default false"/>
+<parameter name="diacritic sensitive" code="DiSe" type="boolean" optional="yes" description="default true. Irrelevant with regexp"/>
+      <parameter name="whole word" code="WhWo" type="boolean" optional="yes" description="consider only whole word separators. default false. Irrelevant with regexp"/>
+          <parameter name="options" code="Opti" type="string" optional="yes" description="list of  shortcuts (see  &quot;find text&quot;)"/>
+       <result description="the splitted text. If no separator found, the returned list contains one element: the original string.">
+        <type type="string" list="yes"/>
+        </result>
+    </command>
+     <command name="filter text" code="SATIGPli" description="parse a string (or a text file) into  a property list">
+      <direct-parameter type="string" description="the pattern"/>
+      <parameter name="in" code="$in " type="string" description="a string or an alias"/>
+      <parameter name="key" code="key " type="string" description="the pattern to generate the keys in the plist"/>
+      <parameter name="using" code="by  " type="string" optional="yes" description="the pattern to generate the strings of the plist. Default: &quot;\\0&quot;"/>
+      <parameter name="as" code="rtyp" type="type" optional="yes" description="list or string. Default: string, the plist contains for each key a concatenation of the matches separated by a linefeed character (or the provided separator). Otherwise the plist contains for each key an array of matches."/>
+      <parameter name="duplicates" code="Dupl" type="boolean" optional="yes" description="relevant if the &quot;as&quot; parameter is list. Without duplicates, only new strings are added. Default: true"/>
+      <parameter name="separator" code="sepa" type="string" optional="yes" description="relevant if the &quot;as&quot; parameter is string. Default: linefeed"/>
+     <parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default: true"/>
+      <parameter name="whole word" code="WhWo" type="boolean" hidden="yes" optional="yes" description=""/>
+      <parameter name="regexpflag" code="Flag" optional="yes" description="like in the find text command">
+        <type type="string" list="yes"/>
+      </parameter>
+	<parameter name="syntax" code="synt" type="string" optional="yes" description="like in the find text command"/>
+      <parameter name="into" code="into" optional="yes" description="the file destination for the plist or an existing plist (see the XMLLib.osax dictionary). Default: filter text returns the property list as string">
+ 	<type type="file"/>
+	<type type="CFRef"/>
+	</parameter>
+     <result type="string" description="the XML data if the into parameter is missing"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">set s to "John is ten
+Anna is twelve
+John is at school
+Anna sleeps"
+filter text "^([A-z]+) is (.*)" in s key "\\1" using "\\2"  as list
+</div>
+returns a string containing a plist:
+<div class="example-source">&lt;dict&gt;
+	&lt;key&gt;Anna&lt;/key&gt;
+	&lt;array&gt;
+		&lt;string&gt;twelve&lt;/string&gt;
+	&lt;/array&gt;
+	&lt;key&gt;John&lt;/key&gt;
+	&lt;array&gt;
+		&lt;string&gt;ten&lt;/string&gt;
+		&lt;string&gt;at school&lt;/string&gt;
+	&lt;/array&gt;
+&lt;/dict&gt;
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+     <command name="file offset" code="SATIFoff" description="find a string in a file and return the offset in byte.">
+      <direct-parameter type="string" description="the character(s) to find"/>
+	<parameter name="in" code="in  " type="alias"/>
+	<parameter name="starting at" code="strt" type="integer" optional="yes" description="the initial offset in byte"/>
+      <parameter name="encoding" code="enco" type="string" optional="yes" description="a IANA charset name (&quot;MACINTOSH&quot;, &quot;UTF-8&quot;, &quot;UTF-16&quot;, &quot;ISO-8859-1&quot;, &quot;windows-1252&quot;…). Default: &quot;UTF-8&quot;"/>
+	<parameter name="inclusive" code="incl" type="boolean"  optional="yes"  description="default: false. If true, the offset includes the requested string"/>
+      <result type="integer"/>
+	</command>
+   <command name="readtext" code="SATIRead" description="read a text file. readtext is aware of the presence of BOM.">
+      <direct-parameter type="alias" description="or an url"/>
+	<parameter name="for" code="for " type="integer" optional="yes" description="the maximum number of bytes to read"/>
+	<parameter name="starting at" code="strt" type="integer" optional="yes" description="the initial offset in byte"/>
+      <parameter name="encoding" code="enco" type="string" optional="yes" description="a IANA charset name (&quot;MACINTOSH&quot;, &quot;UTF-8&quot;, &quot;UTF-16&quot;, &quot;ISO-8859-1&quot;, &quot;windows-1252&quot;…)"/>
+ 	<parameter name="redirect" code="redi" type="boolean" optional="yes" description="redirects automatically (http). Default: true"/>
+ 	<parameter name="timeout" code="Time" type="real" optional="yes" description="default : 10 seconds"/>
+    <result type="string"/>
+	</command>
+     <command name="writetext" code="SATIWrit" description="write a string in a file.">
+      <direct-parameter type="string" description=""/>
+	<parameter name="to" code="to  " type="file" description="or an url"/>
+	<parameter name="append" code="appe" type="boolean" optional="yes" description="default: false. If true, append the string at the end of the file"/>
+      <parameter name="encoding" code="enco" type="string" optional="yes" description="a IANA charset name (&quot;MACINTOSH&quot;, &quot;UTF-8&quot;, &quot;UTF-16&quot;, &quot;ISO-8859-1&quot;, &quot;windows-1252&quot;…). Default: &quot;UTF-8&quot;"/>
+      <parameter name="missing char" code="Lssb" type="string" optional="yes" description="characters that cannot be converted to the specified encoding are represented with this character. Default: writetext returns an error if it encounters an untranslatable character"/>
+      <result type="string"/>
+	</command>
+			<command name="uppercase" code="SATIUPPE" description="move to uppercase.">
+				<direct-parameter description="the original string(s)">
+					<type type="string"/>
+					<type type="string" list="yes"/>
+				</direct-parameter>
+				<result description="the uppercase string(s)">
+					<type type="string"/>
+					<type type="string" list="yes"/>
+				</result>
+		</command>
+			<command name="lowercase" code="SATILOWE" description="move to lowercase.">
+				<direct-parameter description="the original string(s)">
+					<type type="string"/>
+					<type type="string" list="yes"/>
+				</direct-parameter>
+				<result description="the lowercase string(s)">
+					<type type="string"/>
+					<type type="string" list="yes"/>
+				</result>
+			</command>
+			<command name="titlecase" code="SATICAPI" description="">
+				<synonym name="capitalize"/>
+				<direct-parameter description="the original string(s)">
+					<type type="string"/>
+					<type type="string" list="yes"/>
+				</direct-parameter>
+				<result description="the capitalized string(s)">
+					<type type="string"/>
+					<type type="string" list="yes"/>
+				</result>
+			</command>
+			<command name="format" code="SATIFORM" description="format a real number using a specification string. Ex: format pi into &quot;##.##&quot;-&gt;&quot;3.14&quot;. '0' instead of '#' forces trailing zeros. '^' adds a space. &quot;+f1;-f2;f3&quot; provides formats for numbers &gt;0, &lt;0, =0. Encapsulate custom strings with &quot;'&quot;.">
+				<direct-parameter type="real" description="the number"/>
+				<parameter name="into" code="into" type="string" description="the formatting string, using #,^,O,.,%,',(,),+,-"/>
+				<parameter name="underflow test" code="ZeTe" type="boolean" optional="yes" description="switch to scientific format if the number is too small with respect to the formatting string (default: false)"/>
+				<result type="string" description="the formatted number"/>
+			</command>
+			<command name="atof" code="SATIATOF" description="convert a string into a number. Ex: atof &quot;1.5&quot;">
+				<direct-parameter description="">
+				<type type="string"/>
+				<type type="string" list="yes"/>
+				</direct-parameter>
+				<result description="">
+				<type type="real"/>
+				<type type="real" list="yes"/>
+				</result>
+			</command>
+			<command name="atoi" code="SATIATOI" description="convert a string into an integer. Ex: atoi &quot;0xa0&quot; -> 160">
+				<direct-parameter description="">
+				<type type="string"/>
+				<type type="string" list="yes"/>
+				</direct-parameter>
+				<parameter name="base" code="base" type="integer" optional="yes" description="the base value, between 2 and 36"/>
+				<result description="">
+				<type type="integer"/>
+				<type type="integer" list="yes"/>
+				</result>
+			</command>
+    <command name="encode entities" code="SATIEsEn" description="substitutes the 5 reserved XML characters found in the direct parameter with the corresponding XML entities.">
+      <direct-parameter type="string"/>
+      <result type="string"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">encode entities "'foo' > 'Foo'"
+-- "&amp;apos;foo&amp;apos; &amp;gt; &amp;apos;Foo&amp;apos;"
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+    <command name="resolve entities" code="SATIReEn" description="substitutes the XML character entities found in the direct parameter (not the html entities such as &amp;eacute;) with the corresponding Unicode characters.">
+      <direct-parameter type="string"/>
+      <result type="string"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">resolve entities "&amp;apos;foo&amp;apos; &amp;gt; &amp;apos;Foo&amp;apos;"
+-- "'foo' > 'Foo'"
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+    <command name="escapeURL" code="SATIAdd%" description="encode a URI by replacing each instance of certain characters by one, two, or three escape sequences representing the UTF-8 encoding of the character">
+      <direct-parameter type="string" description="a URI or a URI component"/>
+      <parameter name="escaping" code="escp" type="string" optional="yes" description="additional characters to escape. Default &quot;&quot;. To translate URI component (for a GET request for instance) into legal URI component use &quot;;,/?:@&amp;=+$&quot;"/>
+      <result type="string" description="a legal URI"/>
+    </command>
+    <command name="unescapeURL" code="SATIRem%" description="decode a URI previously encoded with &quot;escapeURL&quot;.">
+      <direct-parameter type="string"/>
+      <parameter name="keeping" code="leav" type="string" optional="yes" description="characters to leave escaped. Default &quot;&quot;."/>
+      <result type="string"/>
+    </command>
+    <command name="normalize unicode" code="SATIUnNo" description="normalize Unicode text (canonical composition or decomposition)">
+      <direct-parameter type="string" description=""/>
+     <parameter name="decomposition" code="Deco" optional="yes" type="boolean" description="want canonical decomposition. default: false. For example, HFS Plus converts all file names to decomposed Unicode, while Macintosh keyboards generally produce precomposed Unicode."/>
+      <result type="string"/>
+    </command>
+    <command name="transform unicode" code="SATIUnTr" description="transform Unicode text ">
+      <direct-parameter description="">
+	<type type="string"/>
+	<type type="string" list="yes"/>
+	</direct-parameter>
+     <parameter name="using" code="by  "  type="string" description="any valid ICU transform ID (see http://userguide.icu-project.org/transforms/general)"/>
+     <parameter name="inverse" code="inv "  type="boolean" optional="yes" description="inverse transformation requested. Default: false"/>
+      <result>
+	<type type="string"/>
+	<type type="string" list="yes"/>
+	</result>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">set res to transform unicode "éç" using "NFD; [:Nonspacing Mark:] Remove"
+--"ec"
+set res to transform unicode res using "Any-Hex/XML"
+--"&amp;#x65;&amp;#x63;"
+transform unicode res using "Any-Hex/XML" with inverse
+--"ec"
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+    <command name="hash" code="SATIHASH" description="normalize (KD) and hash a string">
+      <direct-parameter type="string" description=""/>
+      <result type="integer"/>
+    </command>
+    <command name="join" code="SATIJoin" description="coerce as Unicode text">
+      <direct-parameter description="">
+		<type type="string" list="yes"/>
+	 </direct-parameter>
+     <parameter name="using" code="by  " type="string" description="the text delimiter"/>
+      <result type="string"/>
+    </command>
+    <command name="printf" code="SATIprtf" description="format a string like the C function printf.">
+      <direct-parameter type="string" description="the format string"/>
+      <parameter name="parameters" code="para" description="">
+        <type type="anything" list="yes"/>
+      </parameter>
+      <result type="string" description="the formatted string"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">printf "printf prints integers like %d, floats like %g, strings like \"%s\"." parameters {12, pi, "hello"}
+-- "printf prints integers like 12, floats like 3.14159, strings like \"hello\"."
+printf "escape %% with %%%% like in %2.f%%" parameters {39.12}
+-- "escape % with %% like in 39%"
+
+-- use of positional parameters:
+set params to {"car", "red"}
+printf "The %s is %s." parameters params
+-- "The car is red."
+printf "The %2$s %1$s." parameters params
+-- "The red car."
+
+-- use of list parameters:
+printf ("%.1g	%.3g" &amp; return) parameters {randomarray 4, randomarray 4}
+--"0.3	0.846
+0.1	0.348
+1	0.0174
+0.6	0.444
+"
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+     <command name="strftime" code="SATIstrf" description="format a date using a specification string like in the C function strftime.">
+      <direct-parameter>
+ 		<type type="date"/>
+		<type type="date" list="yes"/>
+	</direct-parameter>
+     <parameter name="into" code="into" type="string" description="the formatting string. To obtain ISO 8601 dates, use &quot;%FT%TZ&quot; or &quot;%GW%V-%uT%TZ&quot; (using the 'with GMT' parameter)"/>
+     <parameter name="GMT" code="GMT " type="boolean" optional="yes" description="if true, output date as GMT. Default: false, the ouput date is local."/>
+      <result type="string" description="the formatted date"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">set d to current date
+-- some ISO 8601 formats:
+strftime d into "%FT%T%z"
+-- "2007-01-15T16:10:56+0100"
+strftime d into "%GW%V-%uT%T%z"
+-- "2007W03-1T16:10:56+0100"
+--if you need to store the date d as UTC:
+strftime d into "%FT%TZ" with GMT
+-- "2007-01-15T15:10:56Z"
+strftime d into "%a, %b %d, %Y %H:%M:%S %z"
+-- "Mon, Jan 15, 2007 16:10:56 +0100"
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+    <command name="strptime" code="SATIstrp" description="Reverse of strftime.">
+      <direct-parameter description="the date string(s)">
+		<type type="string"/>
+		<type type="string" list="yes"/>
+	</direct-parameter>
+      <parameter name="encoding" code="enco" type="string" description="the format of the date corresponding to the into parameter of strftime."/>
+     <parameter name="GMT" code="GMT " type="boolean" optional="yes" description="the intput date string is GMT (if unspecified by the format). Default: false"/>
+<parameter name="as" code="rtyp" type="type" optional="yes" description="date or real (seconds since January 1 2001). Default: date"/>
+      <result description="the date">
+<type type="date"/>
+<type type="real"/>
+</result>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">strptime "2007-01-15T16:10:56+0100" encoding "%FT%T%z"
+-- date "Monday, January 15, 2007 16:10:56"
+strptime "2007-01-15T16:10:56Z" encoding "%FT%T"
+-- date "Monday, January 15, 2007 16:10:56"
+strptime "2007-01-15T16:10:56Z" encoding "%FT%T" with GMT
+-- date "Monday, January 15, 2007 17:10:56"
+strptime "Mon, Jan 15, 2007 16:25:36 +0100" encoding "%a, %b %d, %Y %H:%M:%S %z"
+-- date "Monday, January 15, 2007 16:25:36"
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+  </suite>
+  <suite name="Satimage File Additions" code="SATI">
+			<class name="URL information" code="URLI" description="Reply record for the ‘URL info for’ command">
+				<property name="scheme" code="pusc" type="Unicode text" description="the access scheme"/>
+				<property name="host" code="HOST" type="Unicode text" description="the host specified by this URL"/>
+				<property name="path" code="FTPc" type="Unicode text" description="the (escaped) location of the target on the host"/>
+				<property name="unix path" code="psxP" type="Unicode text" description="the (unescaped) location of the target on the host"/>
+				<property name="name" code="pnam" type="Unicode text" description="the name of the item"/>
+				<property name="user name" code="RAun" type="Unicode text" description="the user name by which to access this URL"/>
+				<property name="password" code="RApw" type="Unicode text" description="the password by which to access this URL"/>
+				<property name="name extension" code="nmxt" type="Unicode text" description="the name extension of the URL"/>
+				<property name="url parameters" code="Upar" type="Unicode text"/>
+				<property name="url query" code="Quer" type="Unicode text"/>
+				<property name="url fragment" code="Ufra" type="Unicode text"/>
+				<property name="type identifier" code="utid" type="Unicode text" description="the item’s type identifier"/>
+				</class>
+		<!--command name="alias description for" code="SATIALIS" description="provide info needed to refer to a remote item">
+				<direct-parameter type="alias" description="the remote item"/>
+				<result description="{the AppleTalk zone name, the server machine name, the server volume name, folder name, […], item name}">
+		<type type="string" list="yes"/>
+	</result>
+			</command-->
+		<command name="alias description for" code="SATIALIS" description="resolve the alias file">
+				<direct-parameter type="alias" description=""/>
+				<result description="the original item">
+		<type type="string" />
+	</result>
+			</command>
+			<command name="navchoose file" code="SATIstdf" description="choose file with navigation services">
+				<parameter name="with prompt" code="prmp" type="string" optional="yes" description="a prompt to be displayed in the file chooser"/>
+				<parameter name="of type" code="ftyp" optional="yes" description="restrict the files shown to only these file types">
+					<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="starting at" code="from" type="alias" optional="yes" description="the default file or folder"/>
+				<parameter name="multiple files" code="mlfl" type="boolean" optional="yes" description="allow multiple files selection (default true)"/>
+				<parameter name="show packages" code="vipa" type="boolean" optional="yes" description="(default true)"/>
+				<parameter name="open packages" code="oppa" type="boolean" optional="yes" description="(default false)"/>
+				<parameter name="of extension" code="Nmxt" optional="yes" description="list of allowed file extensions">
+					<type type="string" list="yes"/>
+				</parameter>
+			<parameter name="invisibles" code="lfiv" type="boolean" optional="yes" description="Show invisible files and folders? (default is false)"/>
+				<parameter name="key" code="key " type="integer" optional="yes" description="associate a key to the folder that the user will select. If no 'starting at' parameter is provided, assume the corresponding folder as the default folder."/>
+				<result description="the chosen files">
+					<type type="alias" list="yes"/>
+				</result>
+			</command>
+			<command name="navchoose folder" code="SATIstfl" description="choose folder with navigation services">
+				<parameter name="with prompt" code="prmp" type="string" optional="yes" description="a prompt to be displayed in the folder chooser"/>
+				<parameter name="starting at" code="from" type="alias" optional="yes" description="the default folder"/>
+				<parameter name="multiple files" code="mlfl" type="boolean" optional="yes" description="allow multiple folders selection (default true)"/>
+				<parameter name="open packages" code="oppa" type="boolean" optional="yes" description="(default false)"/>
+				<parameter name="key" code="key " type="integer" optional="yes" description="associate a key to the folder that the user will select. If no 'starting at' parameter is provided, assume the corresponding folder as the default folder."/>
+				<result description="the chosen folders">
+					<type type="alias" list="yes"/>
+				</result>
+			</command>
+			<command name="navchoose object" code="SATIstob" description="choose file or folder with navigation services">
+				<parameter name="with prompt" code="prmp" type="string" optional="yes" description="a prompt to be displayed in the folder chooser"/>
+				<parameter name="starting at" code="from" type="alias" optional="yes" description="the default folder"/>
+				<parameter name="multiple files" code="mlfl" type="boolean" optional="yes" description="allow multiple objects selection (default true)"/>
+				<parameter name="show packages" code="vipa" type="boolean" optional="yes" description="(default true)"/>
+				<parameter name="open packages" code="oppa" type="boolean" optional="yes" description="(default false)"/>
+				<parameter name="key" code="key " type="integer" optional="yes" description="associate a key to the folder that the user will select. If no 'starting at' parameter is provided, assume the corresponding folder as the default folder."/>
+				<result description="the chosen objects">
+					<type type="alias" list="yes"/>
+				</result>
+			</command>
+			<command name="navchoose volume" code="SATIstvo" description="choose volume with navigation services">
+				<parameter name="with prompt" code="prmp" type="string" optional="yes" description="a prompt to be displayed in the folder chooser"/>
+				<parameter name="starting at" code="from" type="alias" optional="yes" description="the default folder"/>
+				<result description="the chosen folders">
+					<type type="alias" list="yes"/>
+				</result>
+			</command>
+			<command name="navask save" code="SATInask" description="prompt for save">
+				<parameter name="file name" code="fnam" type="string" optional="yes" description="name of the file"/>
+				<parameter name="action" code="acti" type="integer" optional="yes" description="1 = before closing, 2 = before quitting, 0 = none"/>
+				<result type="integer" description="1 save, 2 cancel, 3 don't save"/>
+			</command>
+			<command name="navchoose file name" code="SATInwfl" description="Get a new file specification from the user, without creating the file. Uses navigation services">
+				<parameter name="with prompt" code="prmt" type="string" optional="yes" description="the text to display in the file creation dialog box"/>
+				<parameter name="default name" code="dfnm" type="string" optional="yes" description="the default name for the new file"/>
+				<parameter name="with menu" code="wmnu" optional="yes" description="list of menu items">
+					<type type="string" list="yes"/>
+				</parameter>
+
+				<parameter name="menu index" code="PInd" type="integer" optional="yes" description="index of the menu item to display"/>
+				<parameter name="starting at" code="from" type="alias" optional="yes" description="the default folder"/>
+				<parameter name="show packages" code="vipa" type="boolean" optional="yes" description="(default true)"/>
+				<parameter name="open packages" code="oppa" type="boolean" optional="yes" description="(default false)"/>
+				<parameter name="key" code="key " type="integer" optional="yes" description="associate a key to the folder that the user will select, and assume the corresponding folder as the default folder."/>
+				<result type="file specification" description="the file the user specified"/>
+			</command>
+			<command name="navnew folder" code="SATIstnf" description="Get a new folder specification from the user. Uses navigation services">
+				<parameter name="with prompt" code="prmt" type="string" optional="yes" description="the text to display in the file creation dialog box"/>
+				<parameter name="starting at" code="from" type="alias" optional="yes" description="the default folder"/>
+				<parameter name="open packages" code="oppa" type="boolean" optional="yes" description="(default false)"/>
+				<parameter name="key" code="key " type="integer" optional="yes" description="associate a key to the folder that the user will select, and assume the corresponding folder as the default folder."/>
+				<result type="file specification" description="the folder the user specified"/>
+			</command>
+			<command name="URL info for" code="SATIIURL" description="Parse an URL and returns an URL information record">
+				<direct-parameter type="string" description="an URL or an alias"/>
+				<parameter name="size" code="ptsz" type="boolean" optional="yes" description="Return the size of the file or folder? (default is false)"/>
+				<result type="URL information"/>
+			</command>
+    <command name="absoluteURL" code="SATIaURL" description="resolve a relative URL using a base URL or coerce an alias, a posix path or a URL.">
+      <direct-parameter description="a relative URL or  an alias, a posix path (starting with / or ~) (Or a list of such.)">
+	<type type="string"/>
+	<type type="alias"/>
+	</direct-parameter>
+      <parameter name="from" code="from" optional="yes" description="the base URL ">
+	<type type="string"/>
+	<type type="alias"/>
+	</parameter>
+      <parameter name="as" code="rtyp" optional="yes" type="type" description="Unicode text, alias, unix path, path..."/>
+      <result description="">
+	<type  type="string"/>
+	<type  type="alias"/>
+	</result>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">set f to path to library folder from local domain
+absoluteURL f
+--"file://localhost/Library/"
+absoluteURL "Application%20Support" from f
+--"file://localhost/Library/Application%20Support"
+absoluteURL "Application%20Support" from f as unix path
+--"/Library/Application Support"
+absoluteURL "/Library/Application Support"
+--"file://localhost/Library/Application%20Support"
+absoluteURL "Application%20Support" from f as alias
+
+absoluteURL "en/smile/index.html#top" from "http://www.satimage-software.com"
+"http://www.satimage-software.com/en/smile/index.html#top"
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+    <command name="relativeURL" code="SATIrURL" description="translate an URL into the most suitable relative URL with respect to a given base.">
+      <direct-parameter description="an absolute URL">
+	<type type="string"/>
+	<type type="alias"/>
+	</direct-parameter>
+      <parameter name="from" code="from" description="the base URL">
+	<type type="string"/>
+	<type type="alias"/>
+	</parameter>
+      <result type="string" description="a relative or absolute URL"/>
+    </command>
+			<command name="list files" code="SATIlsfl" description="make a list of the files contained in the folder">
+				<direct-parameter description="a folder">
+				<type type="alias"/>
+				<type type="string"/>
+				<type type="alias" list="yes"/>
+				<type type="string" list="yes"/>
+				</direct-parameter>
+				<parameter name="recursively" code="recu" type="boolean" optional="yes" description="default: true. If false, list files and folders."/>
+				<parameter name="invisibles" code="invi" type="boolean" optional="yes" description="default: false"/>
+				<parameter name="of extension" code="Nmxt" optional="yes" description="the required file extension(s)">
+					<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="conforming to" code="yUTI" optional="yes" description="the requested Universal Type Identifier(s) (UTI)">
+					<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="not conforming to" code="nUTI" optional="yes" description="the forbidden Universal Type Identifier(s) (UTI)">
+					<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="starting with" code="Strw" optional="yes" type="string" description=""/>
+				<parameter name="ignoring packages" code="inBu" optional="yes" type="boolean" description="consider packages as folders. Default: false"/>
+				<parameter name="after" code="afte" type="date" optional="yes" description="list only files whose modification date is after the after date parameter"/>
+				<parameter name="before" code="befo" type="date" optional="yes" description="list only files whose modification date is before the before date parameter"/>
+				<parameter name="names only" code="namo" type="boolean" optional="yes" description="default: false"/>
+				<parameter name="as" code="rtyp" optional="yes" type="type" description="string (URL), alias, unix path, path..."/>
+				<result>
+				<type type="string" list="yes"/>
+				<type type="alias" list="yes"/>
+				</result>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set {f} to navchoose folder
+set x to list files f not conforming to {"public.image", "public.movie", "public.archive"} ¬
+after ((get current date) - 3600) without recursively
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="glob" code="SATIGlob" description="list  the files or the folders matching a unix pathname pattern">
+				<direct-parameter description="the pattern">
+				<type type="string"/>
+				<type type="string" list="yes"/>
+				</direct-parameter>
+				<parameter name="from" code="from" type="alias" optional="yes" description="the working directory. By default, the direct parameter must be a full posix path pattern"/>
+				<parameter name="invisibles" code="invi" type="boolean" optional="yes" description="default: false"/>
+				<parameter name="of extension" code="Nmxt" optional="yes" description="the required file extension(s)">
+					<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="not conforming to" code="nUTI" optional="yes" description="the forbidden Universal Type Identifier(s) (UTI)">
+					<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="after" code="afte" type="date" optional="yes" description="list only items whose modification date is after the after date parameter"/>
+				<parameter name="before" code="befo" type="date" optional="yes" description="list only items whose modification date is before the before date parameter"/>
+				<parameter name="names only" code="namo" type="boolean" optional="yes" description="default: false"/>
+				<parameter name="as" code="rtyp" optional="yes" type="type" description="string (URL), alias, unix path, path..."/>
+				<result>
+				<type type="string" list="yes"/>
+				<type type="alias" list="yes"/>
+				</result>
+			</command>
+			<command name="backup" code="SATISYNC" description="synchronizes 2 folders">
+				<direct-parameter type="file specification" description="the source folder"/>
+				<parameter name="onto" code="onto" type="file specification" description="the destination folder"/>
+				<parameter name="level" code="Repo" type="integer" optional="yes" description="0: report only, 1: synchronize folders, 2 : synchronize and report. Default 0. "/>
+				<parameter name="after" code="afte" type="date" optional="yes" description="files older than this date are not considered."/>
+				<parameter name="recursively" code="RECU" type="boolean" optional="yes" description="recursively synchronize subfolders. Default true."/>
+				<parameter name="except folders" code="fnam" optional="yes" description="names of folders to be omitted">
+				<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="except extensions" code="fext" optional="yes" description="file extensions to be omitted">
+				<type type="string" list="yes"/>
+				</parameter>
+				<parameter name="only extensions" code="oext" optional="yes" description="consider only these file extensions">
+				<type type="string" list="yes"/>
+				</parameter>
+				<result type="string" description="the (optional) report"/>
+			</command>
+  </suite>
+  <suite name="Resource Suite" code="tpnm" description="Utilities to read and write resources from/to a file." hideen="yes">
+			<command name="load resource" description="get the resource of the given type and id from the specified file" code="RESORGET">
+				<direct-parameter type="integer" description="index of the desired resource"/>
+				<parameter name="type" code="KRTY" type="string" description="type of the desired resource"/>
+				<parameter name="from" code="KRFI" type="alias" description="file to read from"/>
+				<parameter name="as" code="KRWN" type="type" optional="yes" description="an AppleScript type for the returned result"/>
+				<result type="anything" description="any AppleScript data that is stored  in the resource: data, object specification, reference, etc."/>
+			</command>
+			<command name="list resources" code="RESORLST" description="return the list of the ids of the resources of the specified type stored in the specified file">
+				<direct-parameter type="type" description="type of desired resources"/>
+				<parameter name="from" code="KRFI" type="file specification" description="file to read from"/>
+				<result type="anything" description="the list of ids"/>
+			</command>
+			<command name="get resource name" code="RESORGNA" description="return the name of the resource of the specified type and id from the specified file">
+				<direct-parameter type="integer" description="index of the desired resource"/>
+				<parameter name="type" code="KRTY" type="type" description="type of the desired resource"/>
+				<parameter name="from" code="KRFI" type="file specification" description="file to read from"/>
+				<result type="string" description="the name of the resource"/>
+			</command>
+			<!--command name="put resource" code="RESORPUT" description="write the given resource to the specified file with specified type and id">
+				<direct-parameter type="anything" description="the AppleScript data that will be stored in the resource"/>
+				<parameter name="to" code="KRFI" type="file specification" description="the destination file"/>
+				<parameter name="type" code="KRTY" type="type" description="the resource type"/>
+				<parameter name="index" code="KRIN" type="integer" description="the resource id"/>
+				<parameter name="with name" code="KRNM" type="string" optional="yes" description="the resource name"/>
+			</command-->
+  </suite>
+ <suite name="Mathematical Functions" code="MATH" description="Some mathematical functions. Most functions support as their direct parameter (and return) a list or an array of real. Notice: you may need more parentheses than is intuitive. Ex: cos(a) - b returns cos(a - b), so you may want to write (cos(a)) - b.">
+			<command name="abs" code="MATHABS " description="absolute value of direct parameter ">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="acos" code="MATHACOS" description="arc cosine of direct parameter ">
+				<direct-parameter type="real" description="-1 &lt;= x &lt;= 1"/>
+				<result type="real" description="in radians"/>
+			</command>
+			<command name="acosh" code="MATHACOH" description="hyperbolic arc cosine of direct parameter">
+				<direct-parameter type="real" description="a positive number"/>
+				<result type="real"/>
+			</command>
+			<command name="asin" code="MATHASIN" description="arc sine of direct parameter">
+				<direct-parameter type="real" description="-1 &lt;= x &lt;= 1"/>
+				<result type="real" description="in radians"/>
+			</command>
+			<command name="asinh" code="MATHASIH" description="hyperbolic arc sine of direct parameter">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="atan" code="MATHATAN" description="arc tangent of direct parameter">
+				<direct-parameter type="real"/>
+				<result type="real" description="in radians"/>
+			</command>
+			<command name="atan2" code="MATHATA2" description="the angle of the line whose direction is the vector (x , y)">
+				<direct-parameter type="list of real" description="2 real numbers : y (ordinate) and x (abscissa)"/>
+				<result type="real" description="in radians"/>
+			</command>
+			<command name="atanh" code="MATHATAH" description="hyperbolic arc tangent of direct parameter">
+				<direct-parameter type="real" description="-1 &lt; x &lt; 1"/>
+				<result type="real"/>
+			</command>
+			<command name="ceil" code="MATHCEIL" description="round up">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="cosh" code="MATHCOSH" description="hyperbolic cosine of direct parameter">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="cos" code="MATHCOSI" description="cosine of direct parameter">
+				<direct-parameter type="real" description="the angle (in radians). If the angle is in degrees, multiply it by pi / 180 before taking the cosine."/>
+				<result type="real"/>
+			</command>
+			<command name="erf" code="MATHERF " description="the error function">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="erfc" code="MATHERFC" description="the complementary error function">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="exp" code="MATHEXP " description="exponential of direct parameter">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="floor" code="MATHFLOO"  description="round down">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="gamma" code="MATHGAMM" description="the gamma function">
+				<direct-parameter type="real" description="a positive number"/>
+				<result type="real"/>
+			</command>
+			<command name="hypot" code="MATHHYPO" description="the square root of the sum of the squares of its arguments">
+				<direct-parameter type="list of real" description="2 real numbers"/>
+				<result type="real"/>
+			</command>
+			<command name="lgamma" code="MATHLGAM" description="base-e logarithm of the absolute value of gamma">
+				<direct-parameter type="real" description="a positive number"/>
+				<result type="real"/>
+			</command>
+			<command name="ln" code="MATHLN  " description="base-e logarithm of direct parameter">
+				<direct-parameter type="real" description="a positive real"/>
+				<result type="real"/>
+			</command>
+			<command name="log10" code="MATHLOG " description="decimal logarithm of direct parameter">
+				<direct-parameter type="real" description="a positive real"/>
+				<result type="real"/>
+			</command>
+			<command name="sin" code="MATHSINE" description="sine of direct parameter">
+				<direct-parameter type="real" description="the angle (in radians)"/>
+				<result type="real"/>
+			</command>
+			<command name="sinh" code="MATHSINH" description="hyperbolic sine of direct parameter">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="sqr" code="MATHSQR " description="square of direct parameter">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="sqrt" code="MATHSQRT" description="square root of direct parameter">
+				<direct-parameter type="real" description="a positive number"/>
+				<result type="real"/>
+			</command>
+			<command name="tan" code="MATHTANG" description="tangent of direct parameter">
+				<direct-parameter type="real" description="the angle (in radians)"/>
+				<result type="real"/>
+			</command>
+			<command name="tanh" code="MATHTANH" description="hyperbolic tangent of direct parameter">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+			<command name="trunc" code="MATHTRUN"  description="round toward zero">
+				<direct-parameter type="real"/>
+				<result type="real"/>
+			</command>
+	</suite>
+<suite name="Arrays" code="ARRA" description="">
+		<value-type name="array of real" code="Lido" plural="arrays of real" description="a packed list of real. Can be coerced to an AppleScript list with &quot;as list of real&quot; or &quot;as list of integer&quot;. Conversely, a list of real may be translated using &quot;as array of real&quot; for fast computation.">
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set a to {1,2,3} as array of real
+-- «data Lido4E6F74206120...»
+
+a as list of real
+-- {1.0, 2.0, 3.0}
+</div>
+</div>
+</html>
+</documentation>
+		</value-type>
+		<record-type name="matrix" code="Matr" description="An AppleScript representation of a 2D array of real numbers as a record:">
+				<property name="ncols" code="ncol" type="integer" description="the number of columns"/>
+				<property name="nrows" code="nrow" type="integer" description="the number of rows"/>
+				<property name="array of real" code="Lido" type="array of real" description="the data, as an array of real or as a standard AppleScript list of real numbers. Ordering: the first numbers are the data for the first row."/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set m to {class:matrix, ncols:10, nrows:3, array of real:(createarray 3 * 10)}
+</div>
+</div>
+</html>
+</documentation>
+		</record-type>
+      <value-type name="list of real" code="LiDo" description="an abstract type provided to coerce arrays of real into list of real" plural="list of real"/>
+      <value-type name="list of integer" code="LiIn" description="an abstract type provided to coerce arrays of real into list of integer" plural="list of integer"/>
+	      <value-type name="polynomial" code="Poly" description="list of its coefficients, 0th degree first. Supports &quot;as string&quot; and &quot;as list of real&quot; coercions.">
+	<responds-to command="addlist"/>
+	<responds-to command="sublist"/>
+	<responds-to command="multlist"/>
+	<responds-to command="divlist"/>
+	<responds-to command="evalpolynomial"/>
+	<responds-to command="composepolynomial"/>
+	<responds-to command="fitpolynomial"/>
+	</value-type>
+		<record-type name="fitrecord" code="FRec" description="result of &quot;fitpolynomial&quot;">
+			<property name="fit error" code="Ferr" type="real" description="the mean error"/>
+			<property name="fit result" code="FRes" type="anything" description="the list of the coefficients (constant term first)"/>
+			<property name="fit string" code="FStr" type="string" description="the polynomial formula as text"/>
+		</record-type>
+		<record-type name="statsrecord" code="SRec" description="result of &quot;statlist&quot;">
+			<property name="maximum" code="MAX " type="real"/>
+			<property name="minimum" code="MIN " type="real"/>
+			<property name="sum" code="SUM " type="real"/>
+			<property name="mean" code="MEAN" type="real"/>
+			<property name="variance" code="Sigm" type="real"/>
+			<property name="stdev" code="StDe" type="real"/>
+			<property name="median" code="MEDI" type="real"/>
+			<property name="skewness" code="Skew" type="real"/>
+			<property name="kurtosis" code="Krts" type="real"/>
+			<property name="maximum index" code="MAXi"  type="integer"/>
+			<property name="minimum index" code="MINi"  type="integer"/>
+		</record-type>
+			<command name="createarray" code="SATICRAR" description="create an array of real ">
+				<direct-parameter type="integer" description="the requested size of the array"/>
+				<parameter name="range" code="rang" type="list of real"  optional="yes" description="{min,max}"/>
+				<result type="array of real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to createarray 10 range {2, 3}
+-- «data Lido4E6F74206120...»
+
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="creatematrix" code="SATICRMT" description="create an array of real of size ncols*nrows ">
+				<direct-parameter type="string" description="&quot;1&quot;: array of 1.0, &quot;x&quot;: array of x values, &quot;y&quot;: array of y values, &quot;d&quot;: diagonal square matrix"/>
+				<parameter name="ncols" code="ncol" type="integer" description="or a list of real with the &quot;x&quot; option, will make an array with identical rows"/>
+				<parameter name="nrows" code="nrow" type="integer" description="or a list of real with the &quot;y&quot; option, will make an array with identical columns"/>
+				<parameter name="range" code="rang" type="list of real"  optional="yes" description="a range {min,max} for the &quot;x&quot; and &quot;y&quot; options"/>
+				<parameter name="diagonal" code="Diag" type="array of real"  optional="yes" description="the diagonal values for the &quot;d&quot; option. You can also provide a real, in which case the matrix dimensions are specified by ncols=nrows. Default: 1.0 (identity matrix)."/>
+				<parameter name="as" code="rtyp" type="type"  optional="yes"  description="array of real or matrix, default: array of real"/>
+				<result type="array of real" description="or matrix"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to creatematrix "x" ncols 12 nrows 15
+--result is an array of real:  «data Lido4E6F74206120...»
+
+set m to creatematrix "x" ncols 12 nrows 15 as matrix
+--result is a matrix: {class:matrix, ncols:12, nrows:15, array of real:«data Lido4E6F74206120...»}
+
+display (creatematrix "d" diagonal {1, 3, 5, 7, 9} as matrix)
+-- "1.0000000	0.0	0.0	0.0	0.0
+0.0	3.0000000	0.0	0.0	0.0
+0.0	0.0	5.0000000	0.0	0.0
+0.0	0.0	0.0	7.0000000	0.0
+0.0	0.0	0.0	0.0	9.0000000"
+
+set a to createarray 5 range {-1, 1}
+display (creatematrix "x" ncols a nrows 3 as matrix)
+-- "-1.0000000	-0.50000000	0.0	0.50000000	1.0000000
+-1.0000000	-0.50000000	0.0	0.50000000	1.0000000
+-1.0000000	-0.50000000	0.0	0.50000000	1.0000000"
+
+set a to createarray 4 range {0, 1}
+display (creatematrix "y" ncols 3 nrows a as matrix)
+-- "0.0	0.0	0.0
+0.33333333	0.33333333	0.33333333
+0.66666667	0.66666667	0.66666667
+1.0000000	1.0000000	1.0000000"
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="randomarray" code="SATICRRA" description="create a random array of real">
+				<direct-parameter type="integer" description="the requested size of the array"/>
+				<parameter name="range" code="rang" type="list of real"  optional="yes" description="{min,max}"/>
+				<parameter name="seed" code="seed" type="integer"  optional="yes"/>
+				<result type="array of real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to randomarray 10 range {2, 3} seed 12345
+-- «data Lido4E6F74206120...»
+
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="replacemissingvalue" code="SATIFILL" description="replace missing values (or NaN's) in a list, or an array of real, or a list of such.">
+				<direct-parameter type="array of real" description="or a list of arrays"/>
+				<parameter name="with" code="with" type="real"/>
+				<result type="array of real" description="or a list of arrays"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to divlist 1 with ({-2, -1, 0, 1, 2} as array of real)
+set xx to replacemissingvalue x with "999"
+display xx
+-- "-0.50000000	-1.0000000	999.00000	1.0000000	0.50000000"
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="removemissingvalue" code="SATIRmMv" description="delete missing values (or NaN's)from a list or an array of real">
+				<direct-parameter description="">
+				<type type="list"/>
+				<type type="array of real"/>
+				</direct-parameter>
+				<result description="">
+					<type type="list"/>
+				</result>
+			</command>
+			<command name="extractitem" code="SATIEXLF" description="(obsolete: use extractarray instead)">
+				<direct-parameter type="integer" description=""/>
+				<parameter name="thru" code="thru" type="integer" optional="yes" description="" />
+				<parameter name="step" code="step" type="integer" optional="yes" description=""/>
+				<parameter name="in" code="in  " type="array of real"/>
+				<parameter name="blocksize" code="bloc" type="integer" optional="yes" description=""/>
+				<parameter name="as" code="rtyp" type="type" optional="yes" description=""/>
+				<result type="array of real"/>
+			</command>
+			<command name="extractarray" code="SATIExLF" description="extract values from an array of real">
+				<direct-parameter type="array of real"/>
+				<parameter name="at" code="at  " type="integer" optional="yes" description="the first item to read or a list of indexes (in which case, the &quot;for&quot;, &quot;step&quot; and &quot;blocksize&quot; parameters are not taken into account). 1-based. Default 1"/>
+				<parameter name="for" code="for " type="integer" optional="yes" description="the number of blocks to read. If &lt;0 then read as many blocks as possible. Default 1. Pass -1 in order to extract all available values"/>
+				<parameter name="blocksize" code="bloc" type="integer" optional="yes" description="size of the block to read at each step. blocksize must be smaller than step"/>
+				<parameter name="step" code="step" type="integer" optional="yes" description="the interval between the beginnings of successive blocks to read. Must be larger than blocksize. Default: blocksize"/>
+				<parameter name="as" code="rtyp" type="type" optional="yes" description="default is array of real, you can provide small real or real for 1 item"/>
+				<result type="array of real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set a to createarray 50
+a as list of real
+-- {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, ...}
+set b to extractarray a for 3 at 1 step 10 blocksize 2
+b as list of real
+-- {0.0, 1.0, 10.0, 11.0, 20.0, 21.0}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="changearray" code="SATISeLF" description="change items in an array of real">
+				<direct-parameter type="array of real" description="the array to modify"/>
+				<parameter name="at" code="at  " type="integer" optional="yes" description="the index of the first item to change (1 based) or a list of indexes (in which case, the &quot;step&quot; and &quot;blocksize&quot; parameters are not taken into account). default: 1"/>
+				<parameter name="into" code="into" type="array of real" description="the new values"/>
+				<parameter name="blocksize" code="bloc" type="integer" optional="yes" description="size of the blocks to copy at each step. The &quot;into&quot; parameter must have a size multiple of blocksize. Default: 1"/>
+				<parameter name="step" code="step" type="integer" optional="yes" description="the interval between the beginnings of successive blocks to write. Must be larger than blocksize. Default: blocksize"/>
+				<result type="array of real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set a to createarray 50
+set b to changearray a at 1 step 10 blocksize 2 into (createarray 6 range {-99, -99})
+b as list of real
+-- {-99.0, -99.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, -99.0, -99.0, 12.0, 13.0, 14.0, ...}
+
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="insertarray" code="SATIInLF" description="insert items into an array of real">
+				<direct-parameter type="array of real" description="the values to insert"/>
+				<parameter name="into" code="into" type="array of real" description="the array to modify"/>
+				<parameter name="at" code="at  " type="integer" optional="yes" description="the index of the first item to insert (0: at the beginning) or a list of indexes of the same size as the direct parameter (in which case, the &quot;for&quot;, &quot;step&quot; and &quot;blocksize&quot; parameters are not taken into account). default -1 (insert values at the end)"/>
+				<parameter name="for" code="for " type="integer" optional="yes" description="number of blocks to insert. default 1"/>
+				<parameter name="step" code="step" type="integer" optional="yes" description="the number of values between each insertion. default 0"/>
+				<parameter name="blocksize" code="bloc" type="integer" optional="yes" description="size of the blocks to insert after each step. The direct parameter must have a size multiple of blocksize. Default: 1 if &quot;for&quot; is defined, else the size of the direct parameter."/>
+				<result type="array of real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set a to createarray 30
+set b to createarray 10 range {-10, -1}
+set c to insertarray b blocksize 2 into a step 5 at 1 for 3
+c as list of real
+-- {0.0, -10.0, -9.0, 1.0, 2.0, 3.0, 4.0, 5.0, -8.0, -7.0, 6.0, 7.0, 8.0, 9.0, 10.0, -6.0, -5.0, 11.0, 12.0, ...}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="resamplematrix" code="SATIReMa" description="resample a matrix. The incoming matrix is divided into rectangular blocks. Each block may be replaced by its mean value or by another statistical value.">
+				<direct-parameter type="matrix" description="the matrix to resample"/>
+				<parameter name="blocksize" code="bloc" type="list of integer" description="{i,j}, defines the horizontal and vertical sizes of the blocks used for resampling. i and j may be integers (identical blocks) or lists of integers (irregular grid, the items of the lists define the successive sizes of the blocks)."/>
+				<parameter name="wanted" code="WANT" type="string" optional="yes" description="the following strings or a list of such: &quot;mean&quot;, &quot;minimum&quot;, &quot;maximum&quot;, &quot;stdev&quot;, &quot;missing value&quot;, &quot;sum&quot;, &quot;median&quot;, &quot;dispersion&quot;. Specify the statistical function computed on each block. Default: &quot;mean&quot;."/>
+				<result type="matrix" description="the resampled matrix, or a list of matrices if 'wanted' is a list. The dimensions of the resampled matrix correspond to the numbers of blocks defined with 'blocksize'."/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set m to ArrayToMatrix(randomarray 10 * 9, 10, 9) -- a 10x9 random matrix
+set {m1, m2} to resamplematrix m blocksize {5, 3} wanted {"mean", "stdev"}
+-- result is a list of two 2x3 matrices
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="reversearray" code="SATILiRe" description="returns reverse of the direct parameter.">
+				<direct-parameter type="list of real" description="... or an array of real"/>
+				<result type="array of real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+(reversearray {1, 2, 3}) as list of real
+-- {3.0, 2.0, 1.0}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="multlist" code="SATILST*" description="performs the product of the parameters. Each parameter may be a list, an array of real, a matrix or a number. multlist {x1,x2...} with {y1,y2...} returns {x1.y1, x2.y2, ...}; multlist x with {y1,y2...} returns {x.y1, x.y2, ...}">
+				<direct-parameter type="list of real"/>
+				<parameter name="with" code="with" type="list of real"/>
+				<result type="list of real"/>
+			</command>
+			<command name="divlist" code="SATILST/" description="same as multlist, but for quotient">
+				<direct-parameter type="list of real"/>
+				<parameter name="with" code="with" type="list of real"/>
+				<result type="list of real"/>
+			</command>
+			<command name="addlist" code="SATILST+" description="same as multlist, but for sums">
+				<direct-parameter type="list of real"/>
+				<parameter name="with" code="with" type="list of real"/>
+				<result type="list of real"/>
+			</command>
+			<command name="sublist" code="SATILST-" description="same as multlist, but for subtraction">
+				<direct-parameter type="list of real"/>
+				<parameter name="with" code="with" type="list of real"/>
+				<result type="list of real"/>
+			</command>
+			<command name="runningsum" code="SATIRSum" description="returns the running sum of an array of real">
+				<direct-parameter type="array of real"/>
+				<result type="array of real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+(runningsum {1, 2, 3, 4}) as list of real
+-- {1.0, 3.0, 6.0, 10.0}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="statlist" code="SATIStat" description="returns as a record the min, max, min index, max index, mean, sum, standard deviation, variance.">
+				<direct-parameter type="list of real" description="... or an array of real"/>
+				<parameter name="kurtosis" code="Krts" type="boolean" optional="yes" description="if true, statlist compute also skewness, kurtosis and median calculations."/>
+				<result type="statsrecord"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set stl to statlist (randomarray 100) with kurtosis
+-- {maximum:0.993787646526, maximum index:60, minimum:0.001816140488, minimum index:31, sum:45.616940173553,
+ mean:0.456169401736, variance:0.071985153475, stdev:0.268300491007, missing value:0, skewness:0.100799135751,
+ kurtosis:1.791678255678, median:0.45719872578}
+mean of stl
+-- 0.456169401736
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="histogram" code="SATIHisT" description="given an array of real numbers, return a list of 2 arrays : {sampling values,frequencies}">
+				<direct-parameter type="array of real"/>
+				<parameter name="samples" code="samp" type="integer" optional="yes" description="number of intervals. If the parameter is missing  histogram builds a raw histogram {sampling values,frequencies}"/>
+				<parameter name="minimum" code="MIN " type="real" optional="yes" description="lower bound of the intervals"/>
+				<parameter name="maximum" code="MAX " type="real" optional="yes" description="upper bound of the intervals"/>
+				<result type="list of array of real" description="{sampling values,frequencies}"/>
+
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set {x, y} to histogram (randomarray 100 range {1, 10}) samples 10
+set c to QuickCurve(x, y, 0)
+set properties of c to {pattern style:10, line style:0, histogram bar width:0.75}
+set limits of container of c to {0, 11, 0, 20}
+draw window of c
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="evalformula" code="SATILSOP" description="apply C-like mathematical expressions to arrays of real. Ex: evalformula &quot;a*x^2+y^2&quot; with {&quot;a&quot;,2.4,&quot;x&quot;,anarray,&quot;y&quot;,anotherarray} (or by using a record: evalformula &quot;a*x^2+y^2&quot; with {a:2.4,x:anarray,y:anotherarray})">
+				<direct-parameter type="string" description="the formula to compute"/>
+				<parameter name="with" code="with" description="the definition of the variables occurring in the formula. If a list, an alternation of reference names (strings) and data (number, list of numbers or array of real). Prefer lists because you can't use reserved words with records.">
+					<type type="list"/>
+					<type type="record"/>
+				</parameter>
+				<parameter name="as" code="rtyp" type="type" description="matrix or array of real: the requested type if parameters are matrices. Default: array of real"/>
+				<result type="array of real" description="or real"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set a to createarray 10000 range {0, 2*pi} 
+set s2 to evalformula "2*cos(x)*sin(x)" with {"x", a}
+
+evalformula ("atan2(y,x)") with {y:sqrt (3), x:1}
+-- 1.047197551197 (that is, pi/3)
+
+evalformula ("norm(cos(x))/sqrt(count(x))") with {"x", randomarray 10000 range {0, 2 * pi}}
+-- 0.701118610115 (that is, ~1/sqrt(2))
+
+set n1 to 100
+set x1 to creatematrix "x" ncols n1 nrows n1 range {-1, 1} as matrix
+set y1 to creatematrix "y" ncols n1 nrows n1 range {-1, 1} as matrix
+set {px, py} to {1,0}
+set pot1 to evalformula "r=hypot(x,y);//comments
+(px*x+py*y)/(r*r*r)" with {&quot;px&quot;,px, &quot;py&quot;,py, &quot;x&quot;,x1, &quot;y&quot;,y1} as matrix
+set s to QuickScalarMap(0, 0, pot1, 0)
+set limits of s to {-10, 10}
+draw window of s
+</div>
+</div>
+<br/>
+<div>
+<b>Discussion</b>
+<ul><li>
+The expression of <span class="example-source">evalformula</span> may include logical operators, yet all values remain real numbers: <span class="example-source">true</span> expressions evaluate to <span class="example-source">1.0</span>, <span class="example-source">false</span> expressions evaluate to <span class="example-source">0.0</span>. Conversely when implied in a logical expression any non null number is considered as <span class="example-source">true</span> (<span class="example-source">1.0</span>). 
+</li><li>
+The direct parameter of <span class="example-source">evalformula</span> may be a sequence of elementary expressions, provided they are separated with semi-colon <span class="example-source">;</span>. You can also use <span class="example-source">return</span> as the separator, so in complex cases when the expression may require several intermediate steps you can easily use the contents of a text window as the expression. When you use such a composite construct <span class="example-source">evalformula</span> will return the result of the last (rightmost) expression.
+</li><li>
+Instead of one expression you can pass a list of expressions to <span class="example-source">evalformula</span>: <span class="example-source">evalformula</span> will return a list of <span class="example-source">arrays of real</span>.
+</li><li>
+Here is the list of the operators and functions that <span class="example-source">evalformula</span> supports.
+<dl><dt><b>operators (higher precedence first)</b></dt><dd><ul><li><span class="example-source">-</span> (unary)
+</li><li><span class="example-source">* /</span>, <span class="example-source">+ -</span>, <span class="example-source">^</span> (exponentiation)
+</li><li><span class="example-source">&gt;= &gt; &lt;= &lt;</span><span class="example-source">== !=</span> (equal - not equal), <span class="example-source">&amp;</span> (logical AND), <span class="example-source">|</span> (logical OR), <span class="example-source">!</span> (boolean not, evaluates to 1 if the operand is 0 and to 0 otherwise).
+</li></ul></dd><dt><b>algebra</b></dt><dd><ul><li><span class="example-source">cbrt</span>, <span class="example-source">sqr</span>, <span class="example-source">sqrt</span>, <span class="example-source">hypot</span>, <span class="example-source">pow</span>, <span class="example-source">sign</span></li><li><span class="example-source">abs</span>, <span class="example-source">ceil</span>, <span class="example-source">floor</span>, <span class="example-source">trunc</span>, <span class="example-source">max</span>, <span class="example-source">min</span></li><li><span class="example-source">mod</span> (modulo), <span class="example-source">remainder</span>
+</li><li><span class="example-source">isnan</span> (test whether the quantity is a ``NAN''. NAN = Not A Number.)
+</li><li><span class="example-source">replacenan</span> replacenan(x,y) return the array x where all nan's have been replaced by y.
+</li></ul></dd><dt><b>transcendental</b></dt><dd><ul><li><span class="example-source">ln</span> or <span class="example-source">log</span> (neperian), <span class="example-source">log10</span>, <span class="example-source">log1p</span>, <span class="example-source">exp</span>, <span class="example-source">expm1</span>
+</li><li><span class="example-source">cos</span>, <span class="example-source">sin</span>, <span class="example-source">tan</span>, <span class="example-source">acos</span>, <span class="example-source">asin</span>, <span class="example-source">atan</span>, <span class="example-source">atan2</span> (atan2(y,x))</li><li><span class="example-source">cosh</span>, <span class="example-source">sinh</span>, <span class="example-source">tanh</span>, <span class="example-source">acosh</span>, <span class="example-source">asinh</span>, <span class="example-source">atanh</span></li><li><span class="example-source">erf</span>, <span class="example-source">erfc</span>, <span class="example-source">gamma</span>, <span class="example-source">lgamma</span></li>
+<li><span class="example-source">j0</span>, <span class="example-source">j1</span>, <span class="example-source">jn</span>, <span class="example-source">y0</span>, <span class="example-source">y1</span>, <span class="example-source">yn</span></li>
+<li><span class="example-source">EllipticE</span>, <span class="example-source">EllipticK</span>, <span class="example-source">IncEllipticE</span>, <span class="example-source">IncEllipticF</span>, <span class="example-source">EllipticP</span>, <span class="example-source">IncEllipticP</span> (<a href="https://www.gnu.org/software/gsl/manual/html_node/Definition-of-Legendre-Forms.html#Definition-of-Legendre-Forms" target="_blank" >GSL</a>)</li>
+<li><span class="example-source">lambertW0</span>, <span class="example-source">lambertWm1</span> (<a  target="_blank" href="https://www.gnu.org/software/gsl/manual/html_node/Lambert-W-Functions.html">GSL</a>)</li>
+</ul></dd><dt><b>
+functions on arrays
+</b></dt><dd><ul><li><span class="example-source">norm</span> and <span class="example-source">norm2</span>, respectively the euclidian norm and its square (numbers),
+</li><li><span class="example-source">sum</span> and <span class="example-source">runsum</span>, respectively the sum (a number) and the running sum (an array),
+</li><li><span class="example-source">diff</span>, diff(x) array of length (length of x) -1. diff(x)[n]=x[n+1]-x[n].
+</li><li><span class="example-source">int</span>, int(f,x) return the integral ∫fdx
+</li>
+<li><span class="example-source">count</span>, the number of elements (a number).
+</li>
+<li><span class="example-source">rest</span>, rest of a list (as in AppleScript), <span class="example-source">butlast</span>
+</li>
+<li><span class="example-source">concat</span>, concat(x,y) array of length (length of x +length y) .
+</li>
+</ul></dd></dl>
+</li></ul>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="maskarray" code="SATIMASK" description="suppress items (or rows) out of an array of real (or a matrix) with respect to a mask of 0's and 1's.">
+				<direct-parameter type="array of real" description="the array(s) or matrix to be filtered. For a matrix, the rows are deleted."/>
+				<parameter name="with" code="with" type="array of real" description="the filter: an array of real, 0's mean that the corresponding items are to be deleted in the direct object(s)."/>
+				<result type="array of real" description="the resulting array(s) or matrix"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to randomarray 10 range {1, 2}
+set m to evalformula "(x&lt;1.2)|(x&gt;1.5)" with {x:x}
+set y to maskarray x with m
+count y
+-- 6
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="listvariables" code="SATILSOv" hidden="yes" description="">
+				<direct-parameter type="string" description="a formula"/>
+				<result description="the list of all input variables of the direct formula">
+				<type type="string" list="yes"/>
+				</result>
+			</command>
+			<command name="smootharray" code="SATISmoA" hidden="yes" description="smooth an array by applying a [1 2 1] filter. First and last value are left unchanged.">
+				<direct-parameter type="array of real"/>
+				<parameter name="for" code="for " type="integer" description="how many times the smooth is applied"/>
+				<result type="array of real" description="the smoothed array. It has the same size as the direct parameter"/>
+			</command>
+			<command name="filter" code="SATIBLUR">
+				<direct-parameter type="matrix"/>
+				<parameter name="using" code="with" type="array of real" description="a list of 9 real numbers representing the 3x3 convolution matrix"/>
+				<parameter name="reduced" code="redu" type="boolean" optional="yes" description="the resulting matrix is smaller (the 2 extremal columns and rows are removed. Default true.)"/>
+				<result type="matrix"/>
+			</command>
+			<command name="evalpolynomial" code="SATIEvPo" description="">
+				<direct-parameter type="list of real" description="the polynomial, given as the list of its coefficients, 0th degree (constant term) first. Or an array of real coerced with &quot;as polynomial&quot;"/>
+				<parameter name="at" code="at  " type="real" description="or array of real"/>
+				<result type="real" description=""/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to runningsum (randomarray 10)
+set y to runningsum x
+set p to fitpolynomial {x, y} degree 3
+evalpolynomial (fit result of p) at 1
+-- 2.364091741891
+
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="roots of" code="SATIRoot">
+				<direct-parameter type="list of real" description="the polynomial, given as the list of its coefficients, 0th degree (constant term) first"/>
+				<parameter name="complex" code="Comp" type="boolean" optional="yes" description="default : false. Also compute the complex roots"/>
+				<result type="list of real" description="roots of the polynomial. Complex roots are returned as a list of 2 real numbers"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to runningsum (randomarray 10)
+set y to runningsum x
+set p to fit result of (fitpolynomial {x, y} degree 3)
+set {xx} to roots of p
+evalpolynomial p at xx
+-- -5.6843418860808E-14
+
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="composepolynomial" code="SATICoPo" description="you can provide arrays of real instead of polynomials">
+				<direct-parameter type="polynomial" description="or an array of real: the polynomial P(X), given as the list of its coefficients, 0th degree (constant term) first."/>
+				<parameter name="with" code="with" type="polynomial" description="Q(X)"/>
+				<result type="polynomial" description="P(Q(X))"/>
+			</command>
+			<command name="pade approximant" code="SATIPade" description="given a polynomial P(X), compute the Padé approximant as the rational function NUM(X)/DEN(X). NUM and DEN are polynomials and the constant term of DEN is 1.">
+				<synonym name="pade"/>
+				<direct-parameter type="polynomial" description="or an array of real: the polynomial P(X), given as the list of its coefficients, 0th degree (constant term) first."/>
+				<parameter name="numerator" code="nume" type="integer" description="the requested degree for NUM(X)"/>
+				<parameter name="denominator" code="deno" type="integer" description="the requested degree for DEN(X)"/>
+				<result description="{NUM(X), DEN(X)}">
+				<type type="polynomial" list="yes"/>
+				</result>
+			</command>
+			<command name="fitpolynomial" code="SATIFiPo" description="given two arrays of real {x,y} returns the best polynomial fit y=P(x)">
+				<direct-parameter type="list of array of real" description="a list of two arrays of real {x,y}"/>
+				<parameter name="degree" code="degr" type="integer" description="the degree of the resulting polynomial"/>
+				<parameter name="number formatting" code="Form" type="string" optional="yes" description="the format string for the formula output. If you don't specify this parameter, no fit string will be provided in the result record."/>
+				<parameter name="constraints" code="cons" optional="yes" description="a list of constraints. Each constraint is a list of  degree+2 real numbers (a0,a1..,b) ensuring an affine relation between the coefficient of the polynomial: a0*c0+..=b, where (c0,..) are the coefficients of the polynomial">
+				<type type="list" list="yes"/>
+				</parameter>
+				<result type="fitrecord"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+set x to runningsum (randomarray 10)
+set y to runningsum x
+fitpolynomial {x, y} degree 3 number formatting "%.3g"
+-- {fit error:0.66209535022, fit result:{2.229178877341, -2.581992766564, 2.069751651722, -0.112828845472}, fit string:"2.23-2.58*x+2.07*x^2-0.113*x^3"}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="fitrational" code="SATIRatF" description="given two arrays of real {x,y} returns the best rational fit y=NUM(x)/DEN(x). NUM and DEN are polynomials and the constant term of DEN is 1.">
+				<direct-parameter type="list of array of real" description="a list of two arrays of real {x,y}"/>
+				<parameter name="numerator" code="nume" type="integer" description="the requested degree for NUM(X)"/>
+				<parameter name="denominator" code="deno" type="integer" description="the requested degree for DEN(X)"/>
+				<parameter name="number formatting" code="Form" type="string" optional="yes" description="the format string for the formula output. If you don't specify this parameter, no fit string will be provided in the result record."/>
+				<result type="fitrecord" description="where fit result if a list of 2 polynomials."/>
+			</command>
+			<command name="read binary" code="SATIRdBF" description="read a file of real or small real">
+				<direct-parameter type="file specification" description="the file"/>
+				<parameter name="as" code="rtyp" type="type" description="the format of the data file: real (8 bytes), small real (4 bytes), integer (4 bytes), small integer (2 bytes), or byte (1 byte)"/>
+				<parameter name="skip" code="skip" type="integer" optional="yes" description="the number of leading bytes to skip"/>
+				<parameter name="step" code="jump" type="integer" optional="yes" description="the offset between two consecutive readings"/>
+				<parameter name="blocksize" code="bloc" type="integer" optional="yes" description="the size of the blocks in the &quot;as&quot; unit. Default 1"/>
+				<parameter name="length" code="for " type="integer" optional="yes" description="the number of blocks to read"/>
+				<parameter name="big endian" code="Endi" type="boolean" optional="yes" description="is the file encoded as big endian or little endian? Default: system endianess (false on mac intel)."/>
+				<parameter name="signed" code="Sign" type="boolean" optional="yes" description="Only for integer types. Are they signed or unsigned? Default: true."/>
+				<result type="array of real"/>
+			</command>
+			<command name="write binary" code="SATIWrBF" description="write the data into a binary file (encoded as big endian)">
+				<direct-parameter type="file specification" description="the file"/>
+				<parameter name="with data" code="data" type="array of real"/>
+				<parameter name="starting at" code="strt" type="integer" optional="yes" description="offset in bytes, default: append data at the end of the file"/>
+				<parameter name="as" code="rtyp" type="type" optional="yes" description="the format of the data to be saved: real (8 bytes), small real (4 bytes), integer (4 bytes), small integer (2 bytes), or byte (1 byte). Default: real."/>
+				<parameter name="big endian" code="Endi" type="boolean" optional="yes" description="is the file encoded as big endian or little endian? Default: system endianess (false on mac intel)."/>
+			</command>
+			<command name="find peaks" code="SATIPEAK" hidden="yes" description="Find the peaks (indexes of local min and max values) of an array of real. A minimum height of peaks can be provided.">
+				<direct-parameter type="array of real" description="the input data"/>
+				<parameter name="delta" code="Delt" type="real" description="the minimum height of a peak. Default:0.0"/>
+				<parameter name="lookformaxfirst" code="LFMF" type="boolean" description="search a maximum first. Default true."/>
+				<result description="{list of max's indices, list of min's indices}. Indices are 1-based. Use it with extractarray to get list of values.">
+				<type type="integer" list="yes"/>
+				</result>
+			</command>
+			<command name="arrays auto filling" code="SATIaDAL" hidden="yes" description="defines the behavior when two arrays of real should have the same length: O: fails if lengths are differents, 1: fills the shortest array with NaNs, -1: shrinks the largest array.">
+				<direct-parameter type="integer" description="the new setting"/>
+				<result type="integer" description="the previous setting"/>
+			</command>
+</suite>
+  <suite name="Array and List Utilities" code="RESO" description="">
+			<command name="sortlist" code="SATISort" description="sort a list of numbers (or an array of real) or a list of strings or a list of dates. Missing values of the input list are always returned at the end of the resulting list. Can also sort a list of lists: lists are sorted either asynchronously or synchronously if the 'with respect to' parameter is specified. Sortlist is stable.">
+				<synonym name="sortarray"/>
+				<direct-parameter description="the list to sort (or a list of lists)"><type type="anything" list="yes"/></direct-parameter>
+				<parameter name="with respect to" code="from" type="integer" optional="yes" description="index of the list used as the sort criterion. Relevant only if the direct parameter is a list of lists: requests a synchronous sort. If this parameter is not specified, each list is sorted separately. This parameter may be a list of integer corresponding to a list of criteria in decreasing priority order. Of course, the lists that does not correspond to a criterium are reordered and do not need to be homogeneous"/>
+				<parameter name="ascending" code="Asce" type="boolean" optional="yes" description="default true. May be a list if &quot;with respect to&quot; is already a list."/>
+				<parameter name="remove duplicates" code="Uniq" type="boolean" optional="yes" description="if true, remove duplicate values. Default false"/>
+				<parameter name="comparison" code="Cfla" type="integer" optional="yes" description="only relevant for list of string. 1 case insensitive, 2 compare numerically, 1+4 force ordering ('A'&lt;'a'&lt;'B'). Default 0"/>
+				<result description="the sorted list (or lists)"><type type="anything" list="yes"/></result>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+sortlist (randomarray 10)
+-- «data Lido4E6F74206120...»
+(sortlist {2, 5, 1, 3} without ascending) as list of real
+-- {5.0, 3.0, 2.0, 1.0}
+sortlist {"abc", "ABC", "xyz", "123"}
+-- {"123", "ABC", "abc", "xyz"}
+sortlist {{1, 2, 3, 4}, {"abc", "ABC", "xyz", "123"}, createarray 4, {{a:1}, "b", 3, {1, 2, 3}}} with respect to 2
+-- {{4, 2, 1, 3}, {"123", "ABC", "abc", "xyz"}, «data Lido4E6F74206120...», {{1, 2, 3}, "b", {a:1}, 3}}
+-- compare numerically:
+sortlist {"a1", "a10", "a2", "1b", "10b", "2b"}
+-- {"10b", "1b", "2b", "a1", "a10", "a2"}
+sortlist {"a1", "a10", "a2", "1b", "10b", "2b"} comparison 2
+-- {"1b", "2b", "10b", "a1", "a2", "a10"}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="masklist" code="SATIMASk" description="suppress items out of a list (or replace items) with respect to a mask of 0's and 1's. See also 'suppress item'">
+				<direct-parameter type="list of any" description="the list to be filtered."/>
+				<parameter name="with" code="with" type="array of real" description="the filter: an array of real, or a list of integers, 0's mean that the corresponding items are to be deleted (or replaced if substitute is present) in the direct object(s)."/>
+				<parameter name="substitute" code="Subs" optional="yes" type="any" description=""/>
+				<result type="list of any" description="the resulting list"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+masklist {"abc", {a:1}, "b", 3, {1, 2, 3}} with {1, 0, 1, 1, 0}
+-- {"abc", "b", 3}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="topological sort" code="SATITSrt" description="given a list of vertices and partial ordering providing provided by either the parameter edges or the parameter dependencies, topological sort returns a ordered list or an error if the ordering is not suitable">
+				<direct-parameter optional="yes" description="the vertices. Optional with the edges parameter"><type type="integer" list="yes"/></direct-parameter>
+				<parameter name="edges" code="edge" description="{{v1,v2},{v3,v4},..}. Each ordered pair corresponds to an oriented edge (that is v1&gt;v2). This parameter can also be provided as a list {v1,v2v3,v4,,..}" optional="yes" >
+				<type type="list" list="yes"/> 
+				</parameter>
+				<parameter name="dependencies" code="depe" optional="yes" description="if there are n vertices, dependencies is a list of n list of vertices. The ith list contains the vertices known as larger that the ith vertex">
+				<type type="list" list="yes"/> 
+				</parameter>
+				<result description="a ordered list of vertices {v1,v2,...}"><type type="integer" list="yes"/></result>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">topological sort edges {{13, 2}, {1, 13}, {24, 1}}
+-- {24, 1, 13, 2}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+			<command name="suppress item" code="SATIDLKY" description="delete a list of items from a list or a record. ">
+				<direct-parameter type="anything" description="a list of indices or a list of keywords. Use quotes around custom properties, and also around 4-characters codes. (If you don't know what this means, you don't need it)."/>
+				<parameter name="from" code="from">
+					<type type="list"/>
+					<type type="record"/>
+				</parameter>
+				<result description="according to the &quot;from&quot; parameter">
+					<type type="list"/>
+					<type type="record"/>
+				</result>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+suppress item 2 from {"abc", {a:1}, "b", 3}
+-- {"abc", "b", 3}
+
+suppress item name from {path name:1, name:"abc"}
+-- {path name:1}
+
+suppress item {2, 3} from {"abc", {a:1}, "b", 3}
+-- {"abc", 3}
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+    <command name="exclude items" code="SATIEIFL" description="remove strings from a list of strings. A list equivalent of the set difference.">
+      <direct-parameter description="the list of strings to remove from the input list">
+         <type type="string" list="yes"/>
+      </direct-parameter>
+      <parameter name="from" code="from" description="the input list">
+         <type type="string" list="yes"/>
+      </parameter>
+      <parameter name="with respect to" code="With" type="integer" optional="yes" description="rank of the list (of string) used for the filter process. Other input lists may be lists of anything. Relevant only if the 'from' parameter is a list of lists. Default: 1"/>
+	<parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default true"/>
+      <result type="list" description="the cleaned input list, or a list of cleaned lists if the 'from' parameter is a list of lists."/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+exclude items {"r", "t", "z"} from {"a", "z", "e", "r", "t", "y"}
+  --  {"a", "e", "y"}
+
+exclude items {"r", "t", "z"} from {{"a", "z", "e", "r", "t", "y"}, {1, 2, 3, 4, 5, 6}, {"one", "two", "three", "four", "five", "six"}}
+  --  {{"a", "e", "y"}, {1, 3, 6}, {"one", "three", "six"}}
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+    <command name="keep items" code="SATIKIFL" description="remove strings from a list of strings. A list equivalent of the set intersection.">
+      <direct-parameter description="the list of the strings to keep">
+         <type type="string" list="yes"/>
+      </direct-parameter>
+      <parameter name="from" code="from" description="(or list of list). The input list">
+         <type type="string" list="yes"/>
+      </parameter>
+      <parameter name="with respect to" code="With" type="integer" optional="yes" description="rank of the list (of string) used for the filter process. Other input lists may be lists of anything. Relevant only if the 'from' parameter is a list of lists. Default: 1"/>
+	<parameter name="case sensitive" code="CaSe" type="boolean" optional="yes" description="default true"/>
+      <result type="list" description="the cleaned input list, or a list of cleaned lists if the 'from' parameter is a list of lists."/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+keep items {"r", "t", "z"} from {"a", "z", "e", "r", "t", "y"}
+  --  {"z", "r", "t"}
+
+keep items {"r", "t", "z"} from {{"a", "z", "e", "r", "t", "y"}, {1, 2, 3, 4, 5, 6}, {"one", "two", "three", "four", "five", "six"}}
+  --  {{"z", "r", "t"}, {2, 4, 5}, {"two", "four", "five"}}
+</div>
+</div>
+</html>
+</documentation>
+    </command>
+			<command name="special concat" code="SATICONC" description="concatenate {a_ppty:X, …} and {a_ppty:Y, …} into {a_ppty:Z, …}, where Z is X &amp; Y (resp. X + Y) if X,Y are lists (resp. numbers). Also merges tabulated string arrays side to side (in other terms, adds columns).">
+				<direct-parameter type="record" description="the record"/>
+				<parameter name="with" code="with" type="record" description="the additional data"/>
+				<result type="record"/>
+<documentation>
+<html>
+<div style="display:none" class="example">
+<div class="example-source">
+special concat {a:1, b:{1}, c:"A", d:0} with {a:2, b:{2}, c:"B"}
+-- {a:3.0, b:{1, 2}, c:"A", d:0}
+
+special concat ("1" &amp; tab &amp; "2" &amp; return &amp; "A" &amp; tab &amp; "B") with ("3" &amp; return &amp; "C")
+-- "1	2	3
+A	B	C
+"
+</div>
+</div>
+</html>
+</documentation>
+			</command>
+  </suite>
+</dictionary>

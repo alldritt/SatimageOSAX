@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="Files.osax">
+	<suite name="Files and folders suite" code="Quom">
+		<documentation>
+			<html>
+In this dictionary, alias must be understood as alias or posix path or url.
+        </html>
+		</documentation>
+		<class name="alias" code="alis" hidden="yes" plural="aliases"/>
+		<class name="file specification" code="fss " hidden="yes"/>
+		<command name="filenew" code="QuomNewF" description="create a new empty file, fail if already exists.">
+			<direct-parameter description="the destination folder, or a file path.">
+				<type type="alias"/>
+			</direct-parameter>
+			<parameter name="name" code="pnam" type="string" description="the file name. If the name parameter is not provided, the direct parameter is considered as the destination file path."/>
+			<parameter name="recursively" code="RECU" type="boolean" optional="yes" description="create intermediate directories as required. Default false."/>
+			<result type="alias" description="the new file"/>
+		</command>
+		<command name="mkdir" code="QuomMkDi" description="create a new directory.">
+			<direct-parameter description="a  directory path">
+				<type type="alias"/>
+			</direct-parameter>
+			<parameter name="name" code="pnam" type="string" optional="yes" description="the name of the new directory (if not provided in the direct parameter)"/>
+			<parameter name="recursively" code="RECU" type="boolean" optional="yes" description="create intermediate directories as required. Default true."/>
+			<result type="alias" description="the new directory"/>
+		</command>
+		<command name="filecopy" code="QuomCopy" description="copy a file synchronously">
+			<direct-parameter description="the file(s) to copy">
+				<type type="alias"/>
+				<type type="alias" list="yes"/>
+			</direct-parameter>
+			<parameter name="from" code="from" type="alias" optional="yes" description="the base url. Relevant if direct parameter is a string or a list of strings."/>
+			<parameter name="to" code="to  " type="alias" optional="yes" description="the destination folder. Required unless the &quot;filepath&quot; parameter is specified"/>
+			<parameter name="name" code="pnam" type="string" optional="yes" description="the new file name (when using the &quot;to&quot; parameter). Not allowed if the direct parameter is a list. Default: the original file name"/>
+			<parameter name="filepath" code="into" type="file specification" optional="yes" description="an alternative to the use of the &quot;to&quot; and &quot;name&quot; parameters: the destination file path. Not allowed if the direct parameter is a list"/>
+			<parameter name="into" code="intO" type="file specification" optional="yes" description="for backward compatibility. Same as as filepath."/>
+			<parameter name="replacing" code="Repl" type="boolean" optional="yes" description="allow to replace an existing item. Default: false"/>
+			<parameter name="full copy" code="full" type="boolean" optional="yes" description="copy all attributes of the file. Default: false"/>
+			<result description="the copied file(s)">
+				<type type="alias"/>
+				<type type="alias" list="yes"/>
+			</result>
+		</command>
+		<command name="filemove" code="QuomMove" description="move a file synchronously">
+			<direct-parameter description="the file(s) to move">
+				<type type="alias"/>
+				<type type="alias" list="yes"/>
+			</direct-parameter>
+			<parameter name="from" code="from" type="alias" optional="yes" description="the base url. Relevant if direct parameter is a string or a list of strings."/>
+			<parameter name="to" code="to  " type="alias" optional="yes" description="the destination folder. Required unless the &quot;filepath&quot; parameter is specified"/>
+			<parameter name="name" code="pnam" type="string" optional="yes" description="the new file name (when using the &quot;to&quot; parameter). Not allowed if the direct parameter is a list. Default: the old file name"/>
+			<parameter name="filepath" code="into" type="file specification" optional="yes" description="an alternative to the use of the &quot;to&quot; and &quot;name&quot; parameters: the destination file path. Not allowed if the direct parameter is a list"/>
+			<parameter name="into" code="intO" type="file specification" optional="yes" description="for backward compatibility. Same as as filepath."/>
+			<parameter name="replacing" code="Repl" type="boolean" optional="yes" description="allow to replace an existing item. Default: false"/>
+			<parameter name="full copy" code="full" type="boolean" optional="yes" description="copy all attributes of the file. Default: false"/>
+			<result description="the moved file(s)">
+				<type type="alias"/>
+				<type type="alias" list="yes"/>
+			</result>
+		</command>
+		<command name="fileremove" code="QuomRemo" description="remove a file synchronously">
+			<direct-parameter description="the file(s) or folder(s) to remove">
+				<type type="alias"/>
+				<type type="alias" list="yes"/>
+			</direct-parameter>
+			<parameter name="from" code="from" type="alias" optional="yes" description="the base url. Relevant if direct parameter is a string or a list of strings."/>
+			<parameter name="filesonly" code="FOnl" type="boolean" optional="yes" description="False : delete the item(s) of direct parameter. True : delete only files and handle a folder in the direct parameters as the list of its files. Default: false"/>
+			<parameter name="after" code="afte" type="date" optional="yes" description="allowed only with filesonly true"/>
+			<parameter name="before" code="befo" type="date" optional="yes" description="allowed only with filesonly true"/>
+			<parameter name="locked files" code="CUnl" type="boolean" optional="yes" description="if true, remove also locked files. Default true"/>
+			<parameter name="busy files" code="BUnl" type="boolean" optional="yes" description="if true, unlink busy files. Default true"/>
+		</command>
+		<command name="filegetname" code="QuomGFNa" description="returns the name of a file">
+			<direct-parameter description="">
+				<type type="alias"/>
+				<type type="alias" list="yes"/>
+			</direct-parameter>
+			<result description="the file name">
+				<type type="string"/>
+				<type type="string" list="yes"/>
+			</result>
+		</command>
+		<command name="filerename" code="QuomRenF" description="rename a file">
+			<direct-parameter description="">
+				<type type="alias"/>
+			</direct-parameter>
+			<parameter name="to" code="to  " type="string" description="the new file name."/>
+			<result type="alias" description="the renamed file"/>
+		</command>
+		<command name="mkstemp" code="Quommkst" description="create a new empty file using mkstemp.">
+			<direct-parameter description="the destination folder, or a file path.">
+				<type type="alias"/>
+				<type type="posix path"/>
+			</direct-parameter>
+			<parameter name="name" code="pnam" type="string" optional="yes" description="the template of the file name. mkstemp will create a new file named prefixXXXXXXsuffix where name is prefixsuffix. If missing, the direct parameter must be a file path"/>
+			<parameter name="suffix" code="suff" type="integer" optional="yes" description="the length of the suffix in name (typically the length of the extension+1). Default 0"/>
+			<parameter name="wildcards" code="wild" type="integer" optional="yes" description="number of wildcards. Default 6"/>
+			<parameter name="mode" code="Mode" type="string" optional="yes" description="the permissions, an integer provided as an octal string. Default: &quot;666&quot;"/>
+			<result type="alias" description="the new file"/>
+		</command>
+		<command name="mkdtemp" code="Quommkdt" description="create a new folder using mkdtemp.">
+			<direct-parameter description="the destination folder, or the full folder path.">
+				<type type="alias"/>
+				<type type="posix path"/>
+			</direct-parameter>
+			<parameter name="name" code="pnam" type="string" optional="yes" description="the prefix of the folder name. mkdtemp will create a new folder named prefixXXXXXX"/>
+			<parameter name="wildcards" code="wild" type="integer" optional="yes" description="number of wildcards. Default 6"/>
+			<parameter name="mode" code="Mode" type="string" optional="yes" description="the permissions, an integer provided as an octal string. Default: &quot;777&quot;"/>
+			<result type="alias" description="the new folder"/>
+		</command>
+		<command name="chmod" code="Quomchmd" description="set and get the access permissions. If the &quot;to&quot; parameter is missing &quot;chmod&quot; simply returns the current permissions">
+			<direct-parameter description="the file or the folder">
+				<type type="alias"/>
+				<type type="posix path"/>
+			</direct-parameter>
+			<parameter name="to" code="to  " type="string" optional="yes" description="the new permissions, an integer provided as an octal string (1:excecute +2:write+4:read for user, group and others)"/>
+			<result type="string" description="the previous permissions as an octal string."/>
+		</command>
+	</suite>
+	<suite name="Symlink suite" code="Quom">
+		<command name="create symlink" code="QuomSymL" description="create a symlink">
+			<direct-parameter description="the target of the new symlink. Can be an alias or a string (an absolute or relative posix path)">
+				<type type="alias"/>
+				<type type="posix path"/>
+			</direct-parameter>
+			<parameter name="in" code="in  " type="alias" description="the folder where to create the symlink"/>
+			<parameter name="name" code="pnam" type="string" optional="yes" description="the new file name. Default: the name of the symlink's target"/>
+			<parameter name="replacing" code="Repl" type="boolean" optional="yes" description="allow to replace an existing symlink. Default: true"/>
+		</command>
+		<command name="testsymlink" code="QuomIsSy" description="return true if the direct parameter is a symlink, false otherwise">
+			<direct-parameter description="don't provide an alias; the symlink will be automatically resolved">
+				<type type="url"/>
+				<type type="posix path"/>
+			</direct-parameter>
+			<result type="boolean" description=""/>
+			<documentation>
+				<html>
+					<div style="display:none" class="example">
+						<div class="example-source">set f1 to filenew "~/Desktop/" name "a"
+create symlink f1 in "~/Desktop/" name "b"
+set f2 to absoluteURL "~/Desktop/b" as alias
+testsymlink f2
+-- false
+testsymlink "~/Desktop/b"
+-- true
+testsymlink "file://localhost/Users/alexis/Desktop/b"
+--true
+</div>
+					</div>
+				</html>
+			</documentation>
+		</command>
+		<command name="readlink" code="Quomrdsy" description="return the contents of a symlink">
+			<direct-parameter description="don't provide an alias; the symlink will be automatically resolved">
+				<type type="url"/>
+				<type type="posix path"/>
+			</direct-parameter>
+			<result type="string" description=""/>
+		</command>
+	</suite>
+</dictionary>

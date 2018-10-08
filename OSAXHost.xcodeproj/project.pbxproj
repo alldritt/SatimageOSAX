@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A5BC7BA4216BA7130055D4F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7BA3216BA7130055D4F8 /* AppDelegate.m */; };
+		A5BC7BA6216BA7150055D4F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5BC7BA5216BA7150055D4F8 /* Assets.xcassets */; };
+		A5BC7BA9216BA7150055D4F8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC7BA7216BA7150055D4F8 /* MainMenu.xib */; };
+		A5BC7BAC216BA7150055D4F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7BAB216BA7150055D4F8 /* main.m */; };
+		A5BC7C7A216BAA2E0055D4F8 /* Files.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A5BC7C71216BAA190055D4F8 /* Files.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A5BC7C7B216BAA2E0055D4F8 /* FITS.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A5BC7C74216BAA190055D4F8 /* FITS.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A5BC7C7C216BAA2E0055D4F8 /* Numerics.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A5BC7C70216BAA190055D4F8 /* Numerics.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A5BC7C7D216BAA2E0055D4F8 /* Satimage.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A5BC7C72216BAA190055D4F8 /* Satimage.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A5BC7C7E216BAA2E0055D4F8 /* XMLLib.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A5BC7C73216BAA190055D4F8 /* XMLLib.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A5BC7C81216BB1F70055D4F8 /* StubScriptSuiteRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7C80216BB1F70055D4F8 /* StubScriptSuiteRegistry.m */; };
+		A5BC7C83216BB2F40055D4F8 /* SatimageOSAX.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A5BC7C82216BB29C0055D4F8 /* SatimageOSAX.sdef */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A5BC7C62216BA85E0055D4F8 /* Embed Scripting Additions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "Scripting Additions";
+			dstSubfolderSpec = 7;
+			files = (
+				A5BC7C7A216BAA2E0055D4F8 /* Files.osax in Embed Scripting Additions */,
+				A5BC7C7B216BAA2E0055D4F8 /* FITS.osax in Embed Scripting Additions */,
+				A5BC7C7C216BAA2E0055D4F8 /* Numerics.osax in Embed Scripting Additions */,
+				A5BC7C7D216BAA2E0055D4F8 /* Satimage.osax in Embed Scripting Additions */,
+				A5BC7C7E216BAA2E0055D4F8 /* XMLLib.osax in Embed Scripting Additions */,
+			);
+			name = "Embed Scripting Additions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A5BC7B9F216BA7130055D4F8 /* SatimageOSAX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SatimageOSAX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5BC7BA2216BA7130055D4F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A5BC7BA3216BA7130055D4F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A5BC7BA5216BA7150055D4F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A5BC7BA8216BA7150055D4F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A5BC7BAA216BA7150055D4F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5BC7BAB216BA7150055D4F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A5BC7BAD216BA7150055D4F8 /* OSAXHost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OSAXHost.entitlements; sourceTree = "<group>"; };
+		A5BC7C70216BAA190055D4F8 /* Numerics.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Numerics.osax; sourceTree = "<group>"; };
+		A5BC7C71216BAA190055D4F8 /* Files.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Files.osax; sourceTree = "<group>"; };
+		A5BC7C72216BAA190055D4F8 /* Satimage.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Satimage.osax; sourceTree = "<group>"; };
+		A5BC7C73216BAA190055D4F8 /* XMLLib.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = XMLLib.osax; sourceTree = "<group>"; };
+		A5BC7C74216BAA190055D4F8 /* FITS.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FITS.osax; sourceTree = "<group>"; };
+		A5BC7C7F216BB1F70055D4F8 /* StubScriptSuiteRegistry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StubScriptSuiteRegistry.h; sourceTree = "<group>"; };
+		A5BC7C80216BB1F70055D4F8 /* StubScriptSuiteRegistry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StubScriptSuiteRegistry.m; sourceTree = "<group>"; };
+		A5BC7C82216BB29C0055D4F8 /* SatimageOSAX.sdef */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SatimageOSAX.sdef; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A5BC7B9C216BA7130055D4F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A5BC7B96216BA7130055D4F8 = {
+			isa = PBXGroup;
+			children = (
+				A5BC7C6F216BA9F50055D4F8 /* Satimage */,
+				A5BC7BA1216BA7130055D4F8 /* OSAXHost */,
+				A5BC7BA0216BA7130055D4F8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A5BC7BA0216BA7130055D4F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A5BC7B9F216BA7130055D4F8 /* SatimageOSAX.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A5BC7BA1216BA7130055D4F8 /* OSAXHost */ = {
+			isa = PBXGroup;
+			children = (
+				A5BC7BA2216BA7130055D4F8 /* AppDelegate.h */,
+				A5BC7BA3216BA7130055D4F8 /* AppDelegate.m */,
+				A5BC7C7F216BB1F70055D4F8 /* StubScriptSuiteRegistry.h */,
+				A5BC7C80216BB1F70055D4F8 /* StubScriptSuiteRegistry.m */,
+				A5BC7BA5216BA7150055D4F8 /* Assets.xcassets */,
+				A5BC7BA7216BA7150055D4F8 /* MainMenu.xib */,
+				A5BC7BAB216BA7150055D4F8 /* main.m */,
+				A5BC7BAD216BA7150055D4F8 /* OSAXHost.entitlements */,
+			);
+			path = OSAXHost;
+			sourceTree = "<group>";
+		};
+		A5BC7C6F216BA9F50055D4F8 /* Satimage */ = {
+			isa = PBXGroup;
+			children = (
+				A5BC7C71216BAA190055D4F8 /* Files.osax */,
+				A5BC7C74216BAA190055D4F8 /* FITS.osax */,
+				A5BC7C70216BAA190055D4F8 /* Numerics.osax */,
+				A5BC7C72216BAA190055D4F8 /* Satimage.osax */,
+				A5BC7C73216BAA190055D4F8 /* XMLLib.osax */,
+				A5BC7C82216BB29C0055D4F8 /* SatimageOSAX.sdef */,
+				A5BC7BAA216BA7150055D4F8 /* Info.plist */,
+			);
+			path = Satimage;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A5BC7B9E216BA7130055D4F8 /* SatimageOSAX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5BC7BB0216BA7150055D4F8 /* Build configuration list for PBXNativeTarget "SatimageOSAX" */;
+			buildPhases = (
+				A5BC7B9B216BA7130055D4F8 /* Sources */,
+				A5BC7B9C216BA7130055D4F8 /* Frameworks */,
+				A5BC7B9D216BA7130055D4F8 /* Resources */,
+				A5BC7C62216BA85E0055D4F8 /* Embed Scripting Additions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SatimageOSAX;
+			productName = OSAXHost;
+			productReference = A5BC7B9F216BA7130055D4F8 /* SatimageOSAX.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A5BC7B97216BA7130055D4F8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = "Mark Alldritt";
+				TargetAttributes = {
+					A5BC7B9E216BA7130055D4F8 = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = A5BC7B9A216BA7130055D4F8 /* Build configuration list for PBXProject "OSAXHost" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A5BC7B96216BA7130055D4F8;
+			productRefGroup = A5BC7BA0216BA7130055D4F8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A5BC7B9E216BA7130055D4F8 /* SatimageOSAX */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A5BC7B9D216BA7130055D4F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5BC7BA6216BA7150055D4F8 /* Assets.xcassets in Resources */,
+				A5BC7C83216BB2F40055D4F8 /* SatimageOSAX.sdef in Resources */,
+				A5BC7BA9216BA7150055D4F8 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A5BC7B9B216BA7130055D4F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5BC7BAC216BA7150055D4F8 /* main.m in Sources */,
+				A5BC7C81216BB1F70055D4F8 /* StubScriptSuiteRegistry.m in Sources */,
+				A5BC7BA4216BA7130055D4F8 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A5BC7BA7216BA7150055D4F8 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5BC7BA8216BA7150055D4F8 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A5BC7BAE216BA7150055D4F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A5BC7BAF216BA7150055D4F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A5BC7BB1216BA7150055D4F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z7S6X96M3X;
+				INFOPLIST_FILE = Satimage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.latenightsw.SatimageHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		A5BC7BB2216BA7150055D4F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Z7S6X96M3X;
+				INFOPLIST_FILE = Satimage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.latenightsw.SatimageHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A5BC7B9A216BA7130055D4F8 /* Build configuration list for PBXProject "OSAXHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5BC7BAE216BA7150055D4F8 /* Debug */,
+				A5BC7BAF216BA7150055D4F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5BC7BB0216BA7150055D4F8 /* Build configuration list for PBXNativeTarget "SatimageOSAX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5BC7BB1216BA7150055D4F8 /* Debug */,
+				A5BC7BB2216BA7150055D4F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A5BC7B97216BA7130055D4F8 /* Project object */;
+}

@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ASFormat</key>
+	<string>cASF</string>
+	<key>Delcom USB Board</key>
+	<string>IODG</string>
+	<key>Delcom USB Display</key>
+	<string>IODD</string>
+	<key>GL2DObject</key>
+	<string>GLTr</string>
+	<key>GLName</key>
+	<string>GLNa</string>
+	<key>GLObject</key>
+	<string>GLOb</string>
+	<key>GLUObject</key>
+	<string>GLUO</string>
+	<key>GLUTobject</key>
+	<string>GLUo</string>
+	<key>ICANON</key>
+	<string>ICAN</string>
+	<key>IO device</key>
+	<string>IOMr</string>
+	<key>RGB color</key>
+	<string>cRGB</string>
+	<key>RS232</key>
+	<string>IO23</string>
+	<key>RSOptions</key>
+	<string>OpSt</string>
+	<key>Smile folders</key>
+	<string>SmFl</string>
+	<key>Smile preference</key>
+	<string>Pref</string>
+	<key>TeXName</key>
+	<string>nLat</string>
+	<key>Unicode window</key>
+	<string>mlte</string>
+	<key>Vspermm</key>
+	<string>Vs/m</string>
+	<key>WebAlertEnabled</key>
+	<string>WDMs</string>
+	<key>WebCacheModel</key>
+	<string>WCac</string>
+	<key>WebLoadsImages</key>
+	<string>WLIm</string>
+	<key>WebPluginsEnabled</key>
+	<string>WPlg</string>
+	<key>accept return</key>
+	<string>AcRe</string>
+	<key>active</key>
+	<string>OnOf</string>
+	<key>alias</key>
+	<string>alis</string>
+	<key>alpha</key>
+	<string>alph</string>
+	<key>ambient color</key>
+	<string>MatA</string>
+	<key>ambient pen color</key>
+	<string>LinA</string>
+	<key>angle</key>
+	<string>Angl</string>
+	<key>antialiasing</key>
+	<string>Alis</string>
+	<key>anything</key>
+	<string>****</string>
+	<key>apphiddenproperties</key>
+	<string>ADPR</string>
+	<key>applet</key>
+	<string>aplt</string>
+	<key>application</key>
+	<string>capp</string>
+	<key>area</key>
+	<string>area</string>
+	<key>array of real</key>
+	<string>Lido</string>
+	<key>arrow</key>
+	<string>arro</string>
+	<key>arrow def</key>
+	<string>ArDe</string>
+	<key>arrow style</key>
+	<string>ArSt</string>
+	<key>autohide scroll bars</key>
+	<string>AHSB</string>
+	<key>back pdf</key>
+	<string>PDF0</string>
+	<key>background</key>
+	<string>BKGD</string>
+	<key>background color</key>
+	<string>pbcl</string>
+	<key>background theme</key>
+	<string>ThBa</string>
+	<key>basic object</key>
+	<string>OBJT</string>
+	<key>bauds</key>
+	<string>Baud</string>
+	<key>bindings</key>
+	<string>Layo</string>
+	<key>bit</key>
+	<string>BITS</string>
+	<key>bitmap</key>
+	<string>ViIm</string>
+	<key>bottom margin</key>
+	<string>MrBo</string>
+	<key>boundaries</key>
+	<string>pBns</string>
+	<key>bounding rectangle</key>
+	<string>qdrt</string>
+	<key>bounds</key>
+	<string>pbnd</string>
+	<key>busy</key>
+	<string>Busy</string>
+	<key>buzzer</key>
+	<string>Buzz</string>
+	<key>byte</key>
+	<string>byte</string>
+	<key>calibration data</key>
+	<string>TCor</string>
+	<key>call bad script</key>
+	<string>WSRE</string>
+	<key>call script</key>
+	<string>WSRt</string>
+	<key>centre</key>
+	<string>Cent</string>
+	<key>character</key>
+	<string>cha </string>
+	<key>chart view</key>
+	<string>VivP</string>
+	<key>checked</key>
+	<string>pChk</string>
+	<key>chrono</key>
+	<string>Tick</string>
+	<key>class</key>
+	<string>pcls</string>
+	<key>class ID</key>
+	<string>clID</string>
+	<key>class script</key>
+	<string>COSA</string>
+	<key>classInfoResult</key>
+	<string>clID</string>
+	<key>clipboard</key>
+	<string>pcli</string>
+	<key>closeable</key>
+	<string>hclb</string>
+	<key>collapsed</key>
+	<string>wshd</string>
+	<key>collating</key>
+	<string>lwcl</string>
+	<key>color palette</key>
+	<string>palt</string>
+	<key>colordata</key>
+	<string>col$</string>
+	<key>colorfdata</key>
+	<string>colF</string>
+	<key>colortab</key>
+	<string>Cols</string>
+	<key>compression quality</key>
+	<string>Qual</string>
+	<key>configname</key>
+	<string>SPCN</string>
+	<key>console</key>
+	<string>REDI</string>
+	<key>contained data</key>
+	<string>PCNT</string>
+	<key>container</key>
+	<string>CONT</string>
+	<key>context</key>
+	<string>CNTX</string>
+	<key>contour map</key>
+	<string>ViCo</string>
+	<key>control kind</key>
+	<string>PROC</string>
+	<key>copies</key>
+	<string>lwcp</string>
+	<key>corner</key>
+	<string>CORN</string>
+	<key>creator type</key>
+	<string>fcrt</string>
+	<key>current calibration</key>
+	<string>CORR</string>
+	<key>current dialog</key>
+	<string>DLID</string>
+	<key>current frame</key>
+	<string>Nfra</string>
+	<key>current limits</key>
+	<string>cfra</string>
+	<key>current time</key>
+	<string>CTim</string>
+	<key>current url</key>
+	<string>cpth</string>
+	<key>cursor</key>
+	<string>curs</string>
+	<key>curve</key>
+	<string>Curv</string>
+	<key>curve3D</key>
+	<string>Cur3</string>
+	<key>custom pattern</key>
+	<string>CuPa</string>
+	<key>dash</key>
+	<string>pdst</string>
+	<key>dashtab</key>
+	<string>Dash</string>
+	<key>data</key>
+	<string>r$$$</string>
+	<key>databits</key>
+	<string>Data</string>
+	<key>dialog</key>
+	<string>∆Dlg</string>
+	<key>dialog item</key>
+	<string>∆Itm</string>
+	<key>dictionary</key>
+	<string>DICT</string>
+	<key>diffused color</key>
+	<string>MatD</string>
+	<key>diffused pen color</key>
+	<string>LinD</string>
+	<key>digital port</key>
+	<string>OPrD</string>
+	<key>direction</key>
+	<string>Dir </string>
+	<key>domain</key>
+	<string>Doma</string>
+	<key>draw palette</key>
+	<string>DRLe</string>
+	<key>drawaxes</key>
+	<string>wDrA</string>
+	<key>drawing</key>
+	<string>BDrw</string>
+	<key>drawing context</key>
+	<string>dctx</string>
+	<key>drawmode</key>
+	<string>DrLi</string>
+	<key>droplet</key>
+	<string>dplt</string>
+	<key>duration</key>
+	<string>durn</string>
+	<key>editable</key>
+	<string>Edit</string>
+	<key>element</key>
+	<string>Elem</string>
+	<key>emission color</key>
+	<string>MatE</string>
+	<key>emission pen color</key>
+	<string>LinE</string>
+	<key>enabled</key>
+	<string>enbl</string>
+	<key>encoding</key>
+	<string>enco</string>
+	<key>end point</key>
+	<string>pend</string>
+	<key>ending page</key>
+	<string>lwlp</string>
+	<key>environment variable</key>
+	<string>ENV </string>
+	<key>errfdata</key>
+	<string>yBaF</string>
+	<key>errorbar data</key>
+	<string>yBar</string>
+	<key>extension file</key>
+	<string>Enam</string>
+	<key>extras</key>
+	<string>PLHL</string>
+	<key>eye position</key>
+	<string>EyPo</string>
+	<key>fax number</key>
+	<string>faxn</string>
+	<key>fdata</key>
+	<string>z$$F</string>
+	<key>file specification</key>
+	<string>fss </string>
+	<key>fill color</key>
+	<string>flcl</string>
+	<key>fill pattern</key>
+	<string>flpt</string>
+	<key>findclipboard</key>
+	<string>FiTx</string>
+	<key>fit error</key>
+	<string>Ferr</string>
+	<key>fit info</key>
+	<string>FInf</string>
+	<key>fit owner</key>
+	<string>FOwn</string>
+	<key>fit result</key>
+	<string>FRes</string>
+	<key>fit string</key>
+	<string>FStr</string>
+	<key>fit to window</key>
+	<string>AuAd</string>
+	<key>fitted curves</key>
+	<string>FLst</string>
+	<key>flash rate</key>
+	<string>DFlC</string>
+	<key>floating</key>
+	<string>isfl</string>
+	<key>floating window</key>
+	<string>fwin</string>
+	<key>flowcontrol</key>
+	<string>FlCo</string>
+	<key>focus</key>
+	<string>FOCU</string>
+	<key>formatter</key>
+	<string>FORM</string>
+	<key>formula</key>
+	<string>FRMU</string>
+	<key>frame</key>
+	<string>Fram</string>
+	<key>frame kind</key>
+	<string>FrKi</string>
+	<key>frame rate</key>
+	<string>FrRa</string>
+	<key>free memory</key>
+	<string>FMEM</string>
+	<key>front pdf</key>
+	<string>PDF1</string>
+	<key>function</key>
+	<string>SCHD</string>
+	<key>globals</key>
+	<string>Glob</string>
+	<key>glyph</key>
+	<string>Glyp</string>
+	<key>graphic line</key>
+	<string>glin</string>
+	<key>graphic view</key>
+	<string>View</string>
+	<key>graphic window</key>
+	<string>cwdr</string>
+	<key>grid</key>
+	<string>pGri</string>
+	<key>grid color</key>
+	<string>gcol</string>
+	<key>grid dash</key>
+	<string>gdsh</string>
+	<key>grid pen width</key>
+	<string>gdwd</string>
+	<key>has square corners</key>
+	<string>SqCo</string>
+	<key>has title bar</key>
+	<string>TiBa</string>
+	<key>height</key>
+	<string>pHgt</string>
+	<key>hiddenproperties</key>
+	<string>HDPR</string>
+	<key>histogram bar width</key>
+	<string>HiWi</string>
+	<key>history</key>
+	<string>HIST</string>
+	<key>icon ID</key>
+	<string>Icns</string>
+	<key>id</key>
+	<string>ID  </string>
+	<key>idle delay</key>
+	<string>IdTi</string>
+	<key>ignore meta</key>
+	<string>ToIM</string>
+	<key>image</key>
+	<string>AcIm</string>
+	<key>in legend</key>
+	<string>InLe</string>
+	<key>index</key>
+	<string>pidx</string>
+	<key>inverted</key>
+	<string>Inve</string>
+	<key>item</key>
+	<string>cobj</string>
+	<key>javascript</key>
+	<string>JScp</string>
+	<key>kind</key>
+	<string>kind</string>
+	<key>kurtosis</key>
+	<string>Krts</string>
+	<key>label</key>
+	<string>BeLa</string>
+	<key>label text font</key>
+	<string>LaFt</string>
+	<key>label text size</key>
+	<string>LaSi</string>
+	<key>left margin</key>
+	<string>MrLe</string>
+	<key>legend abscissa</key>
+	<string>LeAb</string>
+	<key>legend fill color</key>
+	<string>LeFi</string>
+	<key>legend frame</key>
+	<string>LeFr</string>
+	<key>legend height</key>
+	<string>LeLh</string>
+	<key>legend kind</key>
+	<string>DrLe</string>
+	<key>legend margins</key>
+	<string>LeMa</string>
+	<key>legend pen color</key>
+	<string>LePe</string>
+	<key>legend pen width</key>
+	<string>LeWi</string>
+	<key>legend sample length</key>
+	<string>LeLe</string>
+	<key>legend text color</key>
+	<string>LeTe</string>
+	<key>legend text font</key>
+	<string>LeFt</string>
+	<key>legend text offset</key>
+	<string>LeTO</string>
+	<key>legend text size</key>
+	<string>LeSi</string>
+	<key>length</key>
+	<string>leng</string>
+	<key>level number</key>
+	<string>#lev</string>
+	<key>levels</key>
+	<string>levs</string>
+	<key>light position</key>
+	<string>LiPo</string>
+	<key>limits</key>
+	<string>fram</string>
+	<key>line spacing</key>
+	<string>LiSp</string>
+	<key>line style</key>
+	<string>plSt</string>
+	<key>line width</key>
+	<string>LWdt</string>
+	<key>list of integer</key>
+	<string>LiIn</string>
+	<key>list of real</key>
+	<string>LiDo</string>
+	<key>location reference</key>
+	<string>insl</string>
+	<key>log xaxis</key>
+	<string>xlog</string>
+	<key>log yaxis</key>
+	<string>ylog</string>
+	<key>lower errorbar data</key>
+	<string>yBir</string>
+	<key>major axis</key>
+	<string>Gaxe</string>
+	<key>major tick length</key>
+	<string>tckl</string>
+	<key>margins</key>
+	<string>Marg</string>
+	<key>marker color</key>
+	<string>Ppcl</string>
+	<key>marker fill color</key>
+	<string>Pfcl</string>
+	<key>matrix</key>
+	<string>Matr</string>
+	<key>max triangle size</key>
+	<string>MTLn</string>
+	<key>maximum</key>
+	<string>MAX </string>
+	<key>mean</key>
+	<string>MEAN</string>
+	<key>median</key>
+	<string>MEDI</string>
+	<key>menu</key>
+	<string>cmnu</string>
+	<key>menu bar visible</key>
+	<string>MBVi</string>
+	<key>menu command</key>
+	<string>Mcmd</string>
+	<key>menu item</key>
+	<string>cmen</string>
+	<key>message bar</key>
+	<string>Tool</string>
+	<key>minimum</key>
+	<string>MIN </string>
+	<key>minor axis</key>
+	<string>Paxe</string>
+	<key>minor tick length</key>
+	<string>stcl</string>
+	<key>modal</key>
+	<string>pmod</string>
+	<key>mode</key>
+	<string>MODE</string>
+	<key>modified</key>
+	<string>imod</string>
+	<key>modifiers</key>
+	<string>kMod</string>
+	<key>mouse button</key>
+	<string>MoBu</string>
+	<key>mouse location</key>
+	<string>MoLo</string>
+	<key>move while dragging</key>
+	<string>MOCl</string>
+	<key>movie codec</key>
+	<string>MoCo</string>
+	<key>movie file</key>
+	<string>MoFi</string>
+	<key>movie frame</key>
+	<string>MFra</string>
+	<key>movie window</key>
+	<string>MOOV</string>
+	<key>name</key>
+	<string>pnam</string>
+	<key>named reference</key>
+	<string>vobj</string>
+	<key>ncols</key>
+	<string>ncol</string>
+	<key>never save</key>
+	<string>NeSa</string>
+	<key>nrows</key>
+	<string>nrow</string>
+	<key>number formatting</key>
+	<string>Form</string>
+	<key>orientation</key>
+	<string>isVe</string>
+	<key>original item</key>
+	<string>orig</string>
+	<key>oval</key>
+	<string>covl</string>
+	<key>owner</key>
+	<string>OWNR</string>
+	<key>page is loaded</key>
+	<string>PLoa</string>
+	<key>page number</key>
+	<string>Pagn</string>
+	<key>pageheight</key>
+	<string>fHgt</string>
+	<key>pages across</key>
+	<string>lwla</string>
+	<key>pages down</key>
+	<string>lwld</string>
+	<key>pagewidth</key>
+	<string>fWdt</string>
+	<key>palette format</key>
+	<string>Lecf</string>
+	<key>parabola</key>
+	<string>PRBL</string>
+	<key>paragraph</key>
+	<string>cpar</string>
+	<key>paragraph index</key>
+	<string>§idx</string>
+	<key>parallelepiped</key>
+	<string>Rho3</string>
+	<key>parity</key>
+	<string>Pari</string>
+	<key>path name</key>
+	<string>ppth</string>
+	<key>pattern size</key>
+	<string>ciRa</string>
+	<key>pattern style</key>
+	<string>paSt</string>
+	<key>pbc1</key>
+	<string>Perx</string>
+	<key>pbc2</key>
+	<string>Pery</string>
+	<key>pen color</key>
+	<string>ppcl</string>
+	<key>pen pattern</key>
+	<string>pppa</string>
+	<key>pen width</key>
+	<string>ppwd</string>
+	<key>perimeter</key>
+	<string>Peri</string>
+	<key>picture view</key>
+	<string>ViPD</string>
+	<key>pixel height</key>
+	<string>PHgt</string>
+	<key>pixel width</key>
+	<string>PWdt</string>
+	<key>planar view</key>
+	<string>ViP2</string>
+	<key>plist properties</key>
+	<string>CFOB</string>
+	<key>plot frame</key>
+	<string>pfra</string>
+	<key>plot view</key>
+	<string>ViPl</string>
+	<key>point</key>
+	<string>QDpt</string>
+	<key>point list</key>
+	<string>ptlt</string>
+	<key>polar</key>
+	<string>Pola</string>
+	<key>polygon</key>
+	<string>cpgn</string>
+	<key>polynomial</key>
+	<string>Poly</string>
+	<key>printer features</key>
+	<string>lwpf</string>
+	<key>projection</key>
+	<string>Orto</string>
+	<key>properties</key>
+	<string>Prop</string>
+	<key>properties list</key>
+	<string>qpro</string>
+	<key>quad set</key>
+	<string>Quas</string>
+	<key>quad strip</key>
+	<string>Qua3</string>
+	<key>quality</key>
+	<string>Qual</string>
+	<key>radius</key>
+	<string>Radi</string>
+	<key>radius2</key>
+	<string>top </string>
+	<key>raw code</key>
+	<string>ACRO</string>
+	<key>re_pattern</key>
+	<string>RPat</string>
+	<key>recent files</key>
+	<string>ReFi</string>
+	<key>recording</key>
+	<string>RCRD</string>
+	<key>rectangle</key>
+	<string>crec</string>
+	<key>reference</key>
+	<string>obj </string>
+	<key>regexp syntax</key>
+	<string>RESy</string>
+	<key>requested print time</key>
+	<string>lwqt</string>
+	<key>requested user level</key>
+	<string>RqUL</string>
+	<key>resizable</key>
+	<string>prsz</string>
+	<key>resolution</key>
+	<string>Scal</string>
+	<key>resolve references</key>
+	<string>rdrn</string>
+	<key>right margin</key>
+	<string>MrRi</string>
+	<key>rotation</key>
+	<string>Rota</string>
+	<key>run info</key>
+	<string>cRin</string>
+	<key>samples</key>
+	<string>#fra</string>
+	<key>save all pages</key>
+	<string>WSAP</string>
+	<key>scalar map</key>
+	<string>ViI2</string>
+	<key>scale</key>
+	<string>Tsca</string>
+	<key>screen bounds</key>
+	<string>SCSZ</string>
+	<key>script</key>
+	<string>scpt</string>
+	<key>script window</key>
+	<string>sctx</string>
+	<key>scripting language</key>
+	<string>DfSC</string>
+	<key>scrollbar offset</key>
+	<string>ScrO</string>
+	<key>secondary axis limits</key>
+	<string>YYLi</string>
+	<key>secondary log yaxis</key>
+	<string>yyln</string>
+	<key>secondary yTeXlabel</key>
+	<string>yyLa</string>
+	<key>secondary yaxis</key>
+	<string>UYY </string>
+	<key>secondary yaxis format</key>
+	<string>yylf</string>
+	<key>secondary ylabel</key>
+	<string>yylb</string>
+	<key>secondary ylabel offset</key>
+	<string>yylO</string>
+	<key>secondary ysubtick number</key>
+	<string>UYYS</string>
+	<key>secondary ytick spacing</key>
+	<string>UYYT</string>
+	<key>selected image</key>
+	<string>SeIm</string>
+	<key>selected rectangle</key>
+	<string>Rect</string>
+	<key>selection</key>
+	<string>sele</string>
+	<key>serial ports</key>
+	<string>OTSP</string>
+	<key>service type</key>
+	<string>Serv</string>
+	<key>shape</key>
+	<string>ShTy</string>
+	<key>shininess</key>
+	<string>Shin</string>
+	<key>shortcut</key>
+	<string>ShCt</string>
+	<key>skewness</key>
+	<string>Skew</string>
+	<key>slices</key>
+	<string>slic</string>
+	<key>slot</key>
+	<string>Slot</string>
+	<key>small real</key>
+	<string>sing</string>
+	<key>smooth</key>
+	<string>Smoo</string>
+	<key>specular color</key>
+	<string>MatS</string>
+	<key>specular pen color</key>
+	<string>LinS</string>
+	<key>stacks</key>
+	<string>stac</string>
+	<key>standalone</key>
+	<string>stnd</string>
+	<key>start</key>
+	<string>star</string>
+	<key>start point</key>
+	<string>pstp</string>
+	<key>starting page</key>
+	<string>lwfp</string>
+	<key>stdev</key>
+	<string>StDe</string>
+	<key>step</key>
+	<string>step</string>
+	<key>stopbits</key>
+	<string>RSSt</string>
+	<key>store undo</key>
+	<string>Begn</string>
+	<key>style</key>
+	<string>txst</string>
+	<key>sum</key>
+	<string>SUM </string>
+	<key>surface</key>
+	<string>Mesh</string>
+	<key>tab width</key>
+	<string>TbSz</string>
+	<key>tag</key>
+	<string>TAG </string>
+	<key>tagged data</key>
+	<string>Tdat</string>
+	<key>target object</key>
+	<string>TARG</string>
+	<key>target printer</key>
+	<string>trpr</string>
+	<key>template</key>
+	<string>TMPL</string>
+	<key>tetrahedron</key>
+	<string>Tet3</string>
+	<key>text</key>
+	<string>ctxt</string>
+	<key>text color</key>
+	<string>ptxc</string>
+	<key>text font</key>
+	<string>ptxf</string>
+	<key>text size</key>
+	<string>ptps</string>
+	<key>text spacing</key>
+	<string>Trac</string>
+	<key>text style info</key>
+	<string>tsty</string>
+	<key>text window</key>
+	<string>cwtx</string>
+	<key>title offset</key>
+	<string>TiOf</string>
+	<key>toolbar item</key>
+	<string>toli</string>
+	<key>toolbar visible</key>
+	<string>ToVi</string>
+	<key>tooltip</key>
+	<string>Help</string>
+	<key>top margin</key>
+	<string>MrTo</string>
+	<key>transformation</key>
+	<string>TRAN</string>
+	<key>triangle set</key>
+	<string>Tris</string>
+	<key>triangle strip</key>
+	<string>Tri3</string>
+	<key>triangulated contour</key>
+	<string>ViIC</string>
+	<key>triangulated map</key>
+	<string>ViIM</string>
+	<key>unix id</key>
+	<string>idux</string>
+	<key>update screen</key>
+	<string>RECA</string>
+	<key>upper errorbar data</key>
+	<string>yBsr</string>
+	<key>use view scaling</key>
+	<string>RsVe</string>
+	<key>usecolordata</key>
+	<string>UCoD</string>
+	<key>user folder</key>
+	<string>USFL</string>
+	<key>user level</key>
+	<string>UsLe</string>
+	<key>user script file</key>
+	<string>USFI</string>
+	<key>user term</key>
+	<string>utrm</string>
+	<key>user transformation</key>
+	<string>cTRA</string>
+	<key>utility window</key>
+	<string>isFl</string>
+	<key>variable</key>
+	<string>SCVR</string>
+	<key>variance</key>
+	<string>Sigm</string>
+	<key>vector plot</key>
+	<string>ViVP</string>
+	<key>vector scaling</key>
+	<string>MArS</string>
+	<key>version</key>
+	<string>vers</string>
+	<key>vertex list</key>
+	<string>VErt</string>
+	<key>view3D</key>
+	<string>ViGL</string>
+	<key>visible</key>
+	<string>pvis</string>
+	<key>volatile extras</key>
+	<string>VPLH</string>
+	<key>volatile menu</key>
+	<string>lmnu</string>
+	<key>vxdata</key>
+	<string>vx$$</string>
+	<key>vydata</key>
+	<string>vy$$</string>
+	<key>want IO</key>
+	<string>WtIO</string>
+	<key>want contextual menu</key>
+	<string>WCoM</string>
+	<key>want idle</key>
+	<string>WIDL</string>
+	<key>want keydown</key>
+	<string>WKey</string>
+	<key>web window</key>
+	<string>htmw</string>
+	<key>whole</key>
+	<string>whol</string>
+	<key>widget</key>
+	<string>Widg</string>
+	<key>width</key>
+	<string>pWdt</string>
+	<key>window</key>
+	<string>cwin</string>
+	<key>window opacity</key>
+	<string>WTra</string>
+	<key>word</key>
+	<string>cwor</string>
+	<key>word index</key>
+	<string>Widx</string>
+	<key>xTeXlabel</key>
+	<string>xLat</string>
+	<key>xaxis format</key>
+	<string>xlaf</string>
+	<key>xaxis labels</key>
+	<string>xnam</string>
+	<key>xaxis labels positions</key>
+	<string>xs$$</string>
+	<key>xaxis scale tilt</key>
+	<string>xLTi</string>
+	<key>xdata</key>
+	<string>x$$$</string>
+	<key>xfdata</key>
+	<string>x$$F</string>
+	<key>xformula</key>
+	<string>XDaF</string>
+	<key>xlabel</key>
+	<string>xlab</string>
+	<key>xlabel offset</key>
+	<string>xlOf</string>
+	<key>xsubtick number</key>
+	<string>UXST</string>
+	<key>xtick spacing</key>
+	<string>UXTk</string>
+	<key>yTeXlabel</key>
+	<string>yLat</string>
+	<key>yaxis format</key>
+	<string>ylaf</string>
+	<key>ydata</key>
+	<string>y$$$</string>
+	<key>yfdata</key>
+	<string>y$$F</string>
+	<key>yformula</key>
+	<string>YDaF</string>
+	<key>ylabel</key>
+	<string>ylab</string>
+	<key>ylabel offset</key>
+	<string>ylOf</string>
+	<key>ysubtick number</key>
+	<string>UYST</string>
+	<key>ytick spacing</key>
+	<string>UYTk</string>
+	<key>z_order</key>
+	<string>zord</string>
+	<key>zdata</key>
+	<string>z$$$</string>
+	<key>zoomable</key>
+	<string>iszm</string>
+</dict>
+</plist>

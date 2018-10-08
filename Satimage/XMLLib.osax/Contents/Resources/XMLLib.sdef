@@ -1,0 +1,1836 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="">
+  <suite name="Satimage XML DOM" code="XML " description="An AppleScript implementation of the DOM. Uses the Libxml2 open source project.">
+    <class name="anything" code="****" description="any class or reference" hidden="yes"/>
+    <value-type name="XMLRef" code="XMLR" description="an opaque reference to an XML node. Initial XMLRefs must be created with XMLOpen."/>
+    <class name="dictionary" code="DICT" hidden="yes" plural="dictionaries"/>
+    <class name="alias" code="alis" hidden="yes" plural="aliases"/>
+    <class name="file specification" code="fss " hidden="yes"/>
+    <record-type name="namespace" code="nsls" description="the AppleScript format of an XML namespace.">
+      <property name="nsprefix" code="PREf" type="string" description="the prefix of the namespace."/>
+      <property name="nsurl" code="PUri" type="string" description="the uri of the namespace."/>
+    </record-type>
+    <record-type name="NodeInfo" code="NoIn" description="type returned by XMLNodeInfo.">
+      <property name="kind" code="kind" type="string" description="XML class of the element : ELEMENT_NODE, TEXT_NODE, ATTRIBUTE_NODE, DOCUMENT_NODE..."/>
+      <property name="name" code="pnam" type="string" description="tag of the element for element node."/>
+      <property name="attribute" code="attr" description="a list of attribute name, attribute value.">
+        <type type="string" list="yes"/>
+      </property>
+      <property name="namespace" code="nsls" type="namespace" description="optional. namespace of the element."/>
+      <property name="hasDTD" code="hdtd" type="boolean" description="for document node only."/>
+      <property name="SystemID" code="SyID" type="string" description="the system ID of the DTD (document node only)."/>
+      <property name="ExternalID" code="ExID" type="string" description="the external ID of the DTD (document node only)."/>
+      <property name="standalone" code="stnd" type="boolean" description="(document node only)."/>
+      <property name="paragraph" code="cpar" type="integer" description="the line index of the node in the file"/>
+    </record-type>
+    <command name="XMLOpen" code="XML open" description="open an XML file and parse it. Must be balanced with a XMLClose at the end of the job. Alternatively, use to &quot;from string&quot; parameter to provide the xml data as a string">
+      <direct-parameter type="alias" optional="yes" description="a file containing xml data or an url"/>
+      <parameter name="from string" code="from" type="text" optional="yes" description="a string containing xml data"/>
+      <parameter name="keep blanks" code="kbln" type="boolean" optional="yes" description="default false"/>
+      <parameter name="load external DTD" code="LoEx" type="boolean" optional="yes" description="default: according to the standalone declaration (http://www.w3.org/TR/2008/REC-xml-20081126/#sec-rmd)"/>
+      <parameter name="substitute entities" code="SuEn" type="boolean" optional="yes" description="default false"/>
+      <parameter name="validate" code="Vali" type="boolean" optional="yes" description="validate with respect to its dtd; default false. Support XML Catalogs (http://www.oasis-open.org/committees/entity/spec-2001-08-06.html) at &quot;/etc/xml/catalog&quot; or &quot;/Library/DTDs/catalog&quot;"/>
+      <parameter name="html4" code="HTML" type="boolean" optional="yes" description="require the HTML4 lax parsing. Default: false"/>
+      <parameter name="xmlscript" code="xscp" type="boolean" optional="yes" description="parse the script tags even if HTML4 is true. Produce faithful xml when scripts are escaped with CDATA sections. Default: false"/>
+      <parameter name="noCDATA" code="noCD" type="boolean" optional="yes" description="if true, encountered CDATA sections are translated into text node. Default: false"/>
+      <parameter name="verbose" code="Verb" type="boolean" optional="yes" description="default false"/>
+      <parameter name="failure level" code="ErLe" type="integer" optional="yes" description="a number between 1 and 3. 3: fail only on fatal errors, 2: fail on xml recoverable errors, 1: fail on warnings. The default is provided by the XMLErrorLevel command."/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="the name of the group where the new document is created. Default: the current pool. At launch the current pool is &quot;&quot;."/>
+      <parameter name="POST" code="post" type="boolean" optional="yes" description="Default false.  The method of the http request. Relevant for http URLs with query. XMLOpen automatically adds the Content-Type header field and build the request body"/>
+      <parameter name="query" code="qury" type="string" optional="yes" description="the query is usually available thru the direct parameter after a question mark.  In some cases (with http POST method), this is not possible and the query may be supplied thru this parameter in conjunction with the POST parameter"/>
+<parameter name="header" code="head" type="string" optional="yes" description="the http extra headers of the request: a record or a propertylist containing a dict. Relevant for http URLs"/>
+	<parameter name="bypassing namespace" code="bpns" type="boolean" optional="yes" description="default false. Bypass the default namespaces."/>
+      <parameter name="encoding" code="enco" type="string" optional="yes" description="relevant only for invalid documents"/>
+      <result type="XMLRef" description="a reference to the XML parsed document, required by all the other XML commands"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">
+For the examples in this page we shall use the periodic chart of the chemical elements at "http://www.satimage.fr/software/samples/allelements.xml".<br/>
+You can open the file in a new Unicode window with the Open URL... menu item (Open...+shift) and enter the URL.<br/>
+Or execute:  open "http://www.satimage.fr/software/samples/allelements.xml".<br/>
+The following lines load "allelements.xml" into XMLLib.<br/>
+Don't forget to balance XMLOpen with a XMLClose to release the opened XML document.
+</div>
+            <div class="example-source">set the_URL to "http://www.satimage.fr/software/samples/allelements.xml"
+set the_doc to XMLOpen the_URL
+--  «data XMLR0000000100000000»
+set the_root to XMLRoot the_doc 
+  --  «data XMLR0000000104739D80»
+</div>
+            <div class="example-description">XMLOpen lets you create a new xml document from a string
+</div>
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;?xml version='1.0' encoding='UTF-8'?&gt;&lt;a/&gt;"
+--  «data XMLR0000000200000000»
+XMLDisplayxml doc2
+ --  "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;
+&lt;a/&gt;"
+XMLClose doc2
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLClose" code="XML clos" description="release memory, associated XMLRefs are no longer valid.">
+      <direct-parameter type="XMLRef"/>
+    </command>
+    <command name="XMLRoot" code="XML root" description="get the root of the XML document.">
+      <direct-parameter type="XMLRef" description="the document"/>
+      <result type="XMLRef" description="the root element"/>
+    </command>
+    <command name="XMLCount" code="XML cunt" description="count children in the given XML object.">
+      <direct-parameter type="XMLRef" description="an XML object"/>
+      <parameter name="all nodes" code="ANot" type="boolean" optional="yes" description="if false XMLCount omits non-element nodes. Default true."/>
+      <result type="integer" description="the number of children"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">Please make sure you have run the XMLOpen example first.</div>
+            <div class="example-source">XMLCount the_root 
+  --  112 
+  --  the table contains 112 atoms
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+   <command name="XMLCountElement" code="XML ecun" description="count elements in the given XML object. Equivalent to XMLCount without all nodes">
+      <direct-parameter type="XMLRef" description="an XML object"/>
+<result type="integer" description="the number of children"/>
+    </command>
+    <command name="XMLChild" code="XML chld" description="provide access to children of a given XML object.">
+      <direct-parameter type="XMLRef" description="the parent"/>
+      <parameter name="index" code="indx" type="integer" description="1..XMLCount, index of the requested child"/>
+      <parameter name="all nodes" code="ANot" type="boolean" optional="yes" description="if false XMLChild omits non-element nodes. Default true."/>
+      <result type="XMLRef" description="the child"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">Please make sure you have run the XMLOpen example first.</div>
+            <div class="example-source">set the_child to XMLChild the_root index 1 
+  --  «data XMLR0000000104739DC0» 
+  --  the_child is an opaque reference 
+  --  the atom itself has children: 
+set the_child_2 to XMLChild the_child index 1 
+  --  to know what kind of thing it is you can use XMLNodeInfo or XMLDisplayXML
+XMLDisplayXML the_child_2 
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+     <command name="XMLElement" code="XML echl" description="equivalent to XMLChild without all nodes.">
+      <direct-parameter type="XMLRef" description="the parent"/>
+      <parameter name="index" code="indx" type="integer" description="1..XMLCountElement, index of the requested child"/>
+     <result type="XMLRef" description="the child"/>
+     </command>
+  <command name="XMLParent" code="XML pare" description="return the parent of an object.">
+      <direct-parameter description="">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+      <result description="the parent(s)">
+ 	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</result>
+   </command>
+    <command name="XMLNextSibling" code="XML sibl" description="return the next sibling of an object.">
+      <direct-parameter>
+  	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+    <parameter name="all nodes" code="ANot" type="boolean" optional="yes" description="if false XMLNextSibling omits non-element nodes. Default true."/>
+      <result description="the next sibling">
+  	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</result>
+  </command>
+    <command name="XMLNextElement" code="XML esib" description="equivalent to XMLNextSibling without all nodes.">
+      <direct-parameter>
+  	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+    <result description="the next sibling element">
+   	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</result>
+ </command>
+    <command name="XMLPrevSibling" code="XML psib" description="return the previous sibling of an object.">
+      <direct-parameter >
+    	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+    <parameter name="all nodes" code="ANot" type="boolean" optional="yes" description="if false XMLPrevSibling omits non-element nodes. Default true."/>
+      <result description="the previous sibling">
+    	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</result>
+  </command>
+    <command name="XMLPrevElement" code="XML pesi" description="equivalent to XMLPrevSibling without all nodes.">
+      <direct-parameter>
+     	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+   <result description="the previous sibling element">
+     	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</result>
+   </command>
+    <command name="XMLTagName" code="XML gtag" description="return the name of the element.">
+      <direct-parameter description="">
+ 	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+     <result>
+  	<type type="string"/>
+	<type type="string" list="yes"/>
+</result>    <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;glass&gt;&lt;water/&gt;&lt;/glass&gt;"
+XMLTagName (XMLRoot doc2)
+-- "glass"
+XMLClose doc2
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLGetAttribute" code="XML geta" description="return the contents of an attribute.">
+      <direct-parameter description="">
+ 	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+     <parameter name="name" code="pnam" type="string" description="the name of the attribute"/>
+      <parameter name="namespace" code="nsls" type="string" optional="yes" description="the namespace URL.  For instance, to retrieve an xml:lang attribute this parameter must be &quot;http://www.w3.org/XML/1998/namespace&quot; and the name parameter must be &quot;lang&quot;"/>
+      <result>
+ 	<type type="string"/>
+	<type type="string" list="yes"/>
+</result>
+    </command>
+    <command name="XMLSetAttribute" code="XML seta" description="set (or create) an attribute.">
+      <direct-parameter description="">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+      <parameter name="name" code="pnam" description="the name of the attribute">
+ 	<type type="string"/>
+	<type type="string" list="yes"/>
+</parameter>
+     <parameter name="to" code="to  " description="the contents of the attribute.">
+	<type type="string"/>
+	<type type="string" list="yes"/>
+</parameter>
+      <parameter name="namespace" code="nsls" type="string" optional="yes" description="the namespace URL"/>
+      <parameter name="suppressing" code="Supp" type="boolean" optional="yes" description="default: false. If true and the &quot;to&quot; parameter is a list containing missing values, then XMLSetAttribute removes the corresponding attributes. Otherwise these values are ignored"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;a&gt;Satimage&lt;/a&gt;"
+set r to (XMLRoot doc2)
+XMLSetAttribute r name "href" to "http://www.satimage.fr/software"
+XMLDisplayXML r
+-- "&lt;a href=\"http://www.satimage.fr/software\"&gt;Satimage&lt;/a&gt;"
+XMLClose doc2
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLRemoveAttribute" code="XML rema" description="remove an attribute.">
+      <direct-parameter description="">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+      <parameter name="name" code="pnam" description="the name of the attribute">
+ 	<type type="string"/>
+	<type type="string" list="yes"/>
+</parameter>
+      <parameter name="namespace" code="nsls" type="string" optional="yes" description="the namespace URL"/>
+    </command>
+    <command name="XMLRemove" code="XML remo" description="delete an object. The reference to this object (or to any contained object) is no more valid.">
+      <direct-parameter description="the object to delete">
+   	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+ </command>
+    <command name="XMLRemoveChildren" code="XML remc" description="delete all children.">
+      <direct-parameter>
+   	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+    </command>
+    <command name="XMLExists" code="XML Exis" description="Test if an XMLRef is valid.">
+      <direct-parameter description="the object(s) to test">
+     	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+    <result>
+    	<type type="boolean"/>
+	<type type="boolean" list="yes"/>
+	</result>
+    </command>
+    <command name="XMLNewChild" code="XML addc" description="create a new child in a given object.">
+      <direct-parameter description="the XML string describing the new child or the XMLRef(s) to clone">
+ 	<type type="string"/>
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+	<parameter name="keep blanks" code="kbln" type="boolean" optional="yes" description="default false"/>
+      <parameter name="at" code="at  " type="XMLRef" description="the parent"/>
+      <parameter name="nsclean" code="NsCl" type="boolean" optional="yes" hidden="yes" description="remove the redundant namespaces. Default: true."/>
+      <result description="a reference to the newly created object(s)">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+	</result>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;agents/&gt;"
+set r to (XMLRoot doc2)
+set a to XMLNewChild "&lt;agent/&gt;" at r
+XMLNewChild "&lt;name&gt;James Bond&lt;/name&gt;" at a
+XMLNewChild "&lt;number&gt;007&lt;/number&gt;" at a
+XMLDisplayXML r
+-- "&lt;agents&gt;
+  &lt;agent&gt;
+    &lt;name&gt;James Bond&lt;/name&gt;
+    &lt;number&gt;007&lt;/number&gt;
+  &lt;/agent&gt;
+&lt;/agents&gt;"
+XMLClose doc2
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLNewSibling" code="XML adds" description="create a new object beside a given object.">
+      <direct-parameter description="the XML string describing the new object or the XMLRef(s) to clone">
+ 	<type type="string"/>
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+	<parameter name="keep blanks" code="kbln" type="boolean" optional="yes" description="default false"/>
+      <parameter name="after" code="afte" type="XMLRef" optional="yes" description="insert new object after this one"/>
+      <parameter name="before" code="befo" type="XMLRef" optional="yes" description="insert new object before this one"/>
+      <result description="a reference to the newly created object(s)">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+	</result>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;lang&gt;&lt;english/&gt;&lt;german/&gt;&lt;spanish/&gt;&lt;/lang&gt;"
+set r to (XMLRoot doc2)
+set {g} to XMLXPath r with "/lang/*[compare(name(),'french')&gt;0]"
+XMLNewSibling "&lt;french/&gt;" before g
+XMLDisplayXML r
+-- "&lt;lang&gt;
+  &lt;english/&gt;
+  &lt;french/&gt;
+  &lt;german/&gt;
+  &lt;spanish/&gt;
+&lt;/lang&gt;"
+XMLClose doc2
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLNodeInfo" code="XML disp" description="return node information.">
+      <synonym name="XMLDisplay"/>
+      <direct-parameter description="the XML object to display. If the direct parameter is an alias (or a string), XMLNodeInfo attempts to retrieve the root node or the DOCTYPE node
+of the file (XMLNodeInfo does not check the whole file)">
+		<type type="XMLRef"/>
+		<type type="alias"/>
+		<type type="string"/>
+	</direct-parameter>
+      <result type="NodeInfo" description="a record containing the name, the kind and the dictionary (attributes) of the object"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">
+Also helpful for development and debugging with its companions XMLDisplayXML and  XMLGetText.
+<br/>Please make sure you have run the XMLOpen example first.
+</div>
+            <div class="example-source">set the_child to XMLChild the_root index 1 
+XMLNodeInfo the_child 
+  --  {kind:"ELEMENT_NODE", name:"ATOM"} 
+  --  the atom itself has children: 
+set the_child_2 to XMLChild the_child index 1 
+XMLNodeInfo the_child_2 
+  --  {kind:"ELEMENT_NODE", name:"NAME"} 
+  --  the 1st atom's 1st child is the atom's name 
+
+ --  And now an example with attributes
+set {hydrogen} to XMLXPath the_root with "ATOM[SYMBOL='H']/BOILING_POINT"
+XMLNodeInfo hydrogen
+ --  {kind:"ELEMENT_NODE", name:"BOILING_POINT", attribute:{"UNITS", "Kelvin"}}
+XMLDisplayXML hydrogen
+ --  "&lt;BOILING_POINT UNITS="Kelvin"&gt;20.28&lt;/BOILING_POINT&gt;"
+XMLGetText hydrogen
+ --  "20.28"
+set {units} to XMLXPath the_root with "ATOM[SYMBOL='H']/BOILING_POINT/@UNITS" -- an atribute node
+XMLNodeInfo units
+ --  {kind:"ATTRIBUTE_NODE", name:"UNITS"}
+XMLDisplayXML units
+ -- " UNITS=\"Kelvin\""
+XMLGetText units
+ --  "Kelvin"
+</div>
+
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLDisplayXML" code="XML disx" description="return an XML object as a string.">
+      <direct-parameter description="the XML object to display">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+      <parameter name="formatting" code="smar" type="boolean" optional="yes" description="add returns and tabs for legibility. Default: true."/>
+      <parameter name="xml declaration" code="XmlH" type="boolean" optional="yes" description="require the xml declaration (relevant only if the direct parameter is a document). Default: true"/>
+      <parameter name="nsclean" code="NsCl" type="boolean" optional="yes" hidden="yes" description="append the implicit namespaces. Default: true."/>
+       <parameter name="html4" code="HTML" type="boolean" optional="yes" description="require compatible HTML4 output (relevant only if the direct parameter is a document). Default: false"/>
+       <parameter name="encoding" code="enco" type="string" optional="yes" description="change the xml declaration or the html charset. However, the result of XMLDisplayXML is always an AppleScript string (Unicode text)"/>
+    <result>
+ 	<type type="string"/>
+	<type type="string" list="yes"/>
+</result>
+    </command>
+    <command name="XMLSetXML" code="XML stxm" description="set the contents of an element or text node.">
+      <direct-parameter type="XMLRef" description="an XML object."/>
+      <parameter name="to" code="to  " type="string" description="the text description for the new contents of the node (or for the new nodes if the direct parameter is a text node)."/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;div/&gt;"
+set r to XMLRoot doc2
+XMLSetText r to "Hello&lt;br/&gt;World" -- create one text node
+XMLDisplayXML r
+ --  "&lt;div&gt;Hello&amp;lt;br/&amp;gt;World&lt;/div&gt;"
+XMLSetXML r to "Hello&lt;br/&gt;World" -- create 2 text nodes and a "br" empty node
+XMLDisplayXML r
+-- "&lt;div&gt;Hello&lt;br/&gt;World&lt;/div&gt;"
+XMLClose doc2
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLGetText" code="XML gttx" description="return the textual contents of a node.">
+      <direct-parameter description="an XML object containing a simple text node.">
+ 		<type type="XMLRef"/>
+ 		<type type="XMLRef" list="yes"/>
+	</direct-parameter>
+     <result>
+ 		<type type="string"/>
+ 		<type type="string" list="yes"/>
+	</result>
+     <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">
+Please make sure you have run the XMLOpen example first.<br/>
+Let us first select a node with a single text node:
+</div>
+            <div class="example-source">set {h} to (XMLXPath the_root with "ATOM[SYMBOL='H']/NAME")
+XMLGetText h 
+  --  "Hydrogen"
+</div>
+            <div class="example-description">
+But with a more complex element, the result is the concatenation of all the text nodes:
+</div>
+            <div class="example-source">set {h} to (XMLXPath the_root with "ATOM[SYMBOL='H']")
+XMLGetText h 
+  --  "Hydrogen1.007941120.2813.81H
+      0.0899
+    1s1 0.322.12.08
+      0.4581
+    
+      14.1
+    
+      0.0585
+    13.598
+      14.304
+    
+      0.1815
+    "
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLSetText" code="XML sttx" description="set the textual contents of an element or text node.">
+      <direct-parameter description="if it is an element node, its content will be replaced by a unique text node">
+		<type type="XMLRef"/>
+ 		<type type="XMLRef" list="yes"/>
+	</direct-parameter>
+      <parameter name="to" code="to  " description="copied as is ; in particular the entities are not interpreted.">
+ 		<type type="string"/>
+ 		<type type="string" list="yes"/>
+	</parameter>
+     <parameter name="suppressing" code="Supp" type="boolean" optional="yes" description="default: false. If true and the &quot;to&quot; parameter is a list containing missing values, then XMLSetText removes (attribute or text) or empties (element) the corresponding nodes. Otherwise these values are ignored"/>
+     <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">
+Please make sure you have run the XMLOpen example first.<br/>
+Let us first select a node with a single text node:
+</div>
+            <div class="example-source">set {h} to (XMLXPath the_root with "ATOM[SYMBOL='H']/NAME")
+XMLSetText h to "Hydrogenium"
+XMLGetText h
+  --  "Hydrogenium"
+</div>
+            <div class="example-description">
+But with a more complex element, the result is a single the text node; other children are deleted:
+</div>
+            <div class="example-source">set {h} to (XMLXPath the_root with "ATOM[SYMBOL='H']")
+XMLSetText h to "Hydrogenium"
+XMLDisplayXML h
+ --  "&lt;ATOM STATE="GAS"&gt;Hydrogenium&lt;/ATOM&gt;"
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLAppendText" code="XML ApTx" description="append text to an element or text node.">
+      <direct-parameter type="string" description="the string to append"/>
+      <parameter name="at" code="at  " description="if necessary, a new text node wil be appended at the end of this node">
+  		<type type="XMLRef"/>
+ 		<type type="XMLRef" list="yes"/>
+	</parameter>
+    <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">Please make sure you have run the XMLOpen example first.</div>
+            <div class="example-source">set doc to XMLOpen from string "&lt;div&gt;Hello&lt;br/&gt;World&lt;/div&gt;"
+set root to XMLRoot doc
+XMLDisplayXML root
+-- "&lt;div&gt;Hello&lt;br/&gt;World&lt;/div&gt;"
+XMLAppendText " !" at root -- append the text to the last text node
+XMLDisplayXML root
+ --  "&lt;div&gt;Hello&lt;br/&gt;World !&lt;/div&gt;"
+XMLSetXML root to "Hello&lt;br/&gt;" -- create 1 text node and a "br" empty node
+XMLDisplayXML root
+ --  "&lt;div&gt;Hello&lt;br/&gt;&lt;/div&gt;"
+XMLAppendText " !" at root -- create a new text node
+XMLDisplayXML root
+ --  "&lt;div&gt;Hello&lt;br/&gt; !&lt;/div&gt;"
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLGetNameSpace" code="XML gtn1" description="return the namespace of a given element.">
+      <direct-parameter type="XMLRef" description=" an XML element or attribute"/>
+      <result description="">
+        <type type="namespace"/>
+      </result>
+    </command>
+    <command name="XMLGetNameSpaces" code="XML gtns" description="search all the namespaces in the scope of a given node.">
+      <direct-parameter type="XMLRef" description=" an XML node"/>
+      <result description="">
+        <type type="namespace" list="yes"/>
+      </result>
+    </command>
+    <command name="XMLGetNameSpaceFromPrefix" code="XML gtn2" description="return the URL associated to a given prefix in the scope of a given node.">
+      <direct-parameter type="XMLRef" description=" an XML node"/>
+       <parameter name="prefix" code="pref" type="text" description=""/>
+     <result description="">
+        <type type="text"/>
+      </result>
+    </command>
+    <command name="XMLAddNamespace" code="XML adns" description="add a namespace declaration in an XML element.">
+      <direct-parameter type="namespace" description=""/>
+      <parameter name="at" code="at  " type="XMLRef" description="an XML element"/>
+    </command>
+    <command name="XMLFind" code="XML find" description="select a child (or children) satisfying a simple criterion: the name of the XML element and/or the key and value of an attribute. XMLFind is a poor man's XMLXPath suitable (and fast) for simple queries and is not aware of the namespace specifiers">
+      <direct-parameter type="XMLRef" description="the parent where the search occurs"/>
+      <parameter name="name" code="pnam" type="string" optional="yes" description="the name of the element"/>
+      <parameter name="key" code="key " type="string" optional="yes" description="the key of the attribute"/>
+      <parameter name="value" code="val " type="string" optional="yes" description="the value of the attribute"/>
+      <parameter name="all occurrences" code="WaAl" type="boolean" optional="yes" description="returns a list of all occurrences. Default : false"/>
+      <result type="XMLRef" description="or a list of XMLRefs with all occurrences"/>
+    </command>
+    <command name="XMLFindText" code="XML fint" description="find a string in text nodes">
+      <direct-parameter type="string" description="the string to find"/>
+      <parameter name="in" code="in  " description="the tree node where the search begins">
+ 	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</parameter>
+     <parameter name="all occurrences" code="WaAl" type="boolean" optional="yes" description="returns a list of all occurrences. Default: false"/>
+      <result type="XMLRef" description="the text node found or a list if &quot;all occurrences&quot; is true. Use XMLParent to retrieve the element node."/>
+    </command>
+    <command name="XMLRegexp" code="XML grep" description="find text nodes conforming (or not conforming) to a given regular expression pattern">
+      <direct-parameter type="string" description="the pattern"/>
+      <parameter name="in" code="in  " description="the tree node where the search begins">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</parameter>
+      <parameter name="all occurrences" code="WaAl" type="boolean" optional="yes" description="returns a list of all occurrences. Default: false"/>
+      <parameter name="conforming" code="Wcon" type="boolean" optional="yes" description="if false returns the text nodes not conforming to the pattern. Default: true"/>
+      <result type="XMLRef" description="the text node found or a list if &quot;all occurrences&quot; is true. Use XMLParent to retrieve the element node."/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">
+Please make sure you have run the XMLOpen example first.
+</div>
+            <div class="example-source">XMLGetText (XMLRegexp "B.*ium" in the_doc with all occurrences)
+ --  {"Barium", "Beryllium", "Bohrium", "Berkelium"}
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLBase" code="XML base" description="get the base URL of a node.">
+      <direct-parameter type="XMLRef" description="a node"/>
+      <parameter name="as" code="rtyp" optional="yes" type="type" description="string, alias..."/>
+      <result type="string" description="the effective base of the node, not the xml:base attribute."/>
+    </command>
+    <command name="XMLSetBase" code="XML Sbas" description="set the xml:base attribute of a node.">
+      <direct-parameter type="XMLRef" description="a node"/>
+      <parameter name="to" code="to  " type="string" description="or alias. Passing &quot;&quot; remove the xml:base attribute of the node"/>
+    </command>
+    <command name="XMLAbsoluteURL" code="XML aURL" description="resolve a relative URL using a node base (or an absolute URL).">
+      <direct-parameter type="string" description="a (possibly) relative URL"/>
+      <parameter name="from" code="from" type="XMLRef" description="the node providing the base URL (or an absolute URL)"/>
+      <parameter name="as" code="rtyp" optional="yes" type="type" description="string, alias..."/>
+      <result type="string" description="an absolute URL"/>
+    </command>
+    <command name="XMLRelativeURL" code="XML rURL" description="translate an URL into the most suitable relative URL with respect to a given base.">
+      <direct-parameter description="an absolute URL">
+	<type type="string"/>
+	<type type="alias"/>
+	</direct-parameter>
+      <parameter name="from" code="from" type="XMLRef" description="the node providing the base URL (or an absolute URL)"/>
+      <result type="string" description="a relative or absolute URL"/>
+    </command>
+    <command name="XMLError" code="XML lErr" description="the full text of the last error occurred (debugging)">
+      <result type="string" description=""/>
+    </command>
+  </suite>
+  <suite name="XML XPath, XSLT" code="XML " description="An AppleScript implementation of XPath, and XSLT.">
+    <record-type name="XPathRef" code="XMLP" description="A record defining a list of XMLRef by providing a node and an xpath string. Such a record may be used instead of a list of XMLRef.">
+      <property name="XMLRef" code="XMLR" type="XMLRef" description="the starting node"/>
+      <property name="xpath pattern" code="xpat" type="string" description="an xpath expression defining a node set."/>
+      <property name="namespace" code="nsls" description="(optional) definition of the prefixes used in the xpath expression.">
+		<type type="namespace" list="yes"/>
+      </property>
+      <property name="xpath variables" code="vars" description="(optional) an even list {varname1,value1,…}. varname1 is a string and value1 should be a string, a number, a boolean or a (list of ) CFRef . The XPath expression may refer to such a variable by $varname1. Alternatively, xpath variables may be a record {var1:value1,...}">
+	<type type="any" list="yes"/>
+	<type type="record"/>
+      </property>
+   </record-type>
+    <command name="XMLXPath" code="XML path" description="select an object (or objects) satisfying an xpath request. ">
+      <direct-parameter type="XMLRef" description="the starting point for the path"/>
+      <parameter name="with" code="with" type="string" description="the xpath expression"/>
+      <parameter name="namespace" code="nsls" optional="yes" description="{nsprefix:theName, nsurl:thehref} or a list of records. Or use XMLSetContext.">
+   	<type type="namespace"/>
+	<type type="namespace" list="yes"/>
+</parameter>
+    <parameter name="xpath variables" code="vars" type="list" optional="yes" description="an even list {varname1,value1,…}. The XPath expression may refer to such a variable by $varname1. Alternatively, xpath variables may be a record {var1:value1,...}"/>
+    <result description="the selected objects">
+        <type type="XMLRef" list="yes"/>
+      </result>
+      <documentation>
+        <html>
+XMLXpath conforms to XPath1.0 and adds :
+<ul>
+<li>the XPath2.0 functions compare, upper-case, lower-case, ends-with and base-uri in the namespace "http://www.w3.org/2005/xpath-functions"
+</li><li>
+the folowing <a href="http://www.exslt.org/" onclick="window.open('http://www.exslt.org/');return false;">exslt extensions</a>:
+<ul><li>align, concat, decode-uri, encode-uri, padding and replace in the namespace "http://exslt.org/strings"</li>
+<li>abs, acos, asin, atan, constant, cos, exp, highest, log, lowest, max, min, power, random, sin, sqrt and tan in the namespace "http://exslt.org/math"</li>
+<li>add, add-duration, date, date-time, day-abbreviation, day-in-month, day-in-week, day-in-year, day-name, day-of-week-in-month, difference, duration, hour-in-day, leap-year, minute-in-hour, month-abbreviation, month-in-year, month-name, second-in-minute, seconds, sum, time, week-in-month, week-in-year and  year in the namespace "http://exslt.org/dates-and-times"</li>
+<li>difference, distinct, has-same-node, intersection, leading and trailing in the namespace "http://exslt.org/sets"</li>
+<li>md5, sha1, sha224, and sha256 in the namespace "http://exslt.org/crypto".
+</li></ul>
+</li>
+<li>parent-uri and relative-uri in the namespace "http://satimage.fr/software/xpath-functions". The function parent-uri(uri) returns the "parent" of uri and the function relative-uri(uri1,uri2) returns uri1 as a relative url with respect to uri2 (uri, uri1, uri2 must be of type string or nodeset).
+</li>
+
+<li>any AppleScript handler thru the namespace "http://satimage.fr/software/xpath-functions-applescript" (see the example below).
+</li>
+</ul>
+          <div style="display:none" class="example">
+            <div class="example-description">
+Please make sure you have run the XMLOpen example first.<br/>
+Here we suppose we would like to retrieve the atomic weight of Oxygen.
+</div>
+            <div class="example-source">set {the_weight} to XMLXpath the_root with "ATOM[NAME='Oxygen']/ATOMIC_WEIGHT" 
+XMLGetText the_weight 
+  --  "15.9994"
+</div>
+            <div class="example-description">
+Or shorter
+</div>
+            <div class="example-source">XMLXpath the_root with "string(ATOM[NAME='Oxygen']/ATOMIC_WEIGHT)" 
+  --  "15.9994"
+</div>
+            <div class="example-description">
+Or using xpath variables (very useful to avoid problems with characters like "'&lt;&gt;&amp;)
+</div>
+            <div class="example-source">XMLXPath the_root with "string(ATOM[NAME=$s]/ATOMIC_WEIGHT)" xpath variables {s:"Oxygen"} 
+  --  "15.9994"
+</div>
+            <div class="example-description">
+Another example with a test on an attribute:
+</div>
+            <div class="example-source">XMLGetText (XMLXPath the_root with "*[@STATE='GAS']/NAME")
+ --  {"Argon", "Hydrogen", "Helium", "Xenon"}
+</div>
+             <div class="example-description">
+Another example with a math function:
+</div>
+            <div class="example-source">XMLSetContext the_doc namespace {nsprefix:"math", nsurl:"http://exslt.org/math"}
+XMLGetText (XMLXPath the_doc with "//ATOM[math:abs(number(ATOMIC_NUMBER[1])-8)&lt;3]/NAME")
+ -- {"Carbon", "Fluorine", "Nitrogen", "Neon", "Oxygen"}
+</div>
+            <div class="example-description">
+Suppose you discover an unknown atom, and you name it Smilium.The most urgent thing would be to find a symbol for it.
+</div>
+            <div class="example-source">XMLXpath the_root with "ATOM[SYMBOL='Sm']"
+ --  {«data XMLR000000010718F430»}
+</div>
+            <div class="example-description">
+The symbol "Sm" is already in use, let us try "Sl":
+</div>
+            <div class="example-source">XMLXpath the_root with "ATOM[SYMBOL='Sl']"
+ --  {}
+</div>
+            <div class="example-description">
+The symbol "Sl" is available. We now find the element just before Smilium in alphabetic order:
+</div>
+            <div class="example-source">set x to item -1 of (XMLXPath the_root with "ATOM[compare(NAME,'Smilium')&lt;0]")
+XMLGetText (XMLFind x name "NAME")
+ -- "Samarium"
+</div>
+            <div class="example-description">
+And create the Smilium:
+</div>
+            <div class="example-source">set the_data to "&lt;ATOM&gt; 
+&lt;NAME&gt;Smilium&lt;/NAME&gt; 
+&lt;SYMBOL&gt;Sl&lt;/SYMBOL&gt;&lt;/ATOM&gt;" 
+set the_smilium to XMLNewSibling the_data after x
+ --  «data XMLR00000001095D9720»
+</div>
+            <div class="example-description">
+Now we can enter more information about Smilium:
+</div>
+            <div class="example-source">XMLNewChild "&lt;ATOMIC_NUMBER&gt;144&lt;/ATOMIC_NUMBER&gt;" at the_smilium 
+XMLNewChild "&lt;ATOMIC_WEIGHT&gt;321&lt;/ATOMIC_WEIGHT&gt;" at the_smilium 
+XMLNewChild "&lt;ATOMIC_RADIUS&gt;3.14&lt;/ATOMIC_RADIUS&gt;" at the_smilium
+</div>
+            <div class="example-description">
+... and finally display our element:
+</div>
+            <div class="example-source">XMLDisplayXML the_smilium
+ -- "&lt;ATOM&gt;
+  &lt;NAME&gt;Smilium&lt;/NAME&gt;
+  &lt;SYMBOL&gt;Sl&lt;/SYMBOL&gt;
+  &lt;ATOMIC_NUMBER&gt;144&lt;/ATOMIC_NUMBER&gt;
+  &lt;ATOMIC_WEIGHT&gt;321&lt;/ATOMIC_WEIGHT&gt;
+  &lt;ATOMIC_RADIUS&gt;3.14&lt;/ATOMIC_RADIUS&gt;
+&lt;/ATOM&gt;"
+</div>
+            <div class="example-description">
+Assuming that the following handler exists in your AppleScript context:
+</div>
+<div class="example-source">on myregexp(pattern, s)
+	try
+		find text pattern in s with regexp and string result
+		return true
+	end
+	return false
+end myregexp
+</div>
+            <div class="example-description">
+You can now use regexp expressions in the following way:
+</div>
+<div class="example-source">XMLSetContext the_doc namespace {nsprefix:"AS", nsurl:"http://satimage.fr/software/xpath-functions-applescript"}
+set x to XMLXPath the_root with "ATOM/NAME[AS:myregexp('Se.*um', string(.))]"
+XMLDisplayXML x
+-- {"&lt;NAME&gt;Selenium&lt;/NAME&gt;", "&lt;NAME&gt;Seaborgium&lt;/NAME&gt;"}</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLSetContext" code="XML xpns" description="set the default context for future xpath requests.">
+      <direct-parameter type="XMLRef" description=" an XML document"/>
+      <parameter name="namespace" code="nsls" optional="yes" description="a list of {nsprefix:theName, nsurl:thehref}. If nsurl is &quot;&quot; the pair is removed. Further calls to XMLXPath may omit the &quot;namespace&quot; parameter">
+        <type type="namespace" list="yes"/>
+      </parameter>
+      <parameter name="xpath variables" code="vars" optional="yes" description="a list {varname1 ,value1,…}. Further XMLXPath expressions may refer to such a variable by $varname1. If value1 is &quot;missing value&quot; the variable &quot;varname1&quot; becomes undefined.  Alternatively, &quot;xpath variables&quot; may be a record {var1:value1,...}">
+	<type type="string" list="yes"/>
+	<type type="record"/>
+	</parameter>
+     <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">
+Here we deal with "allelementsns.xml", a clone of "allelements.xml" with a default namespace in the root element.
+Suppose we would like to retrieve the atomic weight of Oxygen.
+</div>
+            <div class="example-source">set the_URLns to "http://www.satimage.fr/software/samples/allelementsns.xml"
+set the_docns to XMLOpen the_URLns
+--  «data XMLR0000000200000000»
+set the_rootns to XMLRoot the_docns 
+set {the_atom} to XMLXpath the_rootns with "ATOM[NAME='Oxygen']" 
+  --  {}
+</div>
+            <div class="example-description">Indeed the ATOM element belongs to the namespace "http://www.satimage.fr/software/samples/periodictable"
+</div>
+            <div class="example-source">XMLXpath the_rootns with "pt:ATOM[pt:NAME='Oxygen']" namespace {nsprefix:"pt", nsurl:"http://www.satimage.fr/software/samples/periodictable"}
+  --  {«data XMLR0000001208209A80»}
+</div>
+            <div class="example-description">XMLSetContext may simplify the scripting
+</div>
+            <div class="example-source">XMLSetContext the_docns  namespace {nsprefix:"pt", nsurl:"http://www.satimage.fr/software/samples/periodictable"}
+XMLXpath the_rootns with "pt:ATOM[pt:NAME='Oxygen']"
+  --  {«data XMLR0000001208209A80»}
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLGetContext" code="XML xpNS" description="get the xpath context.">
+      <direct-parameter type="XMLRef" description=" an XML document"/>
+<result type="record"/>
+</command>
+   <command name="XMLGetNodePath" code="XML NoPa" description="return a valid xpath for an object.">
+      <direct-parameter type="XMLRef" description="the node"/>
+      <parameter name="from" code="from" type="XMLRef" optional="yes" description="starting point for the path"/>
+      <result type="string" description="the path"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">Please make sure you have run the XMLOpen example first.<br/>
+For debugging purposes, the returned XPath expression is exactly the path to the object</div>
+            <div class="example-source">set {the_weight} to XMLXpath the_root with "ATOM[NAME='Oxygen']/ATOMIC_WEIGHT" 
+XMLGetNodePath the_weight
+ --  "/PERIODIC_TABLE/ATOM[67]/ATOMIC_WEIGHT"
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLXPointer" code="XML xptr" description="resolve a reference to a XML fragment. &quot;XMLXPointer&quot;  can open the targeted XML file only if the &quot;read permission&quot; parameter is not false.">
+      <direct-parameter type="string" description="the link: &quot;[absoluteOrRelativeUrl]#anID&quot; (the file must have been opened with &quot;XMLOpen&quot; using the validate option) or &quot;[absoluteOrRelativeUrl]#xpointer(xpathExpression)&quot;"/>
+      <parameter name="baseURL" code="burl" optional="yes" type="string" description="the base URL in order to resolve a relative URL. Alternatively may be provided by the &quot;from&quot; parameter "/>
+      <parameter name="from" code="from" optional="yes" type="XMLRef" description="for non-local links and relative URLs, define the base URL for the link. For local links (starting with #) and relative xpathExpression: the element where the search begins"/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="the name of the group where the open document can be found. By default XMLXPointer use the pool of the &quot;from&quot; parameter or the current pool"/>
+      <parameter name="namespace" code="nsls" optional="yes" description="{nsprefix:theName, nsurl:thehref} or a list of records to resolve the xpath expression">
+    	<type type="namespace"/>
+	<type type="namespace" list="yes"/>
+</parameter>
+     <parameter name="read permission" code="CnOp" type="boolean" optional="yes" description="default true. Open a new document if necessary. If true (or missing) the following parameters may be useful."/>
+      <parameter name="keep blanks" code="kbln" type="boolean" optional="yes" description="default false"/>
+      <parameter name="substitute entities" code="SuEn" type="boolean" optional="yes" description="default false"/>
+      <parameter name="validate" code="Vali" type="boolean" optional="yes" description="validate with respect to its dtd; default false"/>
+      <parameter name="failure level" code="ErLe" type="integer" optional="yes" description="a number between 1 and 3. 3: fail only on fatal errors, 2: fail on xml recoverable errors, 1: fail on warnings. The default is provided by the XMLErrorLevel command."/>
+      <result description="the objects linked">
+        <type type="XMLRef" list="yes"/>
+      </result>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">Please make sure you have run the XMLOpen example first.<br/>
+An example with a local pointer</div>
+            <div class="example-source">set the_pointer to "#xpointer(/PERIODIC_TABLE/ATOM[NAME='Oxygen'])"
+set {the_atom} to XMLXPointer the_pointer from the_doc
+  --  {«data XMLR0000001208209A80»}
+</div>
+            <div class="example-description">An example with an absolute URL</div>
+            <div class="example-source">set the_pointer to "http://www.satimage.fr/software/samples/allelements.xml#xpointer(/PERIODIC_TABLE/ATOM[NAME='Oxygen'])"
+set {the_atom} to XMLXPointer the_pointer
+  --  {«data XMLR0000001208209A80»}
+</div>
+            <div class="example-description">An example with a relative URL and explicit namespace.<br/>
+This kind of reference frequently occurs when you refer to an xml element of another document (usually in a href attribute).<br/>
+This example uses the pool parameter to allocate the (possible) new document in a new pool which can be deleted after use.</div>
+            <div class="example-source">set the_URLns to "allelementsns.xml"
+set the_pointer to "xpointer(/pt:PERIODIC_TABLE/pt:ATOM[pt:NAME='Oxygen']/pt:ATOMIC_WEIGHT)"
+set ns to "http://www.satimage.fr/software/samples/periodictable"
+set fullURL to (escapeURL the_URLns) &amp; "#" &amp; the_pointer
+set {the_weight} to XMLXPointer fullURL from the_atom namespace {nsprefix:"pt", nsurl:ns} in pool "trash"
+-- or better
+set fullURL to (escapeURL the_URLns) &amp; "#xmlns(pt=" &amp; ns &amp; ")" &amp; the_pointer
+set {the_weight} to XMLXPointer fullURL from the_atom in pool "trash"
+XMLGetText the_weight
+  --  "15.9994"
+DeletePool "trash"
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+   <command name="XMLEscapeXPointer" code="XML ExXp" description="return a valid string value for an xpath predicate." hidden="yes">
+	<direct-parameter type="string" description="the string"/>
+     <result type="string" description="the escaped string"/>
+     </command>
+  <command name="XMLGetXPointer" code="XML gxpt" description="return a valid xpointer for an object." hidden="yes">
+      <direct-parameter type="XMLRef" description="the node"/>
+ 	<!--parameter name="matching" code="matc" type="string" description="an xpath expression evaluated to build the last predicate of the pointer"/-->
+ 	<parameter name="suffix" code="suff" type="string" description="an xpath expression to append as the last path(s) of the xpointer"/>
+     <result type="string" description="the xpointer"/>
+    </command>
+    <command name="XMLTransform" code="XML xslt" description="transform an XML document (or a node) according to a given XSLT stylesheet.">
+      <direct-parameter type="XMLRef" description="the XML document to transform (or a node)"/>
+      <parameter name="with" code="with" type="string" optional="yes" description="(or an XMLRef) the stylesheet. If this parameter is missing, XMLTransform will attempt to find in the direct parameter a processing instruction providing a stylesheet: &lt;?xml-stylesheet type='…' href='... '?&gt;. The type attribute must be 'text/xsl' or 'application/xml' or 'text/xml'"/>
+      <parameter name="xsl params" code="varx" optional="yes" description="a list {varname1 ,value1,…}. Set the values of the global xsl:param elements of the stylesheet or create new xsl global variables. The values are strings interpreted as xpath expressions. Thus a raw string parameter must be quoted like in {s:&quot;'hello'&quot;}. As there is no escaping in xsl, raw string parameters can more simply be provided with the &quot;xsl string params&quot; parameter. Alternatively, &quot;xsl params&quot; may be a record {var1 ,value1,…}">
+	<type type="record"/>
+	<type type="string" list="yes"/>
+	</parameter>
+      <parameter name="xsl string params" code="vaxs" type="list" optional="yes" description="like xsl params, but the string values are automatically quoted"/>
+      <parameter name="in" code="kfil" type="file specification" optional="yes" description="a file path for the result"/>
+      <parameter name="as" code="rtyp" type="type" optional="yes" description="XMLRef or string or CFRef. Default: XMLRef"/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="the name of the group where the new document must be created. Default: the current pool. At launch the current pool is &quot;&quot;."/>
+      <result description=" or no result if the &quot;in&quot; parameter is present. A reference to the newly created document (resp. string) if the &quot;as&quot; parameter is XMLRef (resp. string) or a property list if the &quot;as&quot; parameter is CFRef (and the resulting data are actually valid XML data for a property list)">
+	<type type="XMLRef"/>
+	<type type="string"/>
+	<type type="CFRef"/>
+	</result>
+      <documentation>
+        <html>
+XMLTransform conforms to XSLT-1.0. Most of the <a href="http://www.exslt.org/" onclick="window.open('http://www.exslt.org/');return false;">exslt extensions</a> are available. Namely the whole common, math, sets and strings modules, the functions 
+evaluate() and map() of the dynamic module, the date module except parse-date() and format-date(), the functions module except the element script.<br/>
+The <a href="http://www.saxonica.com/documentation/extensions/functions.html" onclick="window.open('http://www.saxonica.com/documentation/extensions/functions.xml');return false;">saxon extensions</a>  expression(), eval(), evaluate() and line-number() are also available in the namespace "http://icl.com/saxon".
+          <div style="display:none" class="example">
+            <div class="example-description">In Smile, if you have opened a document containing a processing instruction providing a stylesheet: &lt;?xml-stylesheet type='application/xml' href='... '?&gt;, you can display in a web window the result of its transformation by hitting the enter key with the command key pressed in its Unicode window.</div>
+            <div class="example-description">Extract the 20 first ATOM , sort the first elements of ATOM for better display, add an ID attribute to ATOM elements and a css stylesheet</div>
+            <div class="example-source">set the_doc to XMLOpen "http://www.satimage.fr/software/samples/allelements.xml"
+set f to ((path to desktop from user domain) as string) &amp; "firstelements.xml"
+XMLTransform the_doc with "http://www.satimage.fr/software/samples/extract.xsl" in file f
+open file f
+</div>
+            <div class="example-description">In Smile, you can now display these elements by hitting the enter key with the option (alt) key pressed in the "firstelements.xml" window.<br/>
+The stylesheet can be opened with the Open URL menu or by executing: open "http://www.satimage.fr/software/samples/extract.xsl".<br/>
+Notice that "firstelements.xml" now declares a dtd. In Smile, you can check the validity of the document by hitting the enter key with the command key pressed in the "firstelements.xml" window.<br/>
+Now ATOM nodes can be retrieved with their symbol like in:
+</div>
+            <div class="example-source">set theurl to "file://localhost" &amp; POSIX path of file f
+set {hydrogen} to XMLXPointer (theurl &amp; "#H") with validate
+</div>
+            <div class="example-description">or by rank with the atomic number:
+</div>
+            <div class="example-source">
+set {hydrogen} to XMLXPointer (theurl &amp; "#xpointer(PERIODIC_TABLE/ATOM[1])")
+ -- or with the abbreviated syntax:
+set {hydrogen} to XMLXPointer (theurl &amp; "#/1/2") -- element 1 of PERIODIC_TABLE is HEADER !
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLCompile" code="XML pxsl" hidden="yes" description="compile an XML document into a XSLT stylesheet for faster transformations. The resulting stylesheet is stored within the document and will be used in future XMLTransform calls">
+      <direct-parameter type="XMLRef" description="the XML document"/>
+    </command>
+    <command name="XMLNewIndex" code="XML NKey" hidden="no" description="create an index for XMLLookup. XMLNewIndex returns an error if its evaluation results in an empty index">
+      <direct-parameter type="string" description="the name of the index"/>
+      <parameter name="match" code="matc" type="string" description="an XPath expression for the selected items"/>
+      <parameter name="use" code="use " type="string" description="an XPath expression for the identifier of the items in the index"/>
+      <parameter name="at" code="at  " type="XMLRef" description="the document or the node to apply the match"/>
+      <parameter name="namespace" code="nsls" optional="yes" description="{nsprefix:theName, nsurl:thehref} or a list of records. Or use XMLSetContext.">
+    	<type type="namespace"/>
+	<type type="namespace" list="yes"/>
+</parameter>
+     <parameter name="xpath variables" code="vars" type="list" optional="yes" description="a list {varname1 ,value1,…}. The XPath expression may refer to such a variable by $varname1.  Alternatively, &quot;xpath variables&quot; may be a record {var1 :value1,…}"/>
+   <documentation>
+        <html>
+The goal is to optimize XPath requests by evaluating once and for all an xpath request and putting the results in an index.<br/>
+The references of the index are the nodes matched by the &quot;match&quot; pattern.
+The entries are the string value of the &quot;use&quot; pattern apllied to each reference of the index.
+An index works as an &quot;xsl:key&quot; element in an xslt stylesheet.<br/><br/>
+	Be aware that if after calling XMLNewIndex you add nodes to the document, the index may be no longer correct. <br/>
+	In this case rebuild the index with XMLNewIndex or delete it by passing XMLNewIndex an empty match: &quot;&quot;.
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLLookup" code="XML GKey" hidden="no" description="retrieve a list of nodes associated to an index and a key">
+      <direct-parameter type="string" description="the entry to find in the index"/>
+      <parameter name="using" code="by  " type="string" description="the name of the index. XMLLookup returns an error if there is no index with the given name"/>
+       <parameter name="at" code="at  " type="XMLRef" description="the document (or a node of the document) holding the index"/>
+     <result description="an empty list if there is no entry in the index corresponding to the direct parameter">
+        <type type="XMLRef" list="yes"/>
+      </result>
+    <documentation>
+        <html>
+ 	<div style="display:none" class="example">
+           <div class="example-description">A basic example:
+</div>
+            <div class="example-source">set doc to XMLOpen from string "&lt;a&gt;&lt;b name='x'/&gt;&lt;b name='y'/&gt;&lt;/a&gt;"
+XMLNewIndex "test key" match "//b" use "@name" at doc
+set {x} to XMLLookup "x" using "test key" at doc
+XMLDisplayXML x
+ -- "&lt;b name=\"x\"/&gt;"
+</div>
+           <div class="example-description">The following example opens a plist as an XML document. Then build an index to map the &quot;keys&quot; of the plist dictionary onto their contents.
+</div>
+            <div class="example-source">set doc to XMLOpen "/Applications/Safari.app/Contents/Info.plist"
+XMLNewIndex "dict" match "/plist/dict/*[name()!='key']" use "preceding-sibling::key[1]" at doc
+set {x} to XMLLookup "CFBundleIdentifier" using "dict" at doc
+XMLGetText x
+ -- "com.apple.Safari"
+</div>
+</div>
+        </html>
+      </documentation>
+	</command>
+     <command name="XMLEntries" code="XML LKey" description="return the list of the keys in an index created with XMLNewIndex">
+      <direct-parameter type="string" description="the name of the index"/>
+      <parameter name="at" code="at  " type="XMLRef" description="the document containing the index"/>
+      <parameter name="duplicate match" code="dupl" type="boolean" optional="yes" description="if true (resp. false) retrieves only the entries corresponding to multiple matches (resp. single match). Default: return all entries"/>
+      <result>
+        <type type="string" list="yes"/>
+      </result>
+   </command>
+  <command name="XMLIndexDocument" code="XML idoc" hidden="yes" description="index or re-index a document. May be useful to speed up XMLTransform or XMLXPath when some expressions involve node ordering.">
+      <direct-parameter type="XMLRef" description="the XML document to index"/>
+    </command>
+    <command name="XMLStrings" code="XML DCon" hidden="yes" description="">
+      <direct-parameter type="XMLRef" description="or a list">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+	</direct-parameter>
+	<result type="text" description=""/>
+    </command>
+    <command name="XMLLocalize" code="XML LoCo" hidden="yes" description="">
+      <direct-parameter type="XMLRef" description="or a list"/>
+	<parameter name="using" code="in  " type="alias" description="the .strings file"/>
+     <documentation>
+        <html>
+ 	<div style="display:none" class="example">
+           <div class="example-description">A basic example:
+</div>
+            <div class="example-source">set doc to …
+set l to XMLXPath doc with "//text()"
+set ll to XMLStrings l
+writetext ( build localizable {ll, ll}) to "afile.strings"
+XMLLocalize l using "afile.strings"
+</div>
+</div>
+        </html>
+      </documentation>
+   </command>
+  </suite>
+  <suite name="XML Documents" code="XML " description="Commands to handle XML documents and global settings.">
+    <command name="XMLURL" code="XML gurl" description="get the path to the XML document.">
+      <direct-parameter type="XMLRef" description="the document"/>
+      <parameter name="as" code="rtyp" optional="yes" type="type" description="string, alias..."/>
+      <parameter name="parent" code="pare" optional="yes" type="boolean" description="return the parent folder. Default: false"/>
+      <result type="file specification" description=""/>
+    </command>
+    <command name="XMLSetURL" code="XML sURL" description="">
+      <direct-parameter type="XMLRef" description="a node"/>
+      <parameter name="to" code="to  " type="alias" description=""/>
+    </command>
+    <command name="XMLDocument" code="XML gfur" description="get the opened XML document from the file URL.">
+      <direct-parameter type="file specification" description=""/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="Default: the current pool. At launch the current pool is &quot;&quot;."/>
+      <result type="XMLRef" description="the document"/>
+    </command>
+    <command name="XMLCatalog" code="XML cata" description="resolve a PUBLIC or SYSTEM ID or a URI with respect to the available catalogs">
+      <direct-parameter type="string" description=""/>
+      <result type="string" description="a URL"/>
+        <documentation><html>
+	Available <a href="http://www.oasis-open.org/committees/entity/spec-2001-08-06.html" onclick="window.open('http://www.oasis-open.org/committees/entity/spec-2001-08-06.html');return false;">catalogs</a> are located at &quot;/etc/xml/catalog&quot; or &quot;/Library/DTDs/catalog&quot;.
+       </html>
+      </documentation>
+    </command>
+   <command name="XMLCloneDocument" code="XML cdoc" description="create a clone of the direct parameter (except for the url)">
+      <direct-parameter type="XMLRef" description="a document"/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="Default: the current pool."/>
+      <result type="XMLRef" description="the newly created document"/>
+    </command>
+    <command name="XMLXInclude" code="XML Xinc" description="XInclude processing">
+      <direct-parameter type="XMLRef" description="a document"/>
+      <result type="integer" description="the number of includes processed"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-source">set doc to XMLOpen from string "&lt;a&gt;
+  &lt;include xmlns='http://www.w3.org/2001/XInclude' 
+    href='http://www.satimage.fr/software/samples/allelements.xml' 
+    xpointer=\"xpointer(/PERIODIC_TABLE/ATOM[NAME='Argon'])\"/&gt;
+&lt;/a&gt;"
+XMLXInclude doc
+XMLDisplayXML doc
+  --  "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;
+&lt;a&gt;
+  &lt;ATOM STATE=\"GAS\" xml:base=\"http://www.satimage.fr/software/samples/allelements.xml\"&gt;
+    &lt;NAME&gt;Argon&lt;/NAME&gt;
+    &lt;ATOMIC_WEIGHT&gt;39.948&lt;/ATOMIC_WEIGHT&gt;
+    &lt;ATOMIC_NUMBER&gt;18&lt;/ATOMIC_NUMBER&gt;
+    ...
+     &lt;THERMAL_CONDUCTIVITY UNITS=\"Watts/meter/degree Kelvin\"&gt;&lt;!-- At 300K --&gt;
+      0.0177
+    &lt;/THERMAL_CONDUCTIVITY&gt;
+  &lt;/ATOM&gt;
+&lt;/a&gt;"
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLGetEncoding" code="XML genc" description="return the encoding of the XML document.">
+      <direct-parameter type="XMLRef" description="the document"/>
+      <result type="string" description=""/>
+    </command>
+    <command name="XMLSetEncoding" code="XML senc" description="set the encoding of the XML document. The encoding will be used by XMLSave.">
+      <direct-parameter type="XMLRef" description="the document"/>
+      <parameter name="to" code="to  " type="string" description="&quot;UTF-8&quot;, &quot;ASCII&quot;, &quot;UTF-16&quot;, &quot;ISO-8859-1&quot;... &quot;ISO-8859-9&quot;, &quot;ISO-2022-JP&quot;, &quot;SHIFT_JIS&quot; or &quot;EUC-JP&quot;."/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">An example with a local pointer</div>
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;a&gt;Français&lt;/a&gt;"
+XMLGetEncoding doc2
+ -- ""
+XMLClose doc2</div>
+            <div class="example-description">Default is ASCII, and the file will be saved as &lt;?xml version="1.0"?&gt;
+&lt;a&gt;Fran&amp;#xE7;ais&lt;/a&gt;.</div>
+            <div class="example-source">XMLSetEncoding doc to "UTF-8"
+<div class="example-description">Now the file will be saved as &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;a&gt;Français&lt;/a&gt;.</div>
+</div>
+            <div class="example-description">You may also proceed as in</div>
+            <div class="example-source">set doc2 to XMLOpen from string "&lt;?xml version='1.0' encoding='UTF-8'?&gt;&lt;a&gt;Français&lt;/a&gt;"
+XMLGetEncoding doc2
+ -- "UTF-8"
+XMLClose doc2</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLSetIndentString" code="XML Indt" description="set the default indent string. The indent string is used by XMLSave and XMLDisplayXML.">
+      <direct-parameter type="string" description="a string containing spaces or tabs"/>
+      <result type="string" description="the previous indent string"/>
+    </command>
+    <command name="XMLSave" code="XML save" description="save an XML document.">
+      <direct-parameter type="XMLRef" description="the XML object to save"/>
+      <parameter name="in" code="kfil" optional="yes" type="file specification" description="the file path"/>
+      <parameter name="formatting" code="smar" type="boolean" optional="yes" description="add returns and tabs for legibility. Default: true."/>
+      <parameter name="html4" code="HTML" type="boolean" optional="yes" description="require compatible HTML4 output. Default: false"/>
+      <parameter name="xml declaration" code="XmlH" type="boolean" optional="yes" description="require the xml declaration. Default: true"/>
+      <parameter name="encoding" code="enco" type="string" optional="yes" description=""/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">Please make sure you have run the XMLOpen example first.</div>
+            <div class="example-source">XMLSave doc in file ("" &amp; (path to desktop) &amp; "allelements.xml")
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLErrorLevel" code="XML ErLe" description="">
+      <direct-parameter type="integer" optional="yes" description="the requested error level. 1 fails on warnings. 2 fails on XML recoverable errors. 3 fails on fatal errors. Set to 2 at the beginning"/>
+      <result type="integer" description="the previous setting"/>
+    </command>
+    <command name="XMLExtendedChar" code="XML Vr11" description="toggle between the 1.0 and the 1.1 XML recommendation for character definition.">
+      <direct-parameter type="boolean" optional="yes" description="if true the extended character set (including all positive characters smaller than 32) of the 1.1 XML recommendation is in use."/>
+      <result type="boolean" description="the previous setting"/>
+    </command>
+    <command name="XMLListDocuments" code="XML List" description="">
+      <direct-parameter type="string" optional="yes" description="the pool. Default: the current pool."/>
+      <parameter name="as" code="as  " type="anything" optional="yes" description="XMLListDocuments as string returns the url of the xmldocuments instead of their references"/>
+      <result description="the opened xmldocuments">
+        <type type="XMLRef" list="yes"/>
+      </result>
+    </command>
+   <command name="XMLSetDocID" code="XML SDbK" description="set an identifier to an existing document. Avoid many problems with the AppleScript's global variables">
+      <direct-parameter type="XMLRef" description="the XML document"/>
+	<parameter name="to" code="to  " type="string" description=""/>
+	<result type="string" description="the previous ID"/>
+    </command>
+   <command name="XMLGetDocByID" code="XML GDbK" description="retrieve a document by identifier">
+      <direct-parameter type="string" description="the identifier"/>
+     <parameter name="in pool" code="pool" type="string" optional="yes" description="Default: the current pool."/>
+	<result type="XMLRef" description=""/>
+    </command>
+    <command name="XMLc14n" code="XML c14n" description="Canonicalization of an XML document">
+      <direct-parameter type="XMLRef" description="the XML document or a list of XMLRef or an XPathRef"/>
+      <parameter name="in" code="in  " type="alias" optional="yes" description="the destination file"/>
+      <parameter name="comments" code="comm" type="boolean" optional="yes" description="include comments. Default true"/>
+      <parameter name="nodelist" code="Nset" optional="yes" hidden="yes" description="the set of nodes to output. Default all nodes.">
+        <type type="XMLRef" list="yes"/>
+      </parameter>
+      <parameter name="exclusive" code="Excl" type="boolean" optional="yes" description="exclusive canonicalization. Default false"/>
+      <parameter name="inclusive prefixes" code="Incl" optional="yes" description="list of inclusive prefixes (relevant if exclusive is true).">
+        <type type="string" list="yes"/>
+      </parameter>
+      <parameter name="digest" code="Meth" type="string" optional="yes" description="&quot;SHA1&quot; or &quot;MD5&quot;. If this parameter is provided, returns a digest using the specified algorithm. The result is base64-encoded if the &quot;in&quot; parameter is not provided."/>
+      <result type="string" description="if the &quot;in&quot; parameter is not provided."/>
+      <documentation>
+        <html>
+	If the direct parameter is an XMLRef, XMLc14n processes the entire document containing that reference.<br/>
+	If the direct parameter is a list, XMLc14n processes the subset according to <a href="http://www.w3.org/TR/xml-c14n11/#DocSubsets" onclick="window.open('http://www.w3.org/TR/xml-c14n11/#DocSubsets');return false;">xml-c14n11</a>.<br/>
+	Consequently, in order to process the element myElem as a whole, you may use the XPathRef: {XMLRef:myElem, xpath pattern:"descendant-or-self::node()|.//@*"} as direct parameter.
+       </html>
+      </documentation>
+   </command>
+   <command name="XMLSetExtras" code="XML Sext" description="associate any AppleScript contents with a document. This utility command is at the scripter's convenience and has no effect on the XML part of the document">
+      <direct-parameter type="XMLRef" description="the XML document"/>
+	<parameter name="to" code="to  " type="anything" description=""/>
+    </command>
+   <command name="XMLGetExtras" code="XML Gext" description="retrieve the extras of a document">
+      <direct-parameter type="XMLRef" description="the XML document"/>
+	<result type="anything" description=""/>
+    </command>
+  </suite>
+  <suite name="XML Validation" code="XML " description="Validation of documents and DTDs">
+    <command name="XMLValidate" code="XML vali" description="validate a document with respect to its DTD or a given dtd.">
+      <direct-parameter type="XMLRef" description="the document or the element to validate"/>
+      <parameter name="against" code="agai" type="alias" optional="yes" description="a dtd"/>
+      <parameter name="verbose" code="Verb" type="boolean" optional="yes" description="default false"/>
+      <parameter name="failure level" code="ErLe" type="integer" optional="yes" description="a number between 1 and 2. 2: fail on recoverable xml errors, 1: fail on warnings. Default: 2"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-description">In Smile, you can check the syntax of a document by hitting the enter key in its Unicode window, and you can check the validity of a document by hitting the enter key with the command key pressed in its Unicode window.</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+    <command name="XMLSchema" code="XML Schm" description="validate a schema or a document with respect to a schema">
+      <direct-parameter type="XMLRef" optional="yes" description="the document. If this parameter is missing, XMLSchema attempts to validate the schema provided in the &quot;with respect to&quot; parameter"/>
+      <parameter name="with respect to" code="With" type="alias" optional="yes" description="the url of the schema. May be also provided as text or XMLRef. If this parameter is missing, XMLSchema uses the attributes &quot;noNamespaceSchemaLocation&quot; or &quot;SchemaLocation&quot; in the namespace &quot;http://www.w3.org/2001/XMLSchema-instance&quot;"/>
+    </command>
+    <command name="XMLRelaxNG" code="XML rlax" description="validate a relaxNG schema or a document with respect to a relaxNG schema">
+      <direct-parameter type="XMLRef" optional="yes" description="the document. If this parameter is missing, XMLRelaxNG attempts to validate the relaxNG schema provided in the &quot;with respect to&quot; parameter"/>
+      <parameter name="with respect to" code="With" type="alias" description="the url of the relaxNG schema. May be also provided as text or XMLRef."/>
+    </command>
+    <command name="XMLCheckDTD" code="XML Pdtd" description="check the syntax of a given DTD.">
+      <direct-parameter type="anything" description="the DTD's URL or alias, or the text of the DTD"/>
+    </command>
+	<command name="XMLGetByID" code="XML geti" description="retrieve an element by ID. i.e. this element has an attribute xml:id or an attribute declared as an ID is the DTD of the document. In this later case, the document must have been opened with validate. XMLGetByID x xmlid &quot;aa&quot; is a shortcut for XMLPath x with &quot;id('aa')&quot;.">
+		<direct-parameter type="XMLRef" description="a valid XMLRef"/>
+   		<parameter name="xmlid" code="xlmi"	description="id of the element(s)">
+		<type type="XMLRef"/>
+		<type type="XMLRef" list="yes"/>
+		</parameter>
+		<result description="according to the xmlid parameter">
+		<type type="XMLRef"/>
+		<type type="XMLRef" list="yes"/>
+		</result>
+	</command>
+	<command name="XMLGetxmlID" code="XML geID" description="return a string corresponding to an xml:id attribute or to the ID attribute according to the dtd; otherwise XMLGetxmlID returns an error ">
+		<direct-parameter type="XMLRef" description="a valid XMLRef (corresponding to an element)"/>
+		<result type="string" description="the ID"/>
+	</command>
+    <command name="XMLValidName" code="XML Isnm" description="check the validity of an XML Name (http://www.w3.org/TR/REC-xml/#NT-Name)">
+      <direct-parameter description="the name(s)">
+         <type type="string"/>
+        <type type="string" list="yes"/>
+</direct-parameter>
+     <result description="">
+        <type type="boolean"/>
+    </result>
+    </command>
+    <command name="XMLValidNCName" code="XML Isnc" description="check the validity of an XML NCName (http://www.w3.org/TR/2009/REC-xml-names-20091208/#NT-NCName)">
+      <direct-parameter description="the name(s)">
+         <type type="string"/>
+        <type type="string" list="yes"/>
+</direct-parameter>
+     <result description="">
+        <type type="boolean"/>
+    </result>
+    </command>
+    <command name="XMLDu" code="XML du  " hidden="yes" description="sum up the structure of a node">
+      <direct-parameter type="XMLRef" description=""/>
+      <result type="string" description="a textual representation of the tree"/>
+    </command>
+    <command name="XMLGetID" code="XML gID " hidden="yes" description="">
+      <direct-parameter type="CFRef" description="a reference to an element of the XML document"/>
+      <result type="integer" description="the ID of the XML document"/>
+    </command>
+    <command name="XMLFromID" code="XML gfID" hidden="yes" description="">
+      <direct-parameter type="integer" description="the ID of the XML document"/>
+      <result type="CFRef" description="a reference to an element of the XML document"/>
+    </command>
+  </suite>
+  <suite name="Satimage PropertyList Additions" code="PLST" description="An AppleScript interface to property lists.">
+      <documentation>
+        <html>
+<h3>Presentation</h3><p>
+Property lists are widely used in MacOSX. They are stored as files with the "plist" extension.
+</p><p>
+Property lists (plists in short) can contain simple types (numbers, strings, dates, booleans and raw data) and collections: dictionaries and arrays:
+</p><ul style="line-height: 1em ; margin-top: 0.5em ; margin-bottom: 0.5em"><li>
+dictionaries contain elements that you reference by key (string).
+</li><li>
+arrays contain ordered elements that you reference by index.
+</li></ul><p>
+	This suite lets you edit property lists.
+	</p><h3>Creating a plist</h3>
+	The CRef type is used to refer to any element in a plist or to the plist itself.<br/>
+		Plists are created with PlistNew:<br/>
+	<div class="example-source">	set myPlist to PlistNew {"a", "b", "c"}</div>
+	or with PlistOpen:
+	<div class="example-source">	set myPlist to PlistNew someFile.</div>
+	<h3>Browsing a plist</h3>Walking through a plist is quite simple with the <span class="src">PlistChild</span> command:<ul><li>
+	use the parameter key to access a dictionary's child,
+</li><li>
+	use the parameter index to access an array's item.</li></ul>
+	Retrieve the contents of an element with PlistGet.
+	<h3>Changing a plist</h3><p>Modifying a plist may be more difficult since some elements are not changeable and thus can only be replaced inside their container.
+	The modifiable elements are dictionary, arrays and strings.</p>
+	Thus, while
+	<div class="example-source">	PlistGet someReference</div>
+	always works, 
+	<div class="example-source">	PlistSet someReference to something</div> may fail.<br/>
+	And you must use <div class="example-source">	PlistSet someDict key aKey to something</div> or <div class="example-source">	PlistSet someArray index i to something</div>
+	except in some rare cases where either you need to keep some references intact (see warnings) or you set the root itself.<br/> 
+	Examples:
+<div class="example-source">	set p to PlistNew {"a", "b", 1}
+	set pp to PlistChild p index 2
+	PlistGet pp -- returns "b"
+	PlistSet pp to "d" -- ok
+	PlistGet pp -- returns "d"
+	PlistSet pp to {} -- error: pp is not an array
+	PlistSet p index 2 to {} -- ok, but pp is no more valid
+	set pp to PlistChild p index 3
+	PlistGet pp -- returns 1
+	PlistGet p index 3-- returns 1
+	PlistSet pp to 2 -- error: pp is not mutable
+	PlistSet p index 3 to 2 -- ok, but pp is no more valid
+	PlistGet p -- returns {"a", {}, 2}
+</div>
+	<h3>Saving and closing a plist</h3>
+	When you are done with a plist you can save it with PlistSave and close it with PlistClose to release the memory.
+	<h3>Warnings</h3>
+	This suite handles real pointers for the sake of speed. Thus you cannot reuse references to an object that has been replaced or removed:
+	<div class="example-source">	set pp to PlistChild p key "name"
+	PlistSet p key "name" to "a"
+	-- or PlistRemoveChild p key "name"
+	PlistGet pp --crashes the current application</div>
+	while:
+	<div class="example-source">	set pp to PlistChild p key "name"
+	PlistSet pp to "a" -- here we assume that pp already refers to a string
+	PlistGet pp --returns "a"</div>
+	But referring to an element of a plist closed with PlistClose does not crash - it will just throw an error.
+	<div class="example-source">	set pp to PlistChild p key "name"
+	PlistClose p
+	try
+		PlistGet pp --error can't get «data...»
+	on error
+		log "Damnation, the plist does not exist!"
+	end</div>
+        </html>
+      </documentation>
+    <value-type name="CFRef" code="CFob" description="an opaque reference to a property list element. Initial CFRefs must be created with PlistNew or PlistOpen.">
+</value-type>
+    <command name="PlistNew" code="PLSTmake" description="create a new PropertyList with the contents of the direct parameter. Must be balanced with a PlistClose at the end of the job.">
+      <direct-parameter type="anything" optional="yes" description="any AppleScript type, usually, a record or a list. Default: an empty record."/>
+      <parameter name="typed" code="flat" type="boolean" optional="yes" description="if false, write as raw base64 data. Default: true. Use false when storing complex types (such as alias) to allow other software to use the p-list (for instance, when changing a Preference p-list). If false, specify the type with 'as' when using PlistGet."/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="the name of the group where the plist document is created. Default: the current pool. At launch the current pool is &quot;&quot;."/>
+      <result type="CFRef" description="a reference to the property list, required by the other PropertyList commands"/>
+    </command>
+    <command name="PlistOpen" code="PLSTopen" description="open a property list file and parse it. Must be balanced with a PlistClose at the end of the job.">
+      <direct-parameter type="alias" description=""/>
+      <parameter name="from string" code="from" type="text" optional="yes" description="a string containing xml data"/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="the name of the group where the plist document is created. Default: the current pool. At launch the current pool is &quot;&quot;."/>
+      <result type="CFRef" description="a reference to the parsed property list, required by the other PropertyList commands"/>
+    </command>
+    <command name="PlistClose" code="PLSTclos" description="release memory, associated CFRefs are no more valid.">
+      <direct-parameter type="CFRef"/>
+    </command>
+    <command name="PlistRetain" code="PLSTReta" description="" hidden="yes">
+      <direct-parameter type="CFRef"/>
+    </command>
+    <command name="PlistSave" code="PLSTsave" description="save a Plist.">
+      <direct-parameter type="CFRef" description="the Plist to save"/>
+      <parameter name="in" code="kfil" type="file specification" optional="yes" description="the file path"/>
+      <parameter name="binary" code="bina" type="boolean" optional="yes" description="default: false"/>
+    </command>
+    <command name="PlistBinaryFormat" code="PLSTIsBi" description="is the plist in a binary file format?">
+      <direct-parameter type="CFRef" description="the Plist"/>
+      <result type="boolean"/>
+    </command>
+    <command name="PlistCount" code="PLSTcunt" description="count children in the given CFRef.">
+      <direct-parameter  description="an CFRef">
+	<type type="CFRef"/>
+ 	<type type="CFRef" list="yes"/>
+</direct-parameter>
+      <result description="the number of children">
+	<type type="integer"/>
+ 	<type type="integer" list="yes"/>
+ </result>
+    </command>
+    <command name="PlistChild" code="PLSTchld" description="provide access to children of a given CFRef. Similar to PlistGet, but return a CFRef. Provide either a  &quot;index&quot;, or a &quot;key&quot;, or a &quot;using&quot; parameter. Only the direct parameter or &quot;key&quot;, or &quot;index&quot; may be a list. If there is no specifier, PlistChild returns all the children.">
+      <direct-parameter type="CFRef" description="the parent: an array or a dictionary"/>
+      <parameter name="index" code="indx" type="integer" optional="yes" description="1..PlistCount, index of the requested child"/>
+      <parameter name="key" code="key " type="string" optional="yes" description="relevant only if the direct parameter is a dictionary"/>
+      <parameter name="using" code="by  " type="string" optional="yes" description="a selecting path. A valid path contains sequences of keys (for dictionaries) separated with slashes, and indices (for arrays) inside brackets. Example: &quot;key1/key2[4]/key3[2]&quot;"/>
+      <result type="CFRef" description="the child or a list if one parameter is a list"/>
+    </command>
+    <command name="PlistType" code="PLSTdisp" description="return the type of a CFRef (the tag's name).">
+      <direct-parameter type="CFRef" description="the CFobject to display"/>
+      <result type="string"/>
+    </command>
+    <command name="PlistGet" code="PLSTdisx" description="Similar to PlistChild, but return actual contents. Can be used with direct parameter alone to retrieve the contents of a CFRef. Only one of the parameters &quot;key&quot;, &quot;index&quot; or &quot;using&quot; can be specified. Only the direct parameter or &quot;key&quot;, or &quot;index&quot; may be a list.">
+      <direct-parameter type="CFRef" description="the CFRef to display"/>
+      <parameter name="as" code="rtyp" type="string" optional="yes" description="for base64 data stored 'without typed', the AppleScript type."/>
+      <parameter name="index" code="indx" type="integer" optional="yes" description="1..PlistCount, index of the requested child"/>
+      <parameter name="key" code="key " type="string" optional="yes" description=""/>
+      <parameter name="using" code="by  " type="string" optional="yes" description="a path. See the PlistChild command."/>
+      <result type="anything" description="or a list if one parameter is a list"/>
+    </command>
+    <command name="PlistGetXML" code="PLSTDISP" description="return the contents of a CFRef as xml data.">
+      <direct-parameter type="CFRef" description="the CFRef to display"/>
+      <result type="string"/>
+    </command>
+    <command name="PlistGetKeys" code="PLSTgkey" description="return the list of keys in a dictionary.">
+      <direct-parameter type="CFRef" description="the dictionary"/>
+      <result>
+        <type type="string" list="yes"/>
+      </result>
+    </command>
+    <command name="PlistSet" code="PLSTseta" description="equivalent to PlistNewChild on dictionaries. Use PlistSet to modify an existing element in an array.">
+      <direct-parameter type="CFRef" description="the parent: an array or a dictionary"/>
+      <parameter name="index" code="indx" optional="yes" description="1..PlistCount, index of the requested child">
+		<type type="integer"/>
+		<type type="integer" list="yes"/>
+	</parameter>
+      <parameter name="key" code="key " optional="yes" description="">
+		<type type="string"/>
+		<type type="string" list="yes"/>
+	</parameter>
+      <parameter name="using" code="by  " type="string" optional="yes" description="a path. See the PlistChild command."/>
+      <parameter name="to" code="to  " type="anything" description="any AppleScript content or a CFRef. Be aware of self-references when you use CFRef"/>
+      <parameter name="suppressing" code="Supp" type="boolean" optional="yes" description="default: true. If true and the &quot;to&quot; parameter is a list containing missing values, then XMLSetAttribute removes the corresponding attributes. Otherwise these values are ignored"/>
+      <parameter name="typed" code="flat" type="boolean" optional="yes" description="irrelevant with CFRefs. Default: true. If false, write as raw base64 data. Use false to store complex types (eg alias) for use by other software (eg, when editing a Preference file). If false, specify the type with 'as' when using PlistGet."/>
+      <documentation>
+        <html>
+        </html>
+      </documentation>
+
+    </command>
+    <command name="PlistNewChild" code="PLSTaddc" description="create a new child in a given object (array or dictionary). You must use PlistSet to modify an existing element of an array.">
+      <direct-parameter type="anything" optional="yes" description="any AppleScript content or a CFRef. Be aware of self-references when you use CFRef. Default: an empty record."/>
+      <parameter name="at" code="at  " type="CFRef" description="the container: an array or a dictionary"/>
+      <parameter name="index" code="indx" type="integer" optional="yes" description="1..(PlistCount+1), index of the new child"/>
+      <parameter name="key" code="key " type="string" optional="yes" description="requested if CFRef is a dictionary"/>
+      <parameter name="using" code="by  " type="string" optional="yes" description="a path. See the PlistChild command."/>
+      <parameter name="typed" code="flat" type="boolean" optional="yes" description="see the PlistSet command."/>
+      <result type="CFRef" description="the child"/>
+    </command>
+    <command name="PlistRemoveChild" code="PLSTremc" description="delete an object. The reference to this object (or to any object it may contain) is no longer valid. Future use of this reference may crash XMLLib.">
+      <direct-parameter type="CFRef" description="the container: an array or a dictionary"/>
+      <parameter name="index" code="indx" type="integer" optional="yes" description="1..PlistCount, index of the requested child"/>
+      <parameter name="key" code="key " optional="yes" description="the key of the requested child">
+ 	<type type="string"/>
+	<type type="string" list="yes"/>
+</parameter>
+      <parameter name="using" code="by  " type="string" optional="yes" description="a path. See the PlistChild command."/>
+    </command>
+    <command name="PlistEqual" code="PLSTequa" description="compare the contents of two plist. Return true if equal.">
+      <direct-parameter type="CFRef" description=""/>
+      <parameter name="to" code="to  " type="CFRef"/>
+	<result type="boolean"/>
+    </command>
+    <command name="PlistExist" code="PLSTcont" description="match a value in an array (or a dictionary).">
+      <direct-parameter type="any" description="a value"/>
+      <parameter name="in" code="in  " type="CFRef" description="an array (or a dictionary)"/>
+      <parameter name="several values" code="List" type="boolean" description="is the direct parameter a list of values. Default: false"/>
+	<result description="the available indices (1 based) or the available keys">
+	<type type="integer" list="yes"/>
+	<type type="string" list="yes"/>
+	</result>
+    </command>
+     <command name="PlistMatch" code="PLSTmatc" description="return a list of dictionaries containing a given key or a given (key, value) pair.">
+      <direct-parameter type="CFRef" description="an array containing dictionaries"/>
+      <parameter name="key" code="key " type="string" description="the key to match. For a more complex request, omit this parameter and provide the &quot;using&quot; parameter"/>
+	<parameter name="using" code="by  " type="string" optional="yes" description="a selecting path (see PlistChild)"/>      
+	<parameter name="value" code="to  " optional="yes" description="the requested value of the key">
+	<type type="string"/>
+	<type type="real"/>
+	<type type="boolean"/>
+	</parameter>
+	<result>
+	<type type="CFRef" list="yes"/>
+	</result>
+    </command>
+   <command name="PlistURL" code="PLSTgurl" description="get the path to the plist document.">
+      <direct-parameter type="CFRef" description="the document"/>
+      <parameter name="as" code="rtyp" optional="yes" type="type" description=""/>
+      <parameter name="parent" code="pare" optional="yes" type="boolean" description="return the parent folder. Default: false"/>
+      <result type="file specification" description=""/>
+    </command>
+    <command name="PlistDocument" code="PLSTgfur" description="retrieve the already opened plist from the file URL.">
+      <direct-parameter type="file specification" description=""/>
+      <parameter name="in pool" code="pool" type="string" optional="yes" description="Default: the current pool. At launch the current pool is &quot;&quot;."/>
+      <result type="CFRef" description="the plist"/>
+    </command>
+    <command name="PlistListDocuments" code="PLSTList" description="List the opened plist documents">
+      <direct-parameter type="string" optional="yes" description="the pool. Default: the current pool"/>
+      <result description="the property lists opened in the specified pool.">
+        <type type="CFRef" list="yes"/>
+      </result>
+    </command>
+    <command name="PlistAdd" code="PLSTconc" description="concatenate arrays or dictionaries. &quot;PlistAdd x after y&quot; (resp. &quot;PlistAdd x before y&quot;) works like the Applescript statement &quot;set y to y &amp; x&quot; (resp. &quot;set y to x &amp; y&quot;) ">
+      <direct-parameter type="CFRef" description="of the same type as the &quot;after&quot; or &quot;before&quot; parameter. May alternatively be a list or a record"/>
+      <parameter name="after" code="afte" type="CFRef" optional="yes" description="the array or the dictionary to modify"/>
+      <parameter name="before" code="befo" type="CFRef" optional="yes" description="the array or the dictionary to modify"/>
+    </command>
+    <command name="PlistToJSON" code="PLSTJSON" description="transform a plist into a JSON">
+      <direct-parameter type="CFRef" description=""/>
+      <parameter name="formatting" code="smar" type="boolean" optional="yes" description="add returns and tabs for legibility. Default: false."/>   
+     <parameter name="replacer" code="rplc" type="string" optional="yes" description="a JavaScript function for the optional callback of JSON.stringify."/>   
+	<result type="string"/>
+      <documentation>
+        <html>
+          <div style="display:none" class="example">
+            <div class="example-source">set p to PlistNew
+PlistNewChild 3 at p key "any key"
+PlistNewChild {"a", "list"} at p key "b"
+PlistToJSON p
+-- "{\"b\":[\"a\", \"list\"], \"any key\":3}"
+PlistClose p
+</div>
+          </div>
+        </html>
+      </documentation>
+    </command>
+     <command name="PlistToJavaScript" code="PLSTToJa" hidden="yes" description="">
+      <direct-parameter type="CFRef" description=""/>
+      <result type="string"/>
+    </command>
+  <command name="PlistFromJSON" code="PLSTNOSJ" description="transform a JSON into a plist">
+      <direct-parameter type="string" description="the JSON"/>
+       <parameter name="in pool" code="pool" type="string" optional="yes" description="the name of the group where the plist document is created. Default: the current pool."/>
+     <result type="CFRef"/>
+     </command>
+   <command name="PlistSetDocID" code="PLSTSDbK" description="set an identifier to an existing plist">
+      <direct-parameter type="CFRef" description="the XML document"/>
+	<parameter name="to" code="to  " type="string" description=""/>
+	<result type="string" description="the previous ID"/>
+    </command>
+   <command name="PlistGetDocByID" code="PLSTGDbK" description="retrieve a plist by identifier. Avoid many problems with the AppleScript's global variables">
+      <direct-parameter type="string" description="the identifier"/>
+     <parameter name="in pool" code="pool" type="string" optional="yes" description="Default: the current pool."/>
+	<result type="CFRef" description=""/>
+    </command>
+    <command name="PlistGetID" code="PLSTgID " hidden="yes" description="">
+      <direct-parameter type="CFRef" description="a reference to the property list"/>
+      <result type="integer" description="the ID of the property list"/>
+    </command>
+    <command name="PlistFromID" code="PLSTgfID" hidden="yes" description="">
+      <direct-parameter type="integer" description="the ID of the property list"/>
+      <result type="CFRef" description="a reference to the property list"/>
+    </command>
+  </suite>
+  <suite name="Satimage Pool Additions" code="POOL" description="Pool management. Optional features that you can use to manage groups of XML documents or PList's, protect their privacy, and dispose of them when suitable.">
+    <command name="SetPool" code="POOLpool" description="Set the new default pool. Further &quot;XMLOpen&quot;, &quot;XMLListDocuments&quot;, &quot;PlistOpen&quot;, &quot;PlistNew&quot; and &quot;PlistListDocuments&quot; will occur in this pool">
+      <direct-parameter type="string" description="name of the new default pool"/>
+      <result type="string" description="the previous default pool."/>
+    </command>
+    <command name="DeletePool" code="POOLdpoo" description="release all documents in the specified pool.">
+      <direct-parameter type="string" optional="yes" description="name of the pool. Default: the default pool."/>
+    </command>
+    <command name="GetPool" code="POOLgpoo" description="return the name of the pool containing the document">
+      <direct-parameter type="anything" description="an XML document (XMLRef) or a plist document (CFRef)"/>
+      <result type="string" description="the name of the pool."/>
+    </command>
+  </suite>
+  <suite name="XNF Additions" code="XNF2" description="">
+      <documentation>
+        <html>
+	<h3>Overview</h3>
+<p>
+Extensible Numerical File Format, abbreviated XNF, describes a public format for storing numerical data.
+</p>
+<p>
+An XNF file is a bundle, a special kind of folder which looks like a file (and that Finder names a "package"). Double-clicking an XNF file opens a user interface in Smile to browse, view, extract, and plot the data that it contains. For example, run this script in Smile: </p><div class="example-source">	open "http://www.satimage.fr/software/xnf/sample.xnf/"</div>
+
+<p>
+The bundle contains two items at the root level: a folder named Contents, which stores the data files, and the index.xml XML file, describing the contents of the files. The metadata in the XML file can be handled using the XML commands above. The XNF Additions Suite provides commands to retrieve or write the binary data.
+</p>
+<p>
+Documentation about the xnf format can be found at <a href="http://www.satimage.fr/software/en/sl_xnfv2.html">http://www.satimage.fr/software/en/sl_xnfv2.html</a>
+</p>
+        </html>
+      </documentation>
+	<command name="XNFOpen" code="XNF2open" description="open an xnf bundle or create a new xnf bundle if the file does not exist. Must be balanced with a XMLClose (or DeletePool) at the end of the job. XNFOpen equivalent to XMLOpen but expects a bundle path instead of a file path.">
+		<direct-parameter type="file" description="usually with a file name ending with&quot;.xnf&quot;"/>
+      		<parameter name="in pool" code="pool" type="string" optional="yes" description="the name of the group where the new document is created. Default: the current pool. At launch the current pool is &quot;&quot;."/>
+		<result type="XMLRef" description="a reference to the table of contents. Call XMLClose to release the memory"/>
+      <documentation>
+        <html>
+         <div style="display:none" class="example">
+            <div class="example-source">	set doc to XNFOpen "http://www.satimage.fr/software/xnf/sample.xnf/"
+	set ds1 to XNFGetDataSet doc xmlid "test1D"
+	set x to XNFGetArray ds1 index 1
+	set y to XNFGetArray ds1 index 3
+	QuickCurve(x, y, 0) -- SmileLab only
+	set ds2 to XNFGetDataSet doc xmlid "test2D"
+	set z to XNFGetArray ds2 index 1 as record
+	QuickScalarMap(0, 0, z, 0) -- SmileLab only
+	set ds3 to XNFGetDataSet doc xmlid "test3D"
+	set {nx, ny} to XNFGetDimensions ds3
+	set z to XNFGetArray ds3 index 1 as record start {1, 1, 4} length {nx, ny, 1}
+	QuickScalarMap(0, 0, z, 0) -- SmileLab only
+	XMLClose doc
+	    </div>
+	</div>
+        </html>
+      </documentation>
+	</command>
+	<command name="XNFSaveBundle" code="XNF2save" description="save the TOC of the XNF bundle (like XMLSave does) and update the modification date of the bundle">
+		<direct-parameter type="XMLRef" description="an XMLRef returned by XNFOpen"/>
+      <documentation>
+        <html>
+         <div style="display:none" class="example">
+            <div class="example-source">	set x to creatematrix "x" ncols 10 nrows 11
+	set f to POSIX path of (path to desktop) &amp; "sample.xnf"
+	set doc to XNFOpen f
+	set ds to XNFNewDataSet "test" dimensions {10, 11} at doc
+	XNFNewArray x at ds
+	XNFSetScaleRange 1 at ds to {-1, 2 / 9}
+	XNFSetScaleRange 2 at ds to {-1, 2 / 10}
+	XNFSaveBundle doc
+	XMLClose doc
+	open f -- SmileLab only
+	    </div>
+	</div>
+        </html>
+      </documentation>
+	</command>
+	<command name="XNFNewDataSet" code="XNF2sarr" description="create a new dataset with a given id and given dimensions">
+		<direct-parameter type="string" description="id of the new dataset"/>
+		<parameter name="dimensions" code="dims"	 description="a list {dim1, ... dimn} of integers">
+		<type type="integer" list="yes"/>
+		</parameter>
+		<parameter name="scale" code="Tsca" optional="yes" description="a list of scale">
+			<type type="array of real" list="yes"/>
+		</parameter>
+		<parameter name="at" code="at  "	type="XMLRef" description="usually the XML document returned by XNFOpen"/>
+ 		<result type="XMLRef" description="the resulting node"/>
+	<documentation>
+        <html>
+		The direct parameter must be a valid XML id, i.e. a <a href="http://www.w3.org/TR/2006/REC-xml-names-20060816/#A737" onclick="window.open('http://www.w3.org/TR/2006/REC-xml-names-20060816/#A737','win','width=900,scrollbars=yes');return false;">NCName</a>; roughly speaking, it begins with a letter or an underscore and must contain only letters, digits, underscores, periods and hyphens.
+        </html>
+	</documentation>
+	</command>
+	<command name="XNFGetDataSet" code="XNF2getI" description="retrieve an reference to a dataset by id. XNFGetDataSet thexnf xmlid &quot;aa&quot; is a shortcut for XMLPath thexnf with &quot;id('aa')&quot;">
+		<direct-parameter type="XMLRef" description="an XMLRef returned by XNFOpen"/>
+   		<parameter name="xmlid" code="xlmi"	type="string" description="id of the dataset"/>
+		<result type="XMLRef" description="a dataset"/>
+	</command>
+	<command name="XNFGetDimensions" code="XNF2size" description="retrieve the dimensions of a dataset. ">
+		<direct-parameter type="XMLRef" description="a dataset"/>
+		<result type="any" description="the list of the dimensions {n1,...}"/>
+	</command>
+	<command name="XNFNewArray" code="XNF2ndat" description="add an array to a dataset">
+		<direct-parameter type="array of real" description=""/>
+		<parameter name="at" code="at  "	type="XMLRef" description="a dataset returned by XNFNewDataSet or XNFGetDataSet"/>
+		<parameter name="as" code="rtyp" type="string" optional="yes" description="the requested format for the data in the file: &quot;real32&quot; | &quot;real64&quot; | &quot;uint8&quot; | &quot;uint16&quot; | &quot;uint32&quot; | &quot;sint8&quot; | &quot;sint16&quot; | &quot;sint32&quot; | &quot;complex64&quot; | &quot;complex32&quot;. Default: &quot;real64&quot;"/>
+		<parameter name="big endian" code="Endi" type="boolean" optional="yes" description="the requested byteorder. Default: system byte order."/>
+  		<result type="XMLRef" description="the resulting node"/>
+	</command>
+	<command name="XNFNewFileData" code="XNF2ndaf" description="add an array already stored in a binary file to a dataset">
+		<direct-parameter type="any" description="an alias or a string for an absolute or relative URL">
+		</direct-parameter>
+		<parameter name="at" code="at  "	type="XMLRef" description="a node returned by XNFNewDataSet or XNFGetDataSet"/>
+  		<parameter name="starting at" code="strt" type="integer" optional="yes" description="offset of the data in bytes. Default 0"/>
+		<parameter name="as" code="rtyp" type="string" description="the format of the data in the file: &quot;real32&quot; | &quot;real64&quot; | &quot;uint8&quot; | &quot;uint16&quot; | &quot;uint32&quot; | &quot;sint8&quot; | &quot;sint16&quot; | &quot;sint32&quot; | &quot;complex64&quot; | &quot;complex32&quot;"/>
+		<parameter name="big endian" code="Endi" type="boolean" optional="yes" description="is the file encoded as big endian or little endian? Default: system byte order."/>
+		<result type="XMLRef" description="the resulting node"/>
+	</command>
+	<command name="XNFGetArray" code="XNF2oarr" description="retrieve an array or a sub-array. If &quot;start&quot; and &quot;length&quot; are present XNFGetArray returns a sub-array of possibly lower dimensionality if some length is 1.">
+		<direct-parameter type="XMLRef" description="a dataset"/>
+ 		<parameter name="index" code="indx"	type="integer" optional="yes" description="index of the array inside the dataset. Default 1"/>
+       	<parameter name="start" code="star" optional="yes" description="for each dimension of the dataset, the first element to read. 1-based">
+ 		<type type="integer" list="yes"/>
+		</parameter>
+       	<parameter name="length" code="leng" optional="yes" description="for each dimension of the dataset, number of elements to read">
+ 		<type type="integer" list="yes"/>
+		</parameter>
+		<parameter name="part" code="part" type="string" optional="yes" description="for complex arrays, choose a string in the set &quot;r&quot; (real part),  &quot;i&quot; (imaginary part),  &quot;m&quot; (modulus) or  &quot;p&quot; (phase)"/>
+		<parameter name="as" code="rtyp" type="type" optional="yes" description="pass 'record' to get the result as a record {dimensions:{...}, array of real: ...}"/>
+		<result type="array of real" description="or record"/>
+	</command>
+	<command name="XNFSetScale" code="XNF2ssca" description="set the scale of the specified axis to a list of real">
+		<direct-parameter type="integer" description="index of the axis in the dataset"/>
+		<parameter name="at" code="at  "	type="XMLRef" description="a node returned by XNFNewDataSet or XNFGetDataSet"/>
+ 		<parameter name="to" code="to  "	type="array of real" />
+		<parameter name="as" code="rtyp" type="string" optional="yes" description="the requested format for the data in the file: &quot;real32&quot; | &quot;real64&quot; | &quot;uint8&quot; | &quot;uint16&quot; | &quot;uint32&quot; | &quot;sint8&quot; | &quot;sint16&quot; | &quot;sint32&quot;. Default: &quot;real64&quot;"/>
+		<parameter name="big endian" code="Endi" type="boolean" optional="yes" description="the requested byteorder. Default: system byte order."/>
+	</command>
+	<command name="XNFSetScaleReference" code="XNF2ssci" description="set the scale of the specified axis to a reference of some 1-D dataset">
+		<direct-parameter type="integer" description="index of the axis in the dataset"/>
+		<parameter name="at" code="at  "	type="XMLRef" description="a node returned by XNFNewDataSet or XNFGetDataSet"/>
+ 		<parameter name="to" code="to  " type="string" description="the id of an existing dataset"/>
+	</command>
+	<command name="XNFSetScaleRange" code="XNF2sscr" description="set the scale of the specified axis to a range">
+		<direct-parameter type="integer" description="index of the axis in the dataset"/>
+		<parameter name="at" code="at  "	type="XMLRef" description="a node returned by XNFNewDataSet or XNFGetDataSet"/>
+ 		<parameter name="to" code="to  " description="a list {start,step}">
+		<type type="real" list="yes"/>
+		</parameter>
+	</command>
+	<command name="XNFGetScales" code="XNF2gsca" description="retrieve the scales of dataset. If &quot;start&quot; and &quot;length&quot; are present XNFGetScales returns the scales corresponding to the sub-array returned by XNFGetArray">
+		<direct-parameter type="XMLRef" description="a dataset"/>
+       		<parameter name="start" code="star" optional="yes" description="for each dimension of the dataset, the first element to read. 1-based">
+ 		<type type="integer" list="yes"/>
+		</parameter>
+       	<parameter name="length" code="leng" optional="yes" description="for each dimension of the dataset, number of elements to read">
+		<type type="integer" list="yes"/>
+		</parameter>
+		<result description="">
+			<type type="array of real" list="yes"/>
+		</result>
+	</command>
+	<command name="XNFGetArray3D" code="XNF2oar3" description="see Numerics.osax about Array3DRef">
+		<direct-parameter type="XMLRef" description="a 3-D dataset"/>
+		<parameter name="index" code="indx"	type="integer" optional="yes" description="index of the array inside the dataset. Default 1"/>
+  		<parameter name="name" code="pnam"	type="string" optional="yes" description="the name of the new Array3DRef"/>
+ 		<parameter name="part" code="part"	type="string" optional="yes" description="for complex arrays, choose a string in the set &quot;r&quot; (real part),  &quot;i&quot; (imaginary part),  &quot;m&quot; (modulus) or  &quot;p&quot; (phase)"/>
+		<result type="Array3DRef" description=""/>
+	</command>
+    <command name="XNFRemove" code="XNF2dele" description="delete a dataset or an array">
+      <direct-parameter type="XMLRef" description="the object to delete"/>
+    </command>
+ </suite>
+	<suite name="" code="tpnm" hidden="yes">
+    <command name="XMLCookie" code="XML Cook" description="store a cookie for a given host. This cookie is reused in forthcoming XMLOpen commands">
+	<direct-parameter type="string" optional="yes" description="the value of the cookie. If the parameter is missing, XMLCookie silently returns the current value of the cookie"/>
+	<parameter name="at" code="at  " type="string" description="the http (or https) URL providing the host"/>
+	<result type="string" description="the previous value of the cookie"/>
+    </command>
+   <command name="XMLRegisterScheme" code="XML RgSc" description="register a URI scheme with an AppleScript callback. A cousin of rewriteURL">
+	<direct-parameter type="string"  description="the scheme"/>
+	<parameter name="subroutine" code="snam" type="string" description="the name of the AppleScript callback. The callback takes a string (URI) argument and returns a string (URI)"/>
+    </command>
+   <command name="XMLDisplayEntity" code="XML DiEn" description="">
+	<direct-parameter type="string"  description="the entity name"/>
+	<parameter name="at" code="at  " type="XMLRef" description="a document with a dtd"/>
+	<result type="string"/>
+    </command>
+   <command name="XMLResolveScheme" code="XML RsSc" description="translate an URL as soon as a corresponding callback has been installed with XMLRegisterScheme">
+	<direct-parameter type="string"  description="the original URL"/>
+ 	<result type="string" description="the translated URL"/>
+   </command>
+    <command name="PlistCopy" code="PLSTcopy" description="copy a dictionary or an array to another one. The 2 parameters must have the same type.">
+      <direct-parameter type="CFRef" description="a dictionary or an array"/>
+      <parameter name="to" code="to  " type="CFRef" description="a dictionary or an array"/>
+    </command>
+		<command name="ExtractBinary" code="XNF2Extr" description="">
+				<direct-parameter type="file specification" description="the file"/>
+				<parameter name="skip" code="skip" type="integer" optional="yes" description="the number of leading bytes to skip"/>
+				<parameter name="big endian" code="Endi" type="boolean" optional="yes" description="is the file encoded as big endian or little endian? Default: system endianess (false on mac intel)."/>
+				<parameter name="as" code="rtyp" type="string" description="the format of the data in the file: &quot;real32&quot; | &quot;real64&quot; | &quot;uint8&quot; | &quot;uint16&quot; | &quot;uint32&quot; | &quot;sint8&quot; | &quot;sint16&quot; | &quot;sint32&quot; | &quot;complex64&quot; | &quot;complex32&quot;"/>
+	       	<parameter name="dimensions" code="dims" description="the dimensions of the array">
+	 		<type type="integer" list="yes"/>
+			</parameter>
+	       	<parameter name="start" code="star" description="for each dimension of the array, the first element to read. 1-based">
+	 		<type type="integer" list="yes"/>
+			</parameter>
+	       	<parameter name="length" code="leng" description="for each dimension of the array, number of elements to read">
+	 		<type type="integer" list="yes"/>
+			</parameter>
+		<result description="">
+			<type type="array of real"/>
+			<type type="record"/>
+		</result>
+		</command>
+		<command name="XMLObsolete" code="XML obso" description="">
+				<direct-parameter type="boolean" description=""/>
+				<result type="boolean" description=""/>
+		</command>
+    <command name="XMLGetTextObso" code="XML gtxO" description="return the textual contents of a node.">
+      <direct-parameter type="XMLRef" description="an XML object containing a simple text node."/>
+      <result type="string"/>
+     </command>
+    <command name="XMLGetAttributeObso" code="XML gtaO" description="return the contents of an attribute.">
+      <direct-parameter description="">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+      <parameter name="name" code="pnam" type="string" description="the name of the attribute"/>
+      <parameter name="namespace" code="nsls" type="string" optional="yes" description="the namespace URL"/>
+      <result type="string"/>
+    </command>
+    <command name="XMLTagNameObso" code="XML gtgO" description="return the name of the element.">
+      <direct-parameter description="">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+      <result type="string"/>
+    </command>
+    <command name="XMLFullTagName" code="XML gTag" description="return the name of the element.">
+      <direct-parameter description="">
+	<type type="XMLRef"/>
+	<type type="XMLRef" list="yes"/>
+</direct-parameter>
+      <result type="string"/>
+    </command>
+    <command name="XMLDisplayXMLObso" code="XML disO" description="return an XML object as a string.">
+      <direct-parameter type="XMLRef" description="(or a list of XMLRef) the XML object to display"/>
+      <parameter name="formatting" code="smar" type="boolean" optional="yes" description="add returns and tabs for legibility. Default: true."/>
+      <result type="string" description="(or a list of text)"/>
+    </command>
+    <command name="XMLNodeInfoObso" code="XML dspO" description="return node information.">
+      <direct-parameter type="XMLRef" description="the XML object to display"/>
+      <result type="NodeInfo" description="a record containing the name, the kind and the dictionary (attributes) of the object"/>
+    </command>
+    <command name="XMLSetTagName" code="XML stag" description="">
+      <direct-parameter type="XMLRef" description="the XML object to display"/>
+      <parameter name="to" code="to  " type="string" description="the new name"/>
+    </command>
+    <command name="XMLRemoveNamespace" code="XML rmns" description="">
+      <direct-parameter type="namespace" description=""/>
+      <parameter name="at" code="at  " type="XMLRef" description=""/>
+    </command>
+    <command name="ListPools" code="POOLlpoo" description="">
+      <result description="">
+<type type="string" list="yes"/>
+	</result>
+    </command>
+     <command name="XMLXPathCompile" code="XML PreC" description="">
+      <direct-parameter type="string" description="an xpath expression"/>
+      <parameter name="in" code="in  " type="XMLRef" description=""/>
+       <result type="integer" description=""/>
+   </command>
+   <command name="XMLGetNode at line" code="XML NbyL" description="">
+      <direct-parameter type="integer" description="the line index"/>
+      <parameter name="in" code="in  " type="XMLRef" description=""/>
+       <result type="XMLRef" description=""/>
+   </command>
+   <command name="XMLParseCURIE" code="XML gtCU" description="return the non-abreviated URI corresponding to the data parameter or the value of an attribute (if name and/or namespace are specified) or the text contents of an element (no data and no name)">
+      <direct-parameter type="XMLRef" description="an element or an attribute"/>
+       <parameter name="name" code="pnam" type="string" optional="yes" description="the name of the attribute containing the CURIE"/>
+       <parameter name="namespace" code="nsls" type="string" optional="yes" description="the namespace URL of the attribute"/>
+       <parameter name="data" code="data" type="string" optional="yes" description="any CURIE (http://www.w3.org/TR/curie/) to be expanded in the context of the direct parameter"/>
+    <result type="string"/>
+    </command>
+   <command name="XMLGetArray" code="XNF2getN" description="">
+      <direct-parameter type="XMLRef" description=""/>
+       	<parameter name="start" code="star" optional="yes" description="the index of the first element to read. 1-based, default 1">
+ 		<type type="integer" />
+		</parameter>
+       	<parameter name="length" code="leng" optional="yes" description="number of elements to read. Default: read until the end.">
+ 		<type type="integer"/>
+	</parameter>
+       <result type="array of real" description=""/>
+       <documentation>
+        <html>
+XMLGetArray reads the attributes href, byte_order, offset, type, and size in the namespace "http://www.satimage.fr/software/dtds/XNFv2#".<br/>
+@href is the (relative or absolute) location of the binary file.
+@byte_order, @offset, @type, and @size work as indicated is the <a href="http://www.satimage.fr/software/dtds/XNFv2#">XNF dtd</a>.
+        </html>
+       </documentation>
+  </command>
+   <command name="XMLSetArray" code="XNF2setN" description="">
+      <direct-parameter type="array of real" description=""/>
+        <parameter name="at" code="at  " type="XMLRef" description="an element node"/>
+        <parameter name="href" code="href" type="alias" description="the binary file to use"/>href
+ 		<parameter name="as" code="rtyp" type="string" optional="yes" description="the requested format for the data in the file: &quot;real32&quot; | &quot;real64&quot; | &quot;uint8&quot; | &quot;uint16&quot; | &quot;uint32&quot; | &quot;sint8&quot; | &quot;sint16&quot; | &quot;sint32&quot; | &quot;complex64&quot; | &quot;complex32&quot;. Default: &quot;real64&quot;"/>
+		<parameter name="big endian" code="Endi" type="boolean" optional="yes" description="the requested byteorder. Default: system byte order."/>
+  </command>
+	 </suite>
+</dictionary>

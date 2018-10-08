@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/Library/DTDs/sdef.dtd">
+<dictionary title="">
+	<suite name="FITS" code="FITS" description="FITS.osax provides commands to read FITS data files. Uses the FITSIO project. mailto:support@satimage-software.com">
+		<class name="kind" code="kind" hidden="yes">
+			</class>
+		<class name="alias" code="alis" hidden="yes" plural="aliases">
+			</class>
+		<class name="array of real" code="Lido" plural="arrays of real" description="a packed list of small real. Can be coerced to an AppleScript list with 'as list of real'. Conversely, a list of real may be translated using 'as array of real' for fast computation.">
+			</class>
+		<class name="dimensions" code="dims" plural="dimensions">
+			</class>
+		<class name="matrix" code="Matr" plural="matrices" description="An AppleScript representation of a 2D array of real numbers as a record">
+			<property name="ncols" code="ncol" type="integer" description="the number of columns"/>
+			<property name="nrows" code="nrow" type="integer" description="the number of rows"/>
+			<property name="array of real" code="Lido" type="array of real" description="the data, as an array of real or as a standard AppleScript list of real numbers. Ordering: the first numbers are the data for the first row."/>
+		</class>
+		<command name="FITSOpen" code="FITSodoc" description="open a FITS file">
+			<direct-parameter type="alias" description="path to the FITS file"/>
+			<result type="integer" description="a reference number to the opened file"/>
+		</command>
+		<command name="FITSClose" code="FITSclos" description="close a FITS file">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+		</command>
+		<command name="FITSCount" code="FITScunt" description="count data units in a FITS file">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<result type="integer" description="the number of units"/>
+		</command>
+		<command name="FITSMovein" code="FITSmove" description="select a data unit in a FITS file">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<parameter name="to" code="to  " type="integer" description="the unit index or the unit name"/>
+			<result type="string" description="the type of the selected unit"/>
+		</command>
+		<command name="FITSInfo" code="FITSginf" description="get info from the current unit of the opened FITS file">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<parameter name="verbose" code="verb" type="boolean" optional="yes" description="default: false. If verbose is true, FITSInfo returns the full header of the current unit. Otherwise, returns the type of the unit and the list of its dimensions."/>
+			<result type="record" description="or string if verbose"/>
+		</command>
+		<command name="FITSPlist" code="FITSplst" description="get info from the current unit of the opened FITS file as xml data">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<parameter name="as" code="rtyp" type="type" optional="yes" description="string or CFRef. Default: CFRef"/>
+			<result>
+				<type type="string"/>
+				<type type="CFRef"/>
+			</result>
+		</command>
+		<command name="FITSReadImage" code="FITSrimg" description=" read an image unit in  a FITS file">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<parameter name="along" code="alon" optional="yes" type="integer" description="axis to slice for image dimension equal to 3 "/>
+			<parameter name="at" code="at  " optional="yes" type="integer" description=" index to read for image dimension equal to 3 "/>
+			<result type="array of real" description="or matrix if result is 2D."/>
+		</command>
+		<command name="FITSTableInfo" code="FITStinf" description=" Get basic info about the column of a table unit in  a FITS file">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<parameter name="column" code="colu" description="index (or name) of column">
+				<type type="integer"/>
+				<type type="string"/>
+			</parameter>
+			<result type="record" description="column name, number of rows and data type of the column"/>
+		</command>
+		<command name="FITSReadTable" code="FITSrtab" description=" Read a column of a table unit in  a FITS file">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<parameter name="column" code="colu" description="index (or name) of column">
+				<type type="integer"/>
+				<type type="string"/>
+			</parameter>
+			<result description="the table column as array of real or string if the column type is string">
+				<type type="array of real"/>
+				<type type="string" list="yes"/>
+			</result>
+		</command>
+		<command name="FITSExtractimage" code="FITSExtr" description="">
+			<direct-parameter type="integer" description="a reference to an opened FITS file"/>
+			<parameter name="start" code="star" description="for each dimension of the image, the first element to read. 1-based">
+				<type type="integer" list="yes"/>
+			</parameter>
+			<parameter name="length" code="leng" description="for each dimension of the image, number of elements to read">
+				<type type="integer" list="yes"/>
+			</parameter>
+			<result description="">
+				<type type="array of real"/>
+				<type type="record"/>
+			</result>
+		</command>
+	</suite>
+</dictionary>

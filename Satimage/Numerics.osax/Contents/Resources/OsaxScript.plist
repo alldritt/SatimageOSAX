@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CONVconv</key>
+	<dict>
+		<key>requested</key>
+		<array>
+			<string>----</string>
+			<string>by  </string>
+		</array>
+		<key>optional</key>
+		<array>
+			<string>CIRC</string>
+		</array>
+	</dict>
+	<key>CONVcorr</key>
+	<dict>
+		<key>requested</key>
+		<array>
+			<string>----</string>
+			<string>to  </string>
+		</array>
+		<key>optional</key>
+		<array>
+			<string>CIRC</string>
+			<string>NORM</string>
+		</array>
+	</dict>
+</dict>
+</plist>

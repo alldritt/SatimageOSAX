@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>10K549</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>XMLLib</string>
+	<key>CFBundleGetInfoString</key>
+	<string>XMLLib 3.7.0 (build 388)Copyright 2015 Satimage-softwarewww.satimage.fr/software</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.satimage.companion.XMLLib</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>osax</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3.7.0</string>
+	<key>CFBundleSignature</key>
+	<string>ascr</string>
+	<key>CFBundleVersion</key>
+	<string>388</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>DTCompiler</key>
+	<string></string>
+	<key>DTPlatformBuild</key>
+	<string>10M2518</string>
+	<key>DTPlatformVersion</key>
+	<string>PG</string>
+	<key>DTSDKBuild</key>
+	<string>10M2518</string>
+	<key>DTSDKName</key>
+	<string>macosx10.6</string>
+	<key>DTXcode</key>
+	<string>0400</string>
+	<key>DTXcodeBuild</key>
+	<string>10M2518</string>
+	<key>OSAScriptingDefinition</key>
+	<string>XMLLib.sdef</string>
+	<key>OSAXHandlers</key>
+	<dict>
+		<key>Events</key>
+		<dict>
+			<key>PLST****</key>
+			<dict>
+				<key>Handler</key>
+				<string>XMLHandler</string>
+				<key>ThreadSafe</key>
+				<false/>
+			</dict>
+			<key>POOL****</key>
+			<dict>
+				<key>Handler</key>
+				<string>XMLHandler</string>
+				<key>ThreadSafe</key>
+				<false/>
+			</dict>
+			<key>XML ****</key>
+			<dict>
+				<key>Handler</key>
+				<string>XMLHandler</string>
+				<key>ThreadSafe</key>
+				<false/>
+			</dict>
+			<key>XNF2****</key>
+			<dict>
+				<key>Handler</key>
+				<string>XMLHandler</string>
+				<key>ThreadSafe</key>
+				<false/>
+			</dict>
+		</dict>
+		<key>PtrCoercions</key>
+		<dict>
+			<key>CFobTEXT</key>
+			<dict>
+				<key>Handler</key>
+				<string>CFRefToString</string>
+			</dict>
+			<key>XMLRTEXT</key>
+			<dict>
+				<key>Handler</key>
+				<string>XMLRefToString</string>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

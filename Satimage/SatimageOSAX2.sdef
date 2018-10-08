@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="">
+    
+<!--
+ This SDEF contains every suite element copied from all of Satimage's OSAXen. Their presence here does not guarantee every command will be usable (e.g. GUI commands will not work in XPC Services), but does allow existing AppleScript code to be compiled and decompiled.
+ 
+ To compile an AppleScript that will not use SatimageOSAX.app once distributed (e.g. a Script Editor-created applet that embeds its own copy of Satimage.osax for final distribution), comment out the `use application "SatimageOSAX"` statement once testing is complete and wrap the code in a `using terms from application "SatimageOSAX" … end` block instead. (Remember the applet and its embedded OSAX must be code-signed with the same developer identifier.)
+ 
+ -->
+
+    <xi:include href="file://Scripting Additions/Files/Contents/Resources/Files.sdef" xpointer="xpointer(/dictionary/suite)"/>
+    <xi:include href="file://Scripting Additions/FITS/Contents/Resources/FITS.sdef" xpointer="xpointer(/dictionary/suite)"/>
+    <xi:include href="file://Scripting Additions/Numerics/Contents/Resources/Numerics.sdef" xpointer="xpointer(/dictionary/suite)"/>
+    <xi:include href="file://Scripting Additions/Satimage/Contents/Resources/Satimage.sdef" xpointer="xpointer(/dictionary/suite)"/>
+    <xi:include href="file://Scripting Additions/XMLLib/Contents/Resources/XMLLib.sdef" xpointer="xpointer(/dictionary/suite)"/>
+
+	<!--
+	This does NOT work as there is no way to create a relative file:// URL.  I suppose I could figure out how to have a dynamic SDEF
+	and generate absolute file URLs based on the bundle's location but not today...
+	-->  
+</dictionary>

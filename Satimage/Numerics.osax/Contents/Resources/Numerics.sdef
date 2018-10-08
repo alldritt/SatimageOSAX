@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="">
+<suite name="Linear algebra" code="ARRA" description="real vectors and real matrices must be provided as &quot;array of real&quot; and &quot;matrix&quot; (see the Satimage.osax). Complex vectors and matrices must be provided as list of 2 arrays of real or 2 matrices.">
+		 	<class name="anything" code="****" description="any class or reference" hidden="yes"/>
+			<class name="array of real" code="Lido" plural="arrays of real" hidden="yes"/>
+			<class name="matrix" code="Matr" plural="matrices" hidden="yes"/>
+			<class name="dimensions" code="dims" hidden="yes"/>
+			<class name="scale" code="Tsca" hidden="yes"/>
+			<class name="number of field" code="NFie" hidden="yes"/>
+			<class name="alias" code="alis" plural="aliases" hidden="yes"/>
+			<class name="file specification" code="fss " hidden="yes"/>
+			<class name="bounding rectangle" code="qdrt" hidden="yes"/>
+			<class name="XMLRef" code="XMLR" hidden="yes"/>
+			<command name="currentEndianess" code="SATIEndi" description="" hidden="yes">
+				<result type="boolean" description="return true means big endian"/>
+			</command>
+			<command name="transpose" code="SATITrMa" description="transpose a matrix. Provide a list of two matrices to transpose a complex matrix">
+				<direct-parameter type="matrix" description="the matrix"/>
+					<parameter name="adjoint" code="adjo" type="boolean" optional="yes" description="For complex matrix only: request the adjoint of the direct parameter. Default: true"/>
+				<result type="matrix" description="the transposed matrix"/>
+			</command>
+			<command name="multmatrix" code="MATHMaPr" description="matrix x matrix, vector x matrix, matrix x vector, vector x vector (scalar product). Here vector stands for array of real. Provide a list of two matrices to define a complex matrix">
+				<direct-parameter type="anything" description="array of real or matrix"/>
+				<parameter name="with" code="with" type="anything" description="array of real or matrix"/>
+				<result type="anything" description="real, array of real or matrix"/>
+			</command>
+			<command name="invertmatrix" code="MATHMaIn" description="invert a matrix">
+				<direct-parameter type="matrix"	description="a matrix or a list of two matrices {A_real,A_imag}"/>
+				<parameter name="positive" code="posi" type="boolean" optional="yes" description="false: general matrix,	true: positive symmetric or Hermitian matrix. default: false"/>
+				<result type="record" description="return the inverse matrix (with ipiv). Determinant is always calculated"/>
+			</command>
+			<command name="solve linear system" code="LAPASOLV" description="Solve X for the linear system AX=B">
+				<direct-parameter type="matrix"	description="a matrix or a list of two matrices {A_real,A_imag}"/>
+				<parameter name="RHS" code="Ax=B" type="array of real"	description="B as array of real or a matrix representing the vectors in columns {B1,B2, ...} (for complex a list of two arrays of real or a list of two matrices)"/>
+				<parameter name="symmetry" code="symm" type="boolean" optional="yes" description="false: general matrix,	true: symmetric or Hermitian matrix. default: false"/>
+				<parameter name="positive" code="posi" type="boolean" optional="yes" description="true for definite positive matrix.	default: false"/>
+				<result type="array of real" description="or a matrix if &quot;RHS&quot; is a matrix. Errors with small positive number n means minor n of A is not positive"/>
+			</command>
+			<command name="compute eigenvalues" code="LAPAEIGE" description="compute eigenvalues and eigenvectors of a matrix">
+				<direct-parameter type="matrix"	description="a square matrix"/>
+				<parameter name="eigenvects" code="EigV" type="boolean" optional="yes" description="true: compute the eigenvectors. default: false"/>
+				<parameter name="Vtype" code="Vtyp" type="integer" optional="yes"	description="used when eigenvects are required for non symmetric matrices. 0:right, 1:left, 2:both eigenvects. default: 0"/>
+				<parameter name="symmetry" code="symm" type="boolean" optional="yes" description="false: general matrix,	true: symmetric or Hermitian matrix. default: false"/>
+				<parameter name="conquer" code="conq" type="boolean" optional="yes" description="false: standard driver, true: use divide-and-conquer driver in case of symmetric inputs. default: true"/>
+				<parameter name="irange" code="iran" type="list of integer" optional="yes" description="a list of two integers {i1,i2}: eigenvalues (eigenvectors) from i1 to i2 are computed"/>
+				<parameter name="erange" code="eran" type="list of real" optional="yes" description="the lower VL and upper VU bounds of the interval to be searched for eigenvalues. VL &lt; VU"/>
+				<parameter name="RHS" code="RHS " type="matrix" optional="yes"	description="Solve the generalized problem with right hand side: Ax = lamba Bx. If symmetry is true, RHS has to be symmetric definite positive and Itype describes the following cases. Itype=1: Ax = lamba Bx, Itype=2: ABx = lambda x, Itype=3: BAx = lambda x"/>
+				<parameter name="Itype" code="ityp" type="integer" optional="yes"	description="see descrition of &quot;RHS&quot;, default: 1"/>
+				<result type="record" description="{eigenvalues:array of real or a list of 2 arrays of real, eigenvectors (or right eigenvectors and left eigenvectors if Vtype=2): matrix or a list of 2 matrices}"/>
+			</command>
+	<record-type name="Lapack result" code="EvR_" description="for complex data, each term list of two terms {real,imag}" >
+					<property name="eigenvalues" code="3val" type="array of real" description="Eigenvalues E"/>
+					<property name="eigenvectors" code="3vec" type="matrix" description="Eigenvectors"/>
+					<property name="right eigenvectors" code="3ver" type="matrix" description="Right Eigenvectors"/>
+					<property name="left eigenvectors" code="3vel" type="matrix" description="Left Eigenvectors"/>
+					<property name="uppermatrix" code="UpMa" type="matrix" description="upper matrix from LU decomposition"/>
+					<property name="lowermatrix" code="LoMa" type="matrix" description="lower matrix from LU decomposition"/>
+					<property name="permutation vector" code="ipiv" type="matrix" description="Permutation vector"/>
+					<property name="determinant" code="det " type="real" description="determinant"/>
+	</record-type>
+			<command name="LUdecomposition" code="LAPADeLU" description="returns the A=PLU decomposition or the Cholesky decomposition (A=U**TU) of a matrix A. P is a permutation matrix, L a lower triangular matrix and U an upper triangular matrix">
+				<direct-parameter type="matrix"	description="you can provide a list of two matrices to define a complex matrix"/>
+				<parameter name="positive" code="posi" type="boolean" optional="yes" description="false: general matrix, compute LU decomposition. True: compute Chowlesky decomposition; in this case the matrix A has to be positive symmetric or Hermitian. Default: false"/>
+				<result type="Lapack result" description="{uppermatrix:matrix, lowermatrix:matrix, permutation vector:array of real, determinant:real}. lowermatrix and  permutation vector are not provided in case of Chowlesky decomposition. If you have provided a complex matrix, the results are lists of two matrices {real, imaginary}"/>
+			</command>
+			<command name="pivot" code="LAPAPivo" description="Apply the permutation defined by the permutation vector of the result of LUdecomposition">
+				<direct-parameter type="array of real"	description="the permutation vector as returned by LUdecomposition"/>
+				<parameter name="to" code="to  " type="anything" optional="yes" description="matrix or array of real"/>
+				<result type="anything" description=""/>
+			</command>
+			<command name="compute determinant" code="LAPADETE" description="determinant of a matrix">
+				<direct-parameter type="matrix"	description="a square matrix. You can provide a list of two matrices to define a complex matrix"/>
+				<parameter name="positive" code="posi" type="boolean" optional="yes" description="false: general matrix,	true: positive symmetric or Hermitian matrix. default: false"/>
+				<result type="real" description="or a list of 2 reals {re(det), im(det)}"/>
+			</command>
+</suite>
+<suite name="FFT and convolution" code="ARRA" description="">
+	<command name="fft1d" code="XPLAFFT1" description="normalized, general fast Fourier transform. This is a general interface allowing grouped and n-dimensional fft. Time is of order Nlog(N) but is better when the size of vectors is a product of powers of small prime numbers">
+		<direct-parameter type="array of real" description="or a list {real part, imaginary part} of 2 arrays of real"/>
+		<parameter name="inverse" code="back" optional="yes" type="boolean" description="default false, if true the inverse fft"/>
+		<parameter name="lot" code="#arr" optional="yes" type="integer" description="the number of vectors to transform"/>
+		<parameter name="vector size" code="size" optional="yes" type="integer" description="the number of elements of each vector"/>
+		<parameter name="vector step" code="istr" optional="yes" type="integer" description="the distance between elements in a vector"/>
+		<parameter name="vector offset" code="idis" optional="yes" type="integer" description="the distance between vectors"/>
+		<result type="array of real" description="{real part, imaginary part} of the resulting fft"/>
+	</command>
+	<command name="fft2d" code="XPLAFFT2" description="2d fast Fourier transform">
+		<direct-parameter type="matrix" description="or a list {real part, imaginary part} of 2 matrices"/>
+		<parameter name="inverse" code="back" optional="yes" type="boolean" description="default false, if true the inverse fft"/>
+		<result type="matrix" description="{real part, imaginary part} of the resulting fft"/>
+	</command>
+		<command name="filterarray" code="CONVCnv1" description="performs convolution. result is r(i)=sum over j of (s(i-j)f(j))">
+			<direct-parameter type="array of real" description="the signal s (size ns)"/>
+			<parameter name="using" code="by  " type="array of real" description="the filter f (size nf)"/>
+			<parameter name="correlation" code="Corr" type="boolean" description="calculate correlation instead of convolution"/>
+			<result type="array of real" description="the result r. its size is nr=ns-nf+1"/>
+		</command>
+		<command name="convolve" code="CONVconv" description="a function f by a function g. Returns the sum over j of f(i-j)*g(j). If not circular f is padded with n 0's outside its definition set">
+			<direct-parameter type="array of real" description="the function f: an array of real of size n"/>
+			<parameter name="by" code="by  " type="array of real" description="the function g: an array of real of size m. If m≠n, either f or g is padded with 0's"/>
+			<parameter name="circular" code="CIRC" type="boolean" optional="yes" description="the functions f and g are periodized with period max(n,m). Default: true"/>
+			<result type="array of real" description="if circular size of the result is max(n,m), else 2*max(n,m)-1"/>
+		</command>
+		<command name="correlate" code="CONVcorr" description="returns the sum over j of (f(i+j)-&lt;f&gt;)*(g(j)-&lt;g&gt;)">
+			<direct-parameter type="array of real" description="the signal (size n)"/>
+			<parameter name="to" code="to  " type="array of real" description="another signal of size n"/>
+			<parameter name="circular" code="CIRC" type="boolean"  optional="yes" description="the signals are periodized with period n. Default: true"/>
+			<parameter name="normalized" code="NORM" type="boolean" optional="yes" description="if normalized the result of &quot;correlate x to x&quot; is smaller than 1 and takes the value 1 at index 1 if circular, and at index n if not circular. Default: true"/>
+			<result type="array of real" description="if circular size of the result is n, else 2*n-1 and the origin (i=0) is at index n"/>
+		</command>
+      <command name="interpolate" code="MATHINTR" description="">
+        <direct-parameter type="list of array of real" description="{xs,ys}" optional="yes"/>
+        <parameter name="at" code="at  " type="array of real" description="the new xs"/>
+        <parameter name="period" code="peri" type="real" optional="yes" description=""/>
+        <parameter name="linear" code="Linr" type="boolean" optional="yes" description="linear interpolation vs. spline. Default false."/>
+        <parameter name="boundary conditions" code="bndc" type="list of real" optional="yes" description="{dy1,dyn}"/>
+        <result type="array of real" description="the new ys"/>
+     </command>
+</suite>
+<suite name="Image files" code="IMAG" description="utilities for image processing.">
+	<command name="imagefile bounds" code="SATIImBd" description="return the bounds of a bitmap image (JPEG, TIFF etc.)">
+		<direct-parameter type="alias"/>
+		<result type="bounding rectangle"/>
+	</command>
+	<command name="convert imagefile" code="SATIImCn" description="return the array of the gray levels of a bitmap image (JPEG, TIFF etc.)">
+		<direct-parameter type="alias"/>
+		<parameter name="selected rectangle" code="Rect" type="bounding rectangle" optional="yes"/>
+		<parameter name="vertical flip" code="VeFl" type="boolean" optional="yes" description="default:false, the origin of the matrix corresponds to the top-left corner."/>
+		<result type="matrix"/>
+	</command>
+	<command name="create grayimagefile" code="IMAGIGSa" description="convert matrix values into 256 levels then save it as a gray bitmap image (PNG, JPEG, TIFF etc.)">
+		<direct-parameter type="matrix"/>
+		<parameter name="in" code="in  " type="file specification" description="destination file. Its extension specifies the image format"/>
+		<parameter name="inverted" code="Inve" type="boolean" optional="yes" description="inverse image levels. Default false"/>
+		<parameter name="minimum" code="MIN " type="real" optional="yes" description="matrix values equal or greater than this value are set to 255. Default: maximum of the matrix values"/>
+		<parameter name="maximum" code="MAX " type="real" optional="yes" description="matrix values equal or lower than this value are set to 0. Default: minimum of the matrix values"/>
+		<parameter name="resolution" code="Scal" type="integer" optional="yes" description="image resolution. Default: 72dpi"/>
+		<result type="alias"/>
+	</command>
+	<command name="particles" code="SATICPar" description="find particles in an image">
+		<direct-parameter type="matrix" description="the image as a matrix containing the grey levels"/>
+		<parameter name="threshold" code="leve" type="real"/>
+		<parameter name="data" code="r$$$" type="boolean" optional="yes" description="get xdata and ydata info in the result record"/>
+		<parameter name="minimum" code="MIN " type="real" optional="yes" description="minimum area"/>
+		<parameter name="maximum" code="MAX " type="real" optional="yes" description="maximum area"/>
+		<result type="record" description="info on particles"/>
+	</command>
+</suite>
+	<suite name="3D array handling" code="VI3D" description="commands to handle 3D arrays. &quot;open3D&quot; loads a 3D array in memory and returns an ID number. You refer to a 3D array either with its ID or its name">
+			<value-type name="Array3DRef" code="VI3D" description="a reference to an opened 3D array"/>
+			<command name="open3D" code="VI3Dodoc" description="Loads a 3D array and returns an ID for it. The memory must be released with &quot;close3D&quot;">
+				<direct-parameter type="string" description="the name of the 3D array" optional="yes"/>
+				<parameter name="dimensions" code="dims" type="list of integer" description="the 3 dimensions {nx, ny, nz} of the array. nx, ny and, nz are either an integer or an array of real altogether defining the size and the scale. If a dimension is an integer the scale is assumed to be {0, 1, 2, ...}"/>
+				<parameter name="field" code="scfl" type="array of real" description="an array of real (or a list of 3 arrays of real defining a vector field) with nz as leading dimension. The value for {ix, iy, iz} must be at offset ix+nx*iy+nx*ny*iz"/>
+				<result type="Array3DRef" description="ID to the 3D array"/>
+			</command>
+			<command name="close3D" code="VI3Dclos" description="release the memory associated to a opened 3D array">
+				<direct-parameter type="Array3DRef" description="a reference to an opened 3D array (or its name)"/>
+			</command>
+			<command name="info3D" code="VI3Dinfo" description="">
+				<direct-parameter type="Array3DRef" description="a reference to an opened 3D array (or its name)"/>
+				<result type="record" description="the dimensions and scales"/>
+			</command>
+			<command name="contents3D" code="VI3Dgetd" description="">
+				<direct-parameter type="Array3DRef" description="a reference to an opened 3D array (or its name)"/>
+				<result type="array of real" description="the data"/>
+			</command>
+			<command name="list3D" code="VI3Dlstn" description="">
+				<parameter name="as" code="as  " type="anything" optional="yes" description="list3D as string returns the names of the opened 3D arrays instead of their references"/>
+				<result type="list of Array3DRef" description="the references of the opened 3D arrays"/>
+			</command>
+			<command name="rename3D" code="VI3Drena" description="rename an opened 3D array.">
+				<direct-parameter type="Array3DRef" description="a reference to an opened 3D array (or its name)"/>
+				<parameter name="into" code="into" type="string" description="the new name"/>
+			</command>
+			<command name="extract3D" code="VI3Dextr" description="Extract a subset from a 3D array">
+				<direct-parameter type="Array3DRef" description="a reference to an opened 3D array (or its name)"/>
+				<parameter name="start" code="star" type="list of integer" description="the 3 1-based offsets"/>
+				<parameter name="length" code="leng" type="list of integer" description="the 3 lengths"/>
+				<parameter name="field index" code="INDX" type="integer" optional="yes" description="if the 3D array is a vector field, a number between 1 and 3. Default 1"/>
+				<result type="array of real" description=""/>
+			</command>
+			<command name="isosurface" code="VI3Dsurf" description="computes an isosurface for a 3D field">
+				<direct-parameter type="Array3DRef" description="a reference to an opened 3D array (or its name)"/>
+				<parameter name="at" code="isov" type="real" description="the isosurface value"/>
+				<parameter name="field index" code="INDX" type="integer" optional="yes" description="if the 3D array is a vector field, a number between 1 and 3. Default 1"/>
+				<result type="array of real" description="the triangle list as an array of real that defines the isosurface"/>
+			</command>
+			<command name="streamline" code="VI3Dinte" description="Computes a streamline for an opened vector field">
+				<direct-parameter type="Array3DRef" description="a reference to an opened 3D array (or its name)"/>
+				<parameter name="starting at" code="Strt" type="list of real" description="a point {x, y, z}"/>
+				<parameter name="resolution" code="Step" optional="yes" type="real" description="Default 1. Smaller value increases the number of points in the streamline"/>
+				<parameter name="direction" code="Idir" optional="yes" type="integer" description="Default 1. Set to -1 to compute the streamline along opposite direction"/>
+				<result type="array of real" description="the coordinates of the streamline's points {x1,y1,z1,...,xn,yn,zn}"/>
+			</command>
+	</suite>
+</dictionary>
