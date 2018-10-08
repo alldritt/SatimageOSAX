@@ -6,8 +6,9 @@ As described in the [Mojave Brings In Big Security Changes](https://latenightsw.
 
 ## Installation
 
-1. Copy the SatimageOSAX application to your Applications folder.
-2. Make sure that you launch the SatimageOSAX application once manually.  macOS will ask for permission to run the application because it was downloaded from the internet.
+1. [Download](https://s3.amazonaws.com/latenightsw.com/SatimageOSAX1.0.dmg) and mount the SatimageOSAX disk image
+2. Copy the SatimageOSAX application to your Applications folder.
+3. Make sure that you launch the SatimageOSAX application once manually.  macOS will ask for permission to run the application because it was downloaded from the internet.
 
 ## Usage
 
