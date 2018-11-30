@@ -36,7 +36,7 @@ SatimageOSAX includes the following scripting additions:
 
 ## Backwards Compatibility
 
-SatimageOSAX can be used on macOS 10.12 (Jaguar) and above.  When using SatimageOSAX on pre-Mojave systems, I suggest removing the Satimage scripting additions from your system to avoid conflicts.
+SatimageOSAX can be used on macOS 10.12 (Sierra) and above.  When using SatimageOSAX on pre-Mojave systems, I suggest removing the Satimage scripting additions from your system to avoid conflicts.
 
 ## WARNING
 

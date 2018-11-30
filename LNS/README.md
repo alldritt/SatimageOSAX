@@ -39,7 +39,7 @@ LNSOSAX includes the following scripting additions:
 
 ## Backwards Compatibility
 
-LNSOSAX can be used on macOS 10.12 (Jaguar) and above.  When using LNSOSAX on pre-Mojave systems, I suggest removing the LNS scripting additions from your system to avoid conflicts.
+LNSOSAX can be used on macOS 10.12 (Sierra) and above.  When using LNSOSAX on pre-Mojave systems, I suggest removing the LNS scripting additions from your system to avoid conflicts.
 
 ## WARNING
 
