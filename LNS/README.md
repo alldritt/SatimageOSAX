@@ -2,7 +2,7 @@
 
 LNSOSAX provides access to the [LNS](https://latenightsw.com/support/freeware/) scripting additions on macOS Mojave systems.
 
-As described in the [Mojave Brings In Big Security Changes](https://latenightsw.com/mojave-brings-in-big-security-changes/) blog post (see the Farewell Scripting Additions section), AppleScript scripting additions (OSAXen) are no longer supported in macOS Mojave.  This presents a serious problem for older scripts which depend on the popular suite of Satimage scripting additions.
+As described in the [Mojave Brings In Big Security Changes](https://latenightsw.com/mojave-brings-in-big-security-changes/) blog post (see the Farewell Scripting Additions section), AppleScript scripting additions (OSAXen) are no longer supported in macOS Mojave.  This presents a serious problem for older scripts which depend on the popular suite of LNS scripting additions.
 
 ## Installation
 
@@ -16,14 +16,19 @@ The LNSOSAX app makes it possible to continue using the LNS scripting additions 
 
 ```
 use scripting additions 
-use application "LNSOSAX"```
+use application "LNSOSAX"
+
+```
 
 That's it.  Now the LNSOSAX application is used to handle all the LNS scripting addition commands for your script.  Please note that this will be slower than before, but your script will run.
 
 Here's a full example using the LNSOSAX `AEPrint of` command:
 
 ```
-use scripting additionsuse application "LNSOSAX"AEPrint of "Hello Again!"
+use scripting additions
+use application "LNSOSAX"
+
+AEPrint of "Hello Again!"
 ```
 
 LNSOSAX includes the following scripting additions:
@@ -40,7 +45,7 @@ LNSOSAX can be used on macOS 10.12 (Jaguar) and above.  When using LNSOSAX on pr
 
 **I STRONGLY encourage you not to rely on LNSOSAX as a long term solution.**
 
-I suspect Apple will remove the functionality on which LNSOSAX depends in future versions of macOS.  You should find alternative means of accomplishing what the Satimage scripting additions did for you in the past.  The Script Debugger support forum provides a [list of AppleScript libraries](https://forum.latenightsw.com/t/documentation-links/1485) you can use.  And then there is AppleScript Objective-C which gives you access to all the feature of Apple's Foundation framework (and other Objective-C frameworks).
+I suspect Apple will remove the functionality on which LNSOSAX depends in future versions of macOS.  You should find alternative means of accomplishing what the LNS scripting additions did for you in the past.  The Script Debugger support forum provides a [list of AppleScript libraries](https://forum.latenightsw.com/t/documentation-links/1485) you can use.  And then there is AppleScript Objective-C which gives you access to all the feature of Apple's Foundation framework (and other Objective-C frameworks).
 
 ## Support
 
