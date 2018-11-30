@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A5BC7B9E216BA7130055D4F8"
-               BuildableName = "SatimageOSAX.app"
-               BlueprintName = "SatimageOSAX"
+               BlueprintIdentifier = "A52591D321B08EE9007EF081"
+               BuildableName = "LNSOSAX.app"
+               BlueprintName = "LNSOSAX"
                ReferencedContainer = "container:OSAXHost.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A5BC7B9E216BA7130055D4F8"
-            BuildableName = "SatimageOSAX.app"
-            BlueprintName = "SatimageOSAX"
+            BlueprintIdentifier = "A52591D321B08EE9007EF081"
+            BuildableName = "LNSOSAX.app"
+            BlueprintName = "LNSOSAX"
             ReferencedContainer = "container:OSAXHost.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A5BC7B9E216BA7130055D4F8"
-            BuildableName = "SatimageOSAX.app"
-            BlueprintName = "SatimageOSAX"
+            BlueprintIdentifier = "A52591D321B08EE9007EF081"
+            BuildableName = "LNSOSAX.app"
+            BlueprintName = "LNSOSAX"
             ReferencedContainer = "container:OSAXHost.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A5BC7B9E216BA7130055D4F8"
-            BuildableName = "SatimageOSAX.app"
-            BlueprintName = "SatimageOSAX"
+            BlueprintIdentifier = "A52591D321B08EE9007EF081"
+            BuildableName = "LNSOSAX.app"
+            BlueprintName = "LNSOSAX"
             ReferencedContainer = "container:OSAXHost.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

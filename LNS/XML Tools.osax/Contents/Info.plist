@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>XML Tools</string>
+	<key>CFBundleGetInfoString</key>
+	<string>2.9.4, Copyright 1998-2010 Late Night Software Ltd.  All Rights Reserved.</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.latenightsw.xmltools</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>osax</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.9.4</string>
+	<key>CFBundleSignature</key>
+	<string>ascr</string>
+	<key>CFBundleVersion</key>
+	<string>2.9.4</string>
+	<key>CSResourcesFileMapped</key>
+	<false/>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+	<key>OSAXHandlers</key>
+	<dict>
+		<key>Events</key>
+		<dict>
+			<key>ScTlToAE</key>
+			<dict>
+				<key>Context</key>
+				<string>User</string>
+				<key>Handler</key>
+				<string>AEVTScTlToAE</string>
+				<key>ThreadSafe</key>
+				<true/>
+			</dict>
+			<key>ScTlToXM</key>
+			<dict>
+				<key>Context</key>
+				<string>User</string>
+				<key>Handler</key>
+				<string>AEVTScTlToXM</string>
+				<key>ThreadSafe</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

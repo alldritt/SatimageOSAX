@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="MacRoman"?>
+<dictionary name="Hello World">
+	<suite name="LNS Scripting Additions Suite" code="ScTl" description="Copyright © 1993-2004 Mark Alldritt &amp; Late Night Software Ltd.All Rights Reserved">
+		<command name="get property" code="ScTlrcGT" description="read a property from a record">
+			<result description="property value">
+				<type type="anything"/>
+			</result>
+			<direct-parameter description="the property&apos;s 4-character ID as a string">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to read the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="set property" code="ScTlrcST" description="set a property in a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the property&apos;s 4-character ID as a string">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to modify" optional="yes">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="to" code="rcDT" description="the data assigned to the property">
+				<type type="anything" list="yes"/>
+			</parameter>
+		</command>
+		<command name="delete property" code="ScTlrcDT" description="delete a property from a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the property&apos;s 4-character ID as a string">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to delete the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="get property IDs" code="ScTlrcGN" description="get the IDs of all the user properties in a record">
+			<result description="property names">
+				<type type="string" list="yes"/>
+			</result>
+			<direct-parameter description="the request to query">
+				<type type="reco"/>
+			</direct-parameter>
+		</command>
+		<command name="get user property" code="ScTlrcGt" description="read a user property from a record">
+			<result description="property value">
+				<type type="anything"/>
+			</result>
+			<direct-parameter description="the property name">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to read the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="set user property" code="ScTlrcSt" description="set a user property in a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the user property name">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to modify" optional="yes">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="to" code="rcDT" description="the data assigned to the property">
+				<type type="anything" list="yes"/>
+			</parameter>
+		</command>
+		<command name="delete user property" code="ScTlrcDt" description="delete a user property from a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the user property name">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to delete the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="get user property names" code="ScTlrcGn" description="get the names of all the user properties in a record">
+			<result description="property names">
+				<type type="string" list="yes"/>
+			</result>
+			<direct-parameter description="the request to query">
+				<type type="reco"/>
+			</direct-parameter>
+		</command>
+		<command name="AEPrint of" code="ScTlaePR" description="convert an value to AEPrint syntax">
+			<result description="AEPrint result">
+				<type type="string" list="yes"/>
+			</result>
+			<direct-parameter description="the data to display">
+				<type type="anything"/>
+			</direct-parameter>
+		</command>
+		<command name="union of" code="ScTlLUon" description="join two lists together and return the union (all unique items) of the two lists">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="and" code="PL2 " description="second list">
+				<type type="list" list="yes"/>
+			</parameter>
+			<parameter name="removing duplicates" code="FCdp" description="remove all duplicate items from the resulting list (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="intersection of" code="ScTlLInt" description="join two lists together and return the intersection (items common to both) of the two lists">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="and" code="PL2 " description="second list">
+				<type type="list" list="yes"/>
+			</parameter>
+			<parameter name="removing duplicates" code="FCdp" description="remove all duplicate items from the resulting list (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="difference of" code="ScTlLDif" description="join two lists together and return the difference (items not common to both) of the two lists">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="and" code="PL2 " description="second list">
+				<type type="list" list="yes"/>
+			</parameter>
+			<parameter name="removing duplicates" code="FCdp" description="remove all duplicate items from the resulting list (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="filter list" code="ScTlLFil" description="extract items of certain type(s) from a list">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="looking for" code="TYPE" description="the data type(s) to extract">
+				<type type="type" list="yes"/>
+			</parameter>
+		</command>
+	</suite>
+</dictionary>

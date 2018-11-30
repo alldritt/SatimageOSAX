@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="MacRoman"?>
+<dictionary name="Hello World">
+	<suite name="LNS Scripting Additions Suite" code="ScTl" description="Copyright © 1993-2004 Mark Alldritt &amp; Late Night Software Ltd.All Rights Reserved">
+		<!-- List & Record Tools -->
+		<command name="get property" code="ScTlrcGT" description="read a property from a record">
+			<result description="property value">
+				<type type="anything"/>
+			</result>
+			<direct-parameter description="the property&apos;s 4-character ID as a string">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to read the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="set property" code="ScTlrcST" description="set a property in a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the property&apos;s 4-character ID as a string">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to modify" optional="yes">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="to" code="rcDT" description="the data assigned to the property">
+				<type type="anything" list="yes"/>
+			</parameter>
+		</command>
+		<command name="delete property" code="ScTlrcDT" description="delete a property from a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the property&apos;s 4-character ID as a string">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to delete the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="get property IDs" code="ScTlrcGN" description="get the IDs of all the user properties in a record">
+			<result description="property names">
+				<type type="string" list="yes"/>
+			</result>
+			<direct-parameter description="the request to query">
+				<type type="reco"/>
+			</direct-parameter>
+		</command>
+		<command name="get user property" code="ScTlrcGt" description="read a user property from a record">
+			<result description="property value">
+				<type type="anything"/>
+			</result>
+			<direct-parameter description="the property name">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to read the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="set user property" code="ScTlrcSt" description="set a user property in a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the user property name">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to modify" optional="yes">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="to" code="rcDT" description="the data assigned to the property">
+				<type type="anything" list="yes"/>
+			</parameter>
+		</command>
+		<command name="delete user property" code="ScTlrcDt" description="delete a user property from a record">
+			<result description="the modified record">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the user property name">
+				<type type="string" list="yes"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="the record to delete the property from">
+				<type type="reco"/>
+			</parameter>
+			<parameter name="silent failures" code="rcSE" description="ignore missing properties (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="get user property names" code="ScTlrcGn" description="get the names of all the user properties in a record">
+			<result description="property names">
+				<type type="string" list="yes"/>
+			</result>
+			<direct-parameter description="the request to query">
+				<type type="reco"/>
+			</direct-parameter>
+		</command>
+		<command name="AEPrint of" code="ScTlaePR" description="convert an value to AEPrint syntax">
+			<result description="AEPrint result">
+				<type type="string" list="yes"/>
+			</result>
+			<direct-parameter description="the data to display">
+				<type type="anything"/>
+			</direct-parameter>
+		</command>
+		<command name="union of" code="ScTlLUon" description="join two lists together and return the union (all unique items) of the two lists">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="and" code="PL2 " description="second list">
+				<type type="list" list="yes"/>
+			</parameter>
+			<parameter name="removing duplicates" code="FCdp" description="remove all duplicate items from the resulting list (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="intersection of" code="ScTlLInt" description="join two lists together and return the intersection (items common to both) of the two lists">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="and" code="PL2 " description="second list">
+				<type type="list" list="yes"/>
+			</parameter>
+			<parameter name="removing duplicates" code="FCdp" description="remove all duplicate items from the resulting list (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="difference of" code="ScTlLDif" description="join two lists together and return the difference (items not common to both) of the two lists">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="and" code="PL2 " description="second list">
+				<type type="list" list="yes"/>
+			</parameter>
+			<parameter name="removing duplicates" code="FCdp" description="remove all duplicate items from the resulting list (default = false)" optional="yes">
+				<type type="bool"/>
+			</parameter>
+		</command>
+		<command name="filter list" code="ScTlLFil" description="extract items of certain type(s) from a list">
+			<result description="resulting merged list">
+				<type type="list" list="yes"/>
+			</result>
+			<direct-parameter description="first list">
+				<type type="list" list="yes"/>
+			</direct-parameter>
+			<parameter name="looking for" code="TYPE" description="the data type(s) to extract">
+				<type type="type" list="yes"/>
+			</parameter>
+		</command>
+		
+		<!-- Property List Tools -->
+		<command name="read property list" code="ScTlplsL" description="read a property list">
+			<result description="resulting record containing the data loaded from the property list">
+				<type type="reco"/>
+			</result>
+			<direct-parameter description="the property list file or string to load">
+				<type type="file"/>
+				<type type="text"/>
+			</direct-parameter>
+		</command>
+		<command name="store property list" code="ScTlplsS" description="save a property list">
+			<result type="text" description="Property List XML data (returned only if the in parameter is not specified)"/>
+			<direct-parameter description="the data to save as a property list">
+				<type type="reco"/>
+			</direct-parameter>
+			<parameter name="in" code="XMlO" description="where to store the property list (if not specified, Property List XML data is returned as a string)" optional="yes">
+				<type type="file"/>
+			</parameter>
+		</command>
+
+		<!-- XML Tools -->
+		<command name="parse XML" code="ScTlToAE" description="Parse XML data into a record structure">
+			<direct-parameter type="text" description="the XML data to parse (can be string, unicode string, file spec or alias)"/>
+			<parameter name="strict standalone" code="XMLs" type="boolean" optional="yes" description="is the standalone XML declaration to be validated (default = false)?"/>
+			<parameter name="expanding external entities" code="XMLx" type="boolean" optional="yes" description="are externally defined entities to be expanded (default = false)?"/>
+			<parameter name="including comments" code="XMLz" type="boolean" optional="yes" description="include comments from the XML source in the results of the parse (default = false)?"/>
+			<parameter name="including processing instructions" code="XMLp" type="boolean" optional="yes" description="include processing instructions from the XML source in the results of the parse (default = false)?"/>
+			<parameter name="base folder" code="XMLb" type="file" optional="yes" description="the base folder for all relative paths appearing in XML (e.g. external entities)"/>
+			<parameter name="preserving whitespace" code="XML•" type="boolean" optional="yes" description="should whitespace in the XML data be preserved (default = false)?"/>
+			<parameter name="allowing leading whitespace" code="XMLº" type="boolean" optional="yes" description="should whitespace before the initial &lt;?xml ... ?&gt; element be allowed (default = false)?"/>
+			<parameter name="seperate namespace URIs" code="XMLπ" type="boolean" optional="yes" description="should namespace URIs be reported seperatly from element names (default = true)?"/>
+			<parameter name="including empty elements" code="XML¶" type="boolean" optional="yes" description="report the value of emprt elements (&lt;tag/&gt; or &lt;tag&gt;&lt;/tag&gt;) as &quot;&quot;"/>
+			<parameter name="serializing" code="XML)" type="boolean" optional="yes" description="add a unique ID to each XML element (default = false)?"/>
+			<parameter name="simple DOM" code="XML’" type="boolean" optional="yes" description="generate a simplified DOM-like structure compused on nested records and list (default = false)?"/>
+			<parameter name="SAX handler" code="XML‘" type="script" optional="yes" description="a script object that must respond to SAX events, when specified result of parse XML is this object"/>
+			<parameter name="encoding" code="XMLª" type="text" optional="yes" description="the XML encoding in use (overrides the encoding specified in the &lt;?xml ... ?&gt; XML Declaration).  Valid encodings are: UTF-8, UTF-16, ISO-8859-1, US-ASCII and MacRoman."/>
+			<result type="XML document" description="resulting XML data structure"/>
+		</command>
+		<command name="generate XML" code="ScTlToXM" description="Generate an XML representation of an XML element record">
+			<direct-parameter type="XML structure type" description="the data structure to be converted into XML"/>
+			<parameter name="including XML declaration" code="XMLx" type="boolean" optional="yes" description="is the XML declaration to be included (default = true)?"/>
+			<parameter name="including DOCTYPE declaration" code="XMLd" type="boolean" optional="yes" description="is the DOCTYPE declaration to be included (default = true)?"/>
+			<parameter name="including comments" code="XMLz" type="boolean" optional="yes" description="are comments to be included (default = true)?"/>
+			<parameter name="including processing instructions" code="XMLp" type="boolean" optional="yes" description="are processing instructions to be included (default = true)?"/>
+			<parameter name="pretty printing" code="XML©" type="boolean" optional="yes" description="should the resulting XML be formatted for readability (default = true)?"/>
+			<parameter name="generating UTF16" code="XMLu" type="boolean" optional="yes" description="produce Unicode (UTF-16) output (default = false)?"/>
+			<parameter name="generating UTF8" code="XMLv" type="boolean" optional="yes" description="produce Unicode (UTF-8) output (default = false)?"/>
+			<parameter name="byte order mark" code="XMLˆ" type="boolean" optional="yes" description="output a Unicode Byte Order Mark (BOM) when saving to a file (default = true)?"/>
+			<parameter name="saving as" code="XMlO" type="file" optional="yes" description="where to save the resulting XML data.  When not specified, the resulting XML is returned as the command&apos;s result"/>
+			<result type="text" description="resulting XML data, unless saving as is specified"/>
+		</command>
+		<class name="XML element" code="cXML">
+			<property name="XML tag" code="XMLn" type="text" description="the XML element tag string"/>
+			<property name="XML contents" code="XMLc" description="the data associated with with the XML element">
+				<type type="XML content type" list="yes"/>
+			</property>
+			<property name="XML attributes" code="XMLa" type="record" description="the attributes associated with the XML element tag"/>
+			<property name="XML namespaces" code="XML*" description="namespace declaractions occuring in this element">
+				<type type="XML namespace" list="yes"/>
+			</property>
+			<property name="XML element id" code="XMLi" type="integer" access="r" description="a unique element ID, present only of the serializing parameter to parse XML is true"/>
+			<property name="XML namespace uri" code="XML%" type="text" description="the namespace URI, only included if the &apos;seperate namespace URIs&apos; parameter is true"/>
+		</class>
+		<class name="XML comment" code="cXMc">
+			<property name="XML comment" code="cXMc" type="text" description="the comment text"/>
+		</class>
+		<class name="XML processing instruction" code="cXMp">
+			<property name="XML target" code="XML7" type="text" description="the processing instruction target"/>
+			<property name="XML target data" code="XML8" type="text" description="the processing instruction data"/>
+		</class>
+		<class name="XML namespace" code="cXMn">
+			<property name="XML namespace prefix" code="XML^" type="text" description="the namespace prefix"/>
+			<property name="XML namespace uri" code="XML%" type="text" description="the namespace URI"/>
+		</class>
+		<class name="XML document" code="cXMl">
+			<property name="XML tag" code="XMLn" type="text" description="the XML element tag string"/>
+			<property name="XML contents" code="XMLc" description="the data associated with with the XML element">
+				<type type="XML content type" list="yes"/>
+			</property>
+			<property name="XML attributes" code="XMLa" type="record" description="the attributes associated with the XML element tag"/>
+			<property name="XML doctype name" code="XML0" type="text" description="the name appearing in the DOCTYPE declaration"/><property name="XML doctype publicid" code="XML4" type="text" description="the public ID appearing in the DOCTYPE declaration"/>
+			<property name="XML doctype systemid" code="XML3" type="text" description="the system ID appearing in the DOCTYPE declaration"/>
+			<property name="XML encoding" code="XML6" type="text" description="the encoding specified in the XML declaration"/>
+			<property name="XML standalone" code="XML5" type="boolean" description="standalone state in XML declaration"/>
+			<property name="XML version" code="XML9" type="text" description="standalone state in XML declaration"/>
+			<property name="XML prolog" code="XML°" description="comments and processing instructions preceeding the first XML tag">
+				<type type="XML prolog type" list="yes"/>
+			</property>
+			<property name="XML trailing comments" code="XML!" description="comments appearing after the first XML tag">
+				<type type="XML comment" list="yes"/>
+			</property>
+		</class>
+		<enumeration name="XML content type" code="XMLt">
+			<enumerator name="string" code="TEXT" description="text associated with the XML tag"/>
+			<enumerator name="unicode string" code="utxt" description="unicode text associated with the XML tag"/>
+			<enumerator name="XML element" code="cXML" description="sub tag structure"/>
+		</enumeration>
+		<enumeration name="XML structure type" code="XMLp">
+			<enumerator name="XML document" code="cXMl" description="an XML document specification"/>
+			<enumerator name="XML element" code="cXML" description="an XML element specification"/>
+		</enumeration>
+		<enumeration name="XML prolog type" code="XML≠">
+			<enumerator name="XML processing instruction" code="cXMp" description="an XML processing instruction specification"/>
+			<enumerator name="XML comment" code="cXMc" description="an XML comment"/>
+		</enumeration>
+
+	</suite>
+</dictionary>

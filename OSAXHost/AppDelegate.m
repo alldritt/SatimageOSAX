@@ -54,8 +54,20 @@ OSErr handleAnyAppleEvent(const AppleEvent *eventDesc, AppleEvent *replyDesc, SR
     }
 
 #if FALSE
-    //  Test that the event handlers were loaded
+    //  Test that the Satimage event handlers were loaded
     NSAppleEventDescriptor *event2 = [NSAppleEventDescriptor appleEventWithEventClass: 'SATI' eventID: 'UPPE'
+                                                                     targetDescriptor: [NSAppleEventDescriptor currentProcessDescriptor]
+                                                                             returnID: kAutoGenerateReturnID
+                                                                        transactionID: kAnyTransactionID];
+    [event2 setDescriptor:[NSAppleEventDescriptor descriptorWithString:@"Hello World"] forKeyword:keyDirectObject];
+    error = nil;
+    NSAppleEventDescriptor* reply = [event2 sendEventWithOptions: kAEWaitReply timeout: kAEDefaultTimeout error: &error];
+    
+    NSLog(@"sendEventWithOptions 2 -> %@, error: %@", reply, error);
+#endif
+#if true
+    //  Test that the LNS event handlers were loaded
+    NSAppleEventDescriptor *event2 = [NSAppleEventDescriptor appleEventWithEventClass: 'ScTl' eventID: 'aePR'
                                                                      targetDescriptor: [NSAppleEventDescriptor currentProcessDescriptor]
                                                                              returnID: kAutoGenerateReturnID
                                                                         transactionID: kAnyTransactionID];
