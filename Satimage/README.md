@@ -1,6 +1,6 @@
 # SatimageOSAX
 
-SatimageOSAX provides access to the [Satimage](http://www.satimage.fr/software/en/downloads/downloads_companion_osaxen.html) scripting additions on macOS Mojave systems.
+SatimageOSAX provides access to the [Satimage](http://www.satimage.fr/software/en/downloads/downloads_companion_osaxen.html) scripting additions on macOS Mojave (and later) macOS systems.
 
 As described in the [Mojave Brings In Big Security Changes](https://latenightsw.com/mojave-brings-in-big-security-changes/) blog post (see the Farewell Scripting Additions section), AppleScript scripting additions (OSAXen) are no longer supported in macOS Mojave.  This presents a serious problem for older scripts which depend on the popular suite of Satimage scripting additions.
 
@@ -16,14 +16,19 @@ The SatimageOSAX app makes it possible to continue using Satimage scripting addi
 
 ```
 use scripting additions 
-use application "SatimageOSAX"```
+use application "SatimageOSAX"
+
+```
 
 That's it.  Now the SatimageOSAX application is used to handle all the Satimage scripting addition commands for your script.  Please note that this will be slower than before, but your script will run.
 
 Here's a full example using the Satimage `uppercase` command:
 
 ```
-use scripting additionsuse application "SatimageOSAX"uppercase "Hello Again!"
+use scripting additions
+use application "SatimageOSAX"
+
+uppercase "Hello Again!"
 ```
 
 SatimageOSAX includes the following scripting additions:
