@@ -1,6 +1,6 @@
 # LNSOSAX
 
-LNSOSAX provides access to the [LNS](https://latenightsw.com/support/freeware/) scripting additions on macOS Mojave systems.
+LNSOSAX provides access to the [LNS](https://latenightsw.com/support/freeware/) scripting additions on macOS Mojave (and later) macOS systems.
 
 As described in the [Mojave Brings In Big Security Changes](https://latenightsw.com/mojave-brings-in-big-security-changes/) blog post (see the Farewell Scripting Additions section), AppleScript scripting additions (OSAXen) are no longer supported in macOS Mojave.  This presents a serious problem for older scripts which depend on the popular suite of LNS scripting additions.
 
