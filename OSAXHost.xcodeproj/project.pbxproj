@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0F977627652012008F24E0 /* DEVELOPMENT_TEAM.template.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3D0F977327652012008F24E0 /* DEVELOPMENT_TEAM.template.xcconfig */; };
+		3D0F977727652012008F24E0 /* DEVELOPMENT_TEAM.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3D0F977427652012008F24E0 /* DEVELOPMENT_TEAM.xcconfig */; };
+		3D0F977827652012008F24E0 /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3D0F977527652012008F24E0 /* Shared.xcconfig */; };
 		A52591D521B08EE9007EF081 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7BAB216BA7150055D4F8 /* main.m */; };
 		A52591D621B08EE9007EF081 /* StubScriptSuiteRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7C80216BB1F70055D4F8 /* StubScriptSuiteRegistry.m */; };
 		A52591D721B08EE9007EF081 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7BA3216BA7130055D4F8 /* AppDelegate.m */; };
@@ -61,6 +64,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D0F977327652012008F24E0 /* DEVELOPMENT_TEAM.template.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DEVELOPMENT_TEAM.template.xcconfig; sourceTree = "<group>"; };
+		3D0F977427652012008F24E0 /* DEVELOPMENT_TEAM.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DEVELOPMENT_TEAM.xcconfig; sourceTree = "<group>"; };
+		3D0F977527652012008F24E0 /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		A52591E621B08EE9007EF081 /* LNSOSAX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LNSOSAX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A52591EB21B08F97007EF081 /* List & Record Tools.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "List & Record Tools.osax"; path = "LNS/List & Record Tools.osax"; sourceTree = SOURCE_ROOT; };
 		A52591EC21B08F97007EF081 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LNS/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -103,6 +109,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D0F977227652012008F24E0 /* Xcode-config */ = {
+			isa = PBXGroup;
+			children = (
+				3D0F977327652012008F24E0 /* DEVELOPMENT_TEAM.template.xcconfig */,
+				3D0F977427652012008F24E0 /* DEVELOPMENT_TEAM.xcconfig */,
+				3D0F977527652012008F24E0 /* Shared.xcconfig */,
+			);
+			path = "Xcode-config";
+			sourceTree = "<group>";
+		};
 		A52591EA21B08F81007EF081 /* LNS */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +134,7 @@
 		A5BC7B96216BA7130055D4F8 = {
 			isa = PBXGroup;
 			children = (
+				3D0F977227652012008F24E0 /* Xcode-config */,
 				A52591EA21B08F81007EF081 /* LNS */,
 				A5BC7C6F216BA9F50055D4F8 /* Satimage */,
 				A5BC7BA1216BA7130055D4F8 /* OSAXHost */,
@@ -250,9 +267,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0F977727652012008F24E0 /* DEVELOPMENT_TEAM.xcconfig in Resources */,
+				3D0F977627652012008F24E0 /* DEVELOPMENT_TEAM.template.xcconfig in Resources */,
 				A5BC7BA6216BA7150055D4F8 /* Assets.xcassets in Resources */,
 				A5BC7C83216BB2F40055D4F8 /* SatimageOSAX.sdef in Resources */,
 				A5BC7BA9216BA7150055D4F8 /* MainMenu.xib in Resources */,
+				3D0F977827652012008F24E0 /* Shared.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,10 +319,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = Z7S6X96M3X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/LNS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -322,10 +341,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = Z7S6X96M3X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/LNS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -341,6 +359,7 @@
 		};
 		A5BC7BAE216BA7150055D4F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D0F977527652012008F24E0 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -401,6 +420,7 @@
 		};
 		A5BC7BAF216BA7150055D4F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D0F977527652012008F24E0 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -458,10 +478,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = Z7S6X96M3X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Satimage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -481,10 +500,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = Z7S6X96M3X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Satimage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
