@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
-<dictionary>
-    <suite name="Standard Suite" code="????" description="AppleScript Toolbox associated commands.">
+<dictionary title="">
+    <suite name="Standard Suite" code="ASTv" description="AppleScript Toolbox associated commands.">
         <command name="AST version" code="ASTversi" description="Return the bundle short version number of this scripting addition. This isn't hardcoded but read from the info.plist file inside the osax bundle.">
             <result>
                 <type type="text" list="no"/>
@@ -32,7 +32,7 @@ end considering</code></pre>
             </documentation>
         </command>
     </suite>
-    <suite name="Process Suite" code="????" description="" >
+    <suite name="Process Suite" code="ASTp" description="" >
         <command name="AST list processes" code="ASTprocs" description="Return a list with all the running processes.">
             <parameter name="returning properties" code="|rpv" optional="yes" description="A list of or a property key of 'ast process record' to tell the command which properties you want on return. To avoid a lot of unnessecary data to be received back from the command, not every property of the ast process record is returned. (default: {ast path, ast pid, ast parent id, ast exec name, ast 64-bit}).">
                 <type type="ast process enumerator" list="yes"/>
@@ -76,31 +76,31 @@ end considering</code></pre>
         </record-type>
         <!-- enumerators are only for the sdef (dictionary), these are not used by the osax itself -->
         <enumeration name="ast process enumerator">
-            <enumerator name="ast path" code="????"  />
-            <enumerator name="ast pid" code="????" />
-            <enumerator name="ast parent pid" code="????" />
-            <enumerator name="ast exec name" code="????" />
-            <enumerator name="ast 64-bit" code="????"  />
-            <enumerator name="ast bytes read" code="????"  />
-            <enumerator name="ast bytes written" code="????"  />
-            <enumerator name="ast residential size" code="????"  />
-            <enumerator name="ast virtual size" code="????"  />
-            <enumerator name="ast user id" code="????"  />
-            <enumerator name="ast group id" code="????"  />
-            <enumerator name="ast real user id" code="????"  />
-            <enumerator name="ast real group id" code="????"  />
-            <enumerator name="ast messages sent" code="????"  />
-            <enumerator name="ast messages received" code="????"  />
-            <enumerator name="ast number of threads" code="????"  />
-            <enumerator name="ast running threads" code="????"  />
+            <enumerator name="ast path" code="||01"  />
+            <enumerator name="ast pid" code="||02" />
+            <enumerator name="ast parent pid" code="||03" />
+            <enumerator name="ast exec name" code="||04" />
+            <enumerator name="ast 64-bit" code="||05"  />
+            <enumerator name="ast bytes read" code="||06"  />
+            <enumerator name="ast bytes written" code="||07"  />
+            <enumerator name="ast residential size" code="||08"  />
+            <enumerator name="ast virtual size" code="||09"  />
+            <enumerator name="ast user id" code="||10"  />
+            <enumerator name="ast group id" code="||11"  />
+            <enumerator name="ast real user id" code="||12"  />
+            <enumerator name="ast real group id" code="||13"  />
+            <enumerator name="ast messages sent" code="||14"  />
+            <enumerator name="ast messages received" code="||15"  />
+            <enumerator name="ast number of threads" code="||16"  />
+            <enumerator name="ast running threads" code="||17"  />
         </enumeration>
     </suite>
-    <suite name="File Suite" code="????" description="File related commands.">
+    <suite name="File Suite" code="ASTl" description="File related commands.">
         <command name="AST list folder" code="ASTlstdr" description="Return the file names inside a folder.">
-            <direct-parameter type="file specifier" description="Path to folder" />
+            <direct-parameter type="file" description="Path to folder" />
             <parameter name="matching regex" code="|rex" type="text" optional="yes" description="The regular expression to match the file. Enhanced, extended and case insensitive regex options are used." />
             <parameter name="showing invisibles" code="|hid" type="boolean" optional="yes" description="Should the returned list include hidden items? (default:true)" />
-            <parameter name="listing subfolders" code="|rcv" type="boolean" optional="yes" description="List all folders and subfolders? If this parameter is set true the option &quote;returning file specifiers&quote; is also set to true. (default:false)" />
+            <parameter name="listing subfolders" code="|rcv" type="boolean" optional="yes" description="List all folders and subfolders? If this parameter is set true the option 'returning file specifiers' is also set to true. (default:false)" />
             <parameter name="showing package contents" code="|opp" type="boolean" optional="yes" description="Are packages considered as folders? (default:false)" />
             <parameter name="returning file specifiers" code="|fsp" type="boolean" optional="yes" description="Return the paths to the files as file specifiers? Otherwise only the file names are returned as strings. (default:false)" />
             <parameter name="returning HFS paths" code="|hfs" type="boolean" optional="yes" description="Return the paths to the files as HFS path strings? (default:false)" />
@@ -141,11 +141,11 @@ end considering</code></pre>
         <command name="AST query metadata" code="ASTlsmtd">
             <direct-parameter type="text" description="Query to search spotlight database" />
             <parameter name="only in folders" code="|oif" optional="yes" description="Search the database only for files in the given folder or list of folders.">
-                <type type="file specifier" list="no"/>
-                <type type="file specifier" list="yes"/>
+                <type type="file" list="no"/>
+                <type type="file" list="yes"/>
             </parameter>
             <result description="Return a list of file specifiers or list of file names.">
-                <type type="file specifier" list="yes"/>
+                <type type="file" list="yes"/>
             </result>
             <documentation>
                 <html>
@@ -158,7 +158,7 @@ AST query metadata "kMDItemContentType = 'com.apple.application-bundle'" only in
             </documentation>
         </command>
         <command name="AST metadata for file" code="ASTlstmd" description="List spotlight metadata of the given file">
-            <direct-parameter type="file specifier" description="Path to file" />
+            <direct-parameter type="file" description="Path to file" />
             <result type="record" />
             <documentation>
                 <html>
@@ -170,7 +170,7 @@ AST query metadata "kMDItemContentType = 'com.apple.application-bundle'" only in
             </documentation>
         </command>
         <command name="AST application for file" code="ASTappfi" description="Returns the path to the default application to open the file.">
-            <direct-parameter type="file specifier" description="Path to file." />
+            <direct-parameter type="file" description="Path to file." />
             <result>
                 <type type="file" list="no"/>
             </result>
@@ -184,7 +184,7 @@ AST query metadata "kMDItemContentType = 'com.apple.application-bundle'" only in
             </documentation>
         </command>
     </suite>
-    <suite name="Key &amp; Mouse Suite" code="????" description="Automate your mouse">
+    <suite name="Key &amp; Mouse Suite" code="ASTc" description="Automate your mouse">
         <command name="AST click" code="ASTclick" description="Click the mouse at the specified location by sending the events mousedown and mouseup using CoreGraphics. If no coordinate parameter is given, the click is performed at the current mouse point location.">
             <parameter  name="at" code="at  " optional="yes" description="List with the x and y global screen coordination to move the mouse to and perform a mouse down and mouse up event.">
                 <type type="real" list="yes" description="The x and y coordinates as real values."/>
@@ -239,7 +239,7 @@ AST query metadata "kMDItemContentType = 'com.apple.application-bundle'" only in
             <enumerator name="ast shift key" code="|KYS" />
         </enumeration>
     </suite>
-    <suite name="Text Suite" code="????" description="Regular expression commands using regex.h. Read re_format(7) man page for more information about the regex syntax.">
+    <suite name="Text Suite" code="ASTd" description="Regular expression commands using regex.h. Read re_format(7) man page for more information about the regex syntax.">
         <command name="AST format date" code="ASTdatfm" description="return the date as string in the given format." >
             <direct-parameter type="text" description="format in which you want to show the date." />
             <parameter name="of date" code="|dat" type="date" optional="yes" description="The date object to get the date from for the string. If this parameter is not given the current date is used." />
@@ -296,8 +296,8 @@ AST query metadata "kMDItemContentType = 'com.apple.application-bundle'" only in
                 <type type="text" list="no"/>
                 <type type="text" list="yes"/>
             </parameter>
-            <parameter name="in file" type="file specifier" code="|ifi" optional="yes" description="The file containing the text to match the regex. This parameter is required if parameter 'in string' is not used."/>
-            <parameter name="regex group" type="int" code="|gre" optional="yes" description="Return only the parts of the matches which correspond to a particular group in the regex. Group 1 (the default) is the whole regex, group 2 is the first parenthesised subgroup, and so on, tracking the parenthesis openings from left to right. Groups are not supported in basic regular expressions, so ‘extended regex’ (qv.) is implicitly set to true when the group number specified here is greater than 1."/>
+            <parameter name="in file" type="file" code="|ifi" optional="yes" description="The file containing the text to match the regex. This parameter is required if parameter 'in string' is not used."/>
+            <parameter name="regex group" type="integer" code="|gre" optional="yes" description="Return only the parts of the matches which correspond to a particular group in the regex. Group 1 (the default) is the whole regex, group 2 is the first parenthesised subgroup, and so on, tracking the parenthesis openings from left to right. Groups are not supported in basic regular expressions, so ‘extended regex’ (qv.) is implicitly set to true when the group number specified here is greater than 1."/>
             <parameter name="extended regex" type="boolean" code="|ere" optional="yes" description="Use extended regular expressions? (default is true)"/>
             <parameter name="enhanced regex" type="boolean" code="|hre" optional="yes" description="Use enhanced regular expressions? NOTE: This feature is only for Mac OS X 10.8 and up, on older systems this parameter has no affect. (default is true)"/>
             <parameter name="minimal regex" type="boolean" code="|mre" optional="yes" description="Match only “lazily”? (Not a standard POSIX 2 feature. Default is false. Bear in mind that, while a continuation like {1,2} normally finds the longest possible matches within the specified range of lengths, it only returns the shortest matches when ‘minimal regex’ is true.) This option implicitly enables ‘extended regex’ and ‘enhanced regex’ as it requires both. NOTE: This feature is only for Mac OS X 10.8 and up, on older systems this parameter has no affect." />
@@ -371,7 +371,7 @@ item 1 of (AST find regex "\\b([^:]+)://([^/]+)/([^?]*)\\??([^#]*)#?([^[:space:]
             <enumerator name="ast word case" code="|WOC" />
         </enumeration>
     </suite>
-    <suite name="List &amp; Record Suite" code="????" description="Commands that can be applied to lists and records.">
+    <suite name="List &amp; Record Suite" code="ASTc" description="Commands that can be applied to lists and records.">
         <command name="AST copy list" code="ASTcplst" description="&quot;Deep copy&quot; with the options to change the list before return.">
             <direct-parameter type="list" description="Original list."/>
             <parameter name="matching regex" code="|rex" type="text" optional="yes" description="The regular expression to match the string items. Items that are not type string (unicode string, text or «class utf8») the item is removed from the list. Enhanced, extended and case insensitive regex options are used. When this parameter is used the parameters 'ommitting item' and 'keeping item' are ignored." />
@@ -394,7 +394,7 @@ item 1 of (AST find regex "\\b([^:]+)://([^/]+)/([^?]*)\\??([^#]*)#?([^[:space:]
             </result>
         </command>
     </suite>
-    <suite name="URL &amp; Network Suite" code="????" description="Commands that are associated with URL and network protocols like URL and data encodings">
+    <suite name="URL &amp; Network Suite" code="AST6" description="Commands that are associated with URL and network protocols like URL and data encodings">
         <command name="AST base64 encode" code="AST64enc" description="Encode the given string into an base64 encoded string.">
             <direct-parameter type="text" description="The string to be encoded."/>
             <result description="The string in base64 encoded format">

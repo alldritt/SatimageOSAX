@@ -13,6 +13,13 @@
 		A52591DA21B08EE9007EF081 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5BC7BA5216BA7150055D4F8 /* Assets.xcassets */; };
 		A52591DC21B08EE9007EF081 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC7BA7216BA7150055D4F8 /* MainMenu.xib */; };
 		A52591F321B08F97007EF081 /* LNSOSAX.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A52591EE21B08F97007EF081 /* LNSOSAX.sdef */; };
+		A579B2F627AD8AB000785E30 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7BAB216BA7150055D4F8 /* main.m */; };
+		A579B2F727AD8AB000785E30 /* StubScriptSuiteRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7C80216BB1F70055D4F8 /* StubScriptSuiteRegistry.m */; };
+		A579B2F827AD8AB000785E30 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC7BA3216BA7130055D4F8 /* AppDelegate.m */; };
+		A579B2FC27AD8AB000785E30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5BC7BA5216BA7150055D4F8 /* Assets.xcassets */; };
+		A579B2FD27AD8AB000785E30 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BC7BA7216BA7150055D4F8 /* MainMenu.xib */; };
+		A579B32027AD8DF900785E30 /* AppleScript Toolbox.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A579B31F27AD8DE900785E30 /* AppleScript Toolbox.sdef */; };
+		A579B32327AD8E5A00785E30 /* AppleScript Toolbox.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A579B32127AD8E3800785E30 /* AppleScript Toolbox.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A5B63B5421B09779008384A9 /* List & Record Tools.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A52591EB21B08F97007EF081 /* List & Record Tools.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A5B63B5521B09779008384A9 /* Property List Tools.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A52591ED21B08F97007EF081 /* Property List Tools.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A5B63B5621B09779008384A9 /* XML Tools.osax in Embed Scripting Additions */ = {isa = PBXBuildFile; fileRef = A52591EF21B08F97007EF081 /* XML Tools.osax */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -43,6 +50,17 @@
 			name = "Embed Scripting Additions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A579B2FE27AD8AB000785E30 /* Embed Scripting Additions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "Scripting Additions";
+			dstSubfolderSpec = 7;
+			files = (
+				A579B32327AD8E5A00785E30 /* AppleScript Toolbox.osax in Embed Scripting Additions */,
+			);
+			name = "Embed Scripting Additions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5BC7C62216BA85E0055D4F8 /* Embed Scripting Additions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -67,6 +85,11 @@
 		A52591ED21B08F97007EF081 /* Property List Tools.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Property List Tools.osax"; path = "LNS/Property List Tools.osax"; sourceTree = SOURCE_ROOT; };
 		A52591EE21B08F97007EF081 /* LNSOSAX.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = LNSOSAX.sdef; path = LNS/LNSOSAX.sdef; sourceTree = SOURCE_ROOT; };
 		A52591EF21B08F97007EF081 /* XML Tools.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "XML Tools.osax"; path = "LNS/XML Tools.osax"; sourceTree = SOURCE_ROOT; };
+		A579B30527AD8AB000785E30 /* ASToolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASToolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A579B31D27AD8DE900785E30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A579B31E27AD8DE900785E30 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A579B31F27AD8DE900785E30 /* AppleScript Toolbox.sdef */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AppleScript Toolbox.sdef"; sourceTree = "<group>"; };
+		A579B32127AD8E3800785E30 /* AppleScript Toolbox.osax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "AppleScript Toolbox.osax"; sourceTree = "<group>"; };
 		A5BC7B9F216BA7130055D4F8 /* SatimageOSAX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SatimageOSAX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5BC7BA2216BA7130055D4F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A5BC7BA3216BA7130055D4F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -87,6 +110,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		A52591D821B08EE9007EF081 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A579B2F927AD8AB000785E30 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -115,11 +145,23 @@
 			path = LNS;
 			sourceTree = "<group>";
 		};
+		A579B30A27AD8DAD00785E30 /* ASToolbox */ = {
+			isa = PBXGroup;
+			children = (
+				A579B32127AD8E3800785E30 /* AppleScript Toolbox.osax */,
+				A579B31F27AD8DE900785E30 /* AppleScript Toolbox.sdef */,
+				A579B31D27AD8DE900785E30 /* Info.plist */,
+				A579B31E27AD8DE900785E30 /* README.md */,
+			);
+			path = ASToolbox;
+			sourceTree = "<group>";
+		};
 		A5BC7B96216BA7130055D4F8 = {
 			isa = PBXGroup;
 			children = (
 				A52591EA21B08F81007EF081 /* LNS */,
 				A5BC7C6F216BA9F50055D4F8 /* Satimage */,
+				A579B30A27AD8DAD00785E30 /* ASToolbox */,
 				A5BC7BA1216BA7130055D4F8 /* OSAXHost */,
 				A5BC7BA0216BA7130055D4F8 /* Products */,
 			);
@@ -130,6 +172,7 @@
 			children = (
 				A5BC7B9F216BA7130055D4F8 /* SatimageOSAX.app */,
 				A52591E621B08EE9007EF081 /* LNSOSAX.app */,
+				A579B30527AD8AB000785E30 /* ASToolbox.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,6 +227,24 @@
 			productReference = A52591E621B08EE9007EF081 /* LNSOSAX.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A579B2F427AD8AB000785E30 /* ASToolbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A579B30227AD8AB000785E30 /* Build configuration list for PBXNativeTarget "ASToolbox" */;
+			buildPhases = (
+				A579B2F527AD8AB000785E30 /* Sources */,
+				A579B2F927AD8AB000785E30 /* Frameworks */,
+				A579B2FA27AD8AB000785E30 /* Resources */,
+				A579B2FE27AD8AB000785E30 /* Embed Scripting Additions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ASToolbox;
+			productName = OSAXHost;
+			productReference = A579B30527AD8AB000785E30 /* ASToolbox.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A5BC7B9E216BA7130055D4F8 /* SatimageOSAX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5BC7BB0216BA7150055D4F8 /* Build configuration list for PBXNativeTarget "SatimageOSAX" */;
@@ -231,6 +292,7 @@
 			targets = (
 				A5BC7B9E216BA7130055D4F8 /* SatimageOSAX */,
 				A52591D321B08EE9007EF081 /* LNSOSAX */,
+				A579B2F427AD8AB000785E30 /* ASToolbox */,
 			);
 		};
 /* End PBXProject section */
@@ -243,6 +305,16 @@
 				A52591F321B08F97007EF081 /* LNSOSAX.sdef in Resources */,
 				A52591DA21B08EE9007EF081 /* Assets.xcassets in Resources */,
 				A52591DC21B08EE9007EF081 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A579B2FA27AD8AB000785E30 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A579B2FC27AD8AB000785E30 /* Assets.xcassets in Resources */,
+				A579B32027AD8DF900785E30 /* AppleScript Toolbox.sdef in Resources */,
+				A579B2FD27AD8AB000785E30 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +338,16 @@
 				A52591D521B08EE9007EF081 /* main.m in Sources */,
 				A52591D621B08EE9007EF081 /* StubScriptSuiteRegistry.m in Sources */,
 				A52591D721B08EE9007EF081 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A579B2F527AD8AB000785E30 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A579B2F627AD8AB000785E30 /* main.m in Sources */,
+				A579B2F727AD8AB000785E30 /* StubScriptSuiteRegistry.m in Sources */,
+				A579B2F827AD8AB000785E30 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +378,7 @@
 		A52591E421B08EE9007EF081 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -303,7 +386,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Z7S6X96M3X;
-				INFOPLIST_FILE = "$(SRCROOT)/LNS/Info.plist";
+				INFOPLIST_FILE = LNS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -318,6 +401,7 @@
 		A52591E521B08EE9007EF081 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -325,13 +409,59 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Z7S6X96M3X;
-				INFOPLIST_FILE = "$(SRCROOT)/LNS/Info.plist";
+				INFOPLIST_FILE = LNS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.latenightsw.LNSHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		A579B30327AD8AB000785E30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = Z7S6X96M3X;
+				INFOPLIST_FILE = ASToolbox/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.latenightsw.ASToolboxHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		A579B30427AD8AB000785E30 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = Z7S6X96M3X;
+				INFOPLIST_FILE = ASToolbox/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.latenightsw.ASToolboxHost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -451,6 +581,7 @@
 		A5BC7BB1216BA7150055D4F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -473,6 +604,7 @@
 		A5BC7BB2216BA7150055D4F8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OSAXHost/OSAXHost.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -500,6 +632,15 @@
 			buildConfigurations = (
 				A52591E421B08EE9007EF081 /* Debug */,
 				A52591E521B08EE9007EF081 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A579B30227AD8AB000785E30 /* Build configuration list for PBXNativeTarget "ASToolbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A579B30327AD8AB000785E30 /* Debug */,
+				A579B30427AD8AB000785E30 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
