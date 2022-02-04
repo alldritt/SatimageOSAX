@@ -47,7 +47,7 @@ If you have questions concerning ASToolboxOSAX please post them on the [Script D
 
 ## License
 
-ASToolboxOSAX is licensed under the MIT license (see the LICENSE file for details).  The [AppleScript Toolbox](https://astoolbox.wordpress.com) scripting additions is included with permission by 
+ASToolboxOSAX is licensed under the MIT license (see the LICENSE file for details).  The [AppleScript Toolbox](https://astoolbox.wordpress.com) scripting additions is included with the permission of its author.
 
 ## Source Code
 
