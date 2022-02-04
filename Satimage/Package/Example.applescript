@@ -1,0 +1,1 @@
+use scripting additionsuse application "SatimageOSAX"uppercase "Hello Again!"

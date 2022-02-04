@@ -1,0 +1,1 @@
+use scripting additionsuse application "LNSOSAX"AEPrint of "Hello Again!"
